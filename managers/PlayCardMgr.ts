@@ -4,16 +4,16 @@
 module gamecomponent.managers{
 	export class PlayCardMgr{
 		public max_card:number = 3;
-		private _sceneGame:SceneGame;
+		private _game:Game;
 		private _cards:PlayingChip[] = [];
-		constructor(g:SceneGame){
-			this._sceneGame = g;
+		constructor(g:Game){
+			this._game = g;
 		}
 
 		init()
 		{	
 			for (let index = 0; index < 1; index++) {
-				let card = this._sceneGame.sceneObjectMgr.createOfflineObject(SceneRoot.CARD_MARK,PlayingChip) as PlayingChip;
+				let card = this._game.sceneObjectMgr.createOfflineObject(SceneRoot.CARD_MARK,PlayingChip) as PlayingChip;
 				card.pos = new Vector2(640,360);
 				card.size = 0.5
 				card["_val"] = "1000000";

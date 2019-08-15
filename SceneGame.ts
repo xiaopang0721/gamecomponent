@@ -9,6 +9,10 @@ module gamecomponent {
 			return this._ins;
 		}
 
+		get uiRoot() {
+			return this._game.uiRoot;
+		}
+
 		constructor() {
 			super(main.game);
 			this.tryCreatedSceneRoot();
@@ -63,7 +67,7 @@ module gamecomponent {
 		private _redPointCheckMgr: RedPointCheckMgr;
 		public get redPointCheckMgr(): RedPointCheckMgr {
 			if (!this._redPointCheckMgr) {
-				this._redPointCheckMgr = new RedPointCheckMgr(this);
+				this._redPointCheckMgr = new RedPointCheckMgr(this._game);
 			}
 			return this._redPointCheckMgr;
 		}
@@ -75,6 +79,15 @@ module gamecomponent {
 				this._scaleEffectFactory = new ScaleEffectFactory(this._game);
 			}
 			return this._scaleEffectFactory;
+		}
+
+		//房卡数据单元管理器
+		private _cardRoomMgr: CardRoomMgr;
+		public get cardRoomMgr(): CardRoomMgr {
+			if (!this._cardRoomMgr) {
+				this._cardRoomMgr = new CardRoomMgr(this._game);
+			}
+			return this._cardRoomMgr;
 		}
 
 		onUpdate(diff: number): void {
@@ -218,25 +231,6 @@ module gamecomponent {
 			}
 		}
 
-		/**
-		 * 播放音效
-		 * @param url 音效
-		 * @param isOnlyOne 是否只有一个
-		 */
-		private _lastSoundTime: number;
-		playSound(url: string, isOnlyOne: boolean = true): void {
-			let volume = Laya.SoundManager.soundVolume;
-			if (url == Path.music_btn && Laya.timer.currTimer - this._lastSoundTime < 500) {
-				return;
-			}
-			this._lastSoundTime = Laya.timer.currTimer;
-			Laya.SoundManager.setSoundVolume(volume);
-			if (volume <= 0) return;
-			isOnlyOne && this.stopSound(url);
-			Laya.timer.once(1, this, () => {
-				Laya.SoundManager.playSound(url)
-			})
-		}
 
 		private _isLockGame: boolean;
 		get isLockGame(): boolean {
@@ -269,56 +263,6 @@ module gamecomponent {
 			}
 		}
 
-		/**
-		 * 关闭所以音效
-		 */
-		stopAllSound(): void {
-			Laya.SoundManager.stopAllSound()
-		}
-
-		/**
-		 * 关闭url音效
-		 * @param url 
-		 */
-		stopSound(url: string): void {
-			Laya.SoundManager.stopSound(url)
-		}
-
-		private _musicUrl: string = "";
-		public get musicUrl(): string {
-			return this._musicUrl;
-		}
-
-		/**
-		 * 播放音乐
-		 * @param url 
-		 * @param loops 
-		 * @param complete 
-		 * @param startTime 
-		 */
-		playMusic(url: string, loops: number = 0, complete?: Handler, startTime?: number): Laya.SoundChannel {
-			if (this._musicUrl != "")
-				this.stopMusic();
-			this._musicUrl = url;
-			Laya.timer.frameOnce(1, this, () => {
-				let volume = Laya.SoundManager.musicVolume;
-				Laya.SoundManager.musicMuted = false;
-				let channel = Laya.SoundManager.playMusic(url, loops, complete, startTime);
-				Laya.SoundManager.setMusicVolume(volume);
-				return channel;
-			})
-			return null;
-		}
-
-		/**
-		 * 停止音乐
-		 */
-		stopMusic(): void {
-			Laya.SoundManager.stopMusic();
-			if (this._musicUrl != "")
-				Laya.SoundManager.destroySound(this._musicUrl);
-		}
-
 
 		clear() {
 			if (this._redPointCheckMgr) {
@@ -328,6 +272,10 @@ module gamecomponent {
 			if (this._scaleEffectFactory) {
 				this._scaleEffectFactory.clear(true);
 				this._scaleEffectFactory = null;
+			}
+			if (this._cardRoomMgr) {
+				this._cardRoomMgr.clear(true);
+				this._cardRoomMgr = null;
 			}
 		}
 	}

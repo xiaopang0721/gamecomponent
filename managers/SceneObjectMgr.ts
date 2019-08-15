@@ -87,16 +87,16 @@ module gamecomponent.managers {
         }
 
         // 应用程序引用
-        private _sceneGame: SceneGame;
+        private _game: Game;
         public get game() {
-            return this._sceneGame.game;
+            return this._game;
         }
         public get sceneGame() {
-            return this._sceneGame;
+            return this._game.sceneGame;
         }
-        constructor(v: SceneGame) {
+        constructor(v: Game) {
             super();
-            this._sceneGame = v;
+            this._game = v;
             this._mapAssetInfo = new MapAssetInfo();
             this._unitDic = {};
         }
@@ -162,7 +162,7 @@ module gamecomponent.managers {
                     this.setMainPlayer(obj as PlayerData);
                     break;
                 case "globalobject":
-                    obj = new GlobalData(this._sceneGame);
+                    obj = new GlobalData(this._game);
                     this.setGloabel(obj as GlobalData);
                     break;
                 default:
@@ -299,11 +299,11 @@ module gamecomponent.managers {
          */
         public intoStory(mapid: string, maplv: string, enterMap?: boolean, dataSource?: IStoryCardRoomDataSource, fource?: boolean) {
             if (!fource && WebConfig.isConnected) {
-                this._sceneGame.showTips("正在断线重连中...")
+                this._game.showTips("正在断线重连中...")
                 return;//你需要断线重连
             }
             if (WebConfig.server_close) {
-                this._sceneGame.alert(StringU.substitute("为了您更好的游戏体验，服务器正在更新中。为避免造成不必要的损失，更新期间无法进入游戏，给您造成的不便我们深表歉意，感谢您的配合。"), () => {
+                this._game.alert(StringU.substitute("为了您更好的游戏体验，服务器正在更新中。为避免造成不必要的损失，更新期间无法进入游戏，给您造成的不便我们深表歉意，感谢您的配合。"), () => {
                 }, () => {
                 }, true, Path.ui_dating_tongyong + "btn_qd.png");
                 return;//服务器更新重启
@@ -347,7 +347,7 @@ module gamecomponent.managers {
         public cancleMathch() {
             if (this._story) {
                 if (!this._story.mapinfo) {
-                    this._sceneGame.network.call_cancel_match();
+                    this._game.network.call_cancel_match();
                     return true;
                 }
             }
@@ -367,7 +367,7 @@ module gamecomponent.managers {
                 }
                 if (this._story.mapinfo) {
                     if (this._story.leavelMap()) {
-                        this._sceneGame.setIsLockGame(true, false, "SceneObjectMgr.leaveStory");
+                        this._game.setIsLockGame(true, false, "SceneObjectMgr.leaveStory");
                     }
                 } else {
                     this.clearStory();

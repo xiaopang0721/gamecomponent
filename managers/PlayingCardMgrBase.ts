@@ -5,10 +5,10 @@ module gamecomponent.managers {
     export class PlayingCardMgrBase<T extends gamecomponent.object.PlayingCard> extends Laya.EventDispatcher implements gamecomponent.object.IAction {
         protected _cards: Array<T> = [];
 
-        protected _sceneGame: SceneGame;
-        constructor(v: SceneGame) {
+        protected _game: Game;
+        constructor(v: Game) {
             super();
-            this._sceneGame = v;
+            this._game = v;
         }
 
         //重新初始化牌
@@ -109,7 +109,7 @@ module gamecomponent.managers {
         clear() {
             Laya.timer.clearAll(this);
             Laya.Tween.clearAll(this);
-            this._sceneGame.sceneObjectMgr.clearOfflineObject();
+            this._game.sceneObjectMgr.clearOfflineObject();
             this._cards.length = 0;
         }
 

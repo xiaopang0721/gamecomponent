@@ -4,14 +4,14 @@
 module gamecomponent.managers {
 	export class RedPointCheckMgr {
 		private static MIN_CHECKTIME: number = 1000;//最小检测时间间隔(毫秒)
-		private _sceneGame: SceneGame;
+		private _game: Game;
 		private _url: string;
 		private _checkInfos: RedPointCheckInfo[];//检测信息列表
 		private _offsetTime: number//剩余检测时间(毫秒)
 		private _nextIndex: number;//下一个下标
 
-		constructor(v: SceneGame) {
-			this._sceneGame = v;
+		constructor(v: Game) {
+			this._game = v;
 			this._url = CompoentPath.ui_dating + "tongyong/tu_hd.png";
 			this._checkInfos = [];
 			this._offsetTime = this._nextIndex = 0;

@@ -19,7 +19,6 @@ module gamecomponent {
 		cameraFocus: Vector2;
 		// 应用程序引用
 		protected _game: Game;
-		protected _sceneGame: SceneGame;
 		protected _mapid: string;
 		get game(): Game {
 			return this._game;
@@ -37,7 +36,6 @@ module gamecomponent {
 
 		constructor(v: SceneGame) {
 			super();
-			this._sceneGame = v;
 			this._game = v.game;
 			// 摄像机
 			if (!this.camera.focusPos) {
@@ -48,7 +46,7 @@ module gamecomponent {
 			}
 
 			/////////////// 事件监听 ///////////////////
-			let objMgr: SceneObjectMgr = this._sceneGame.sceneObjectMgr;
+			let objMgr: SceneObjectMgr = this._game.sceneObjectMgr;
 			objMgr.on(SceneObjectMgr.__DELETE_OBJECT, this, this.onDeleteObject);
 			objMgr.on(SceneObjectMgr.EVENT_LOAD_MAP, this, this.onLoadMap);
 		}
@@ -69,8 +67,8 @@ module gamecomponent {
 		//设置窗口大小
 		resize(clientWidth: number, clientHeight: number): void {
 			this.camera.setSize(clientWidth, clientHeight);
-			if (this._sceneGame.sceneObjectMgr.story instanceof gamecomponent.story.StoryFishBase) {
-				this._sceneGame.sceneObjectMgr.story && this._sceneGame.sceneObjectMgr.story.resize(clientWidth, clientHeight);
+			if (this._game.sceneObjectMgr.story instanceof gamecomponent.story.StoryFishBase) {
+				this._game.sceneObjectMgr.story && this._game.sceneObjectMgr.story.resize(clientWidth, clientHeight);
 			}
 		}
 
@@ -84,16 +82,16 @@ module gamecomponent {
         * @param y 
         */
 		checkInScene(x: number, y: number): boolean {
-			let offx = Math.max(this.game.clientWidth - this._sceneGame.sceneObjectMgr.mapAssetInfo.logicWidth, 0) * 0.5;
-			let logicWidth = this._sceneGame.sceneObjectMgr.mapAssetInfo.logicWidth + offx;
-			let logicHeight = this._sceneGame.sceneObjectMgr.mapAssetInfo.logicHeight;
+			let offx = Math.max(this.game.clientWidth - this._game.sceneObjectMgr.mapAssetInfo.logicWidth, 0) * 0.5;
+			let logicWidth = this._game.sceneObjectMgr.mapAssetInfo.logicWidth + offx;
+			let logicHeight = this._game.sceneObjectMgr.mapAssetInfo.logicHeight;
 			return x >= -offx && x <= logicWidth && y >= 0 && y <= logicHeight;
 		}
 
 		clear(): void {
 			this._mapid = "";
-			this._sceneGame.stopMusic();
-			this._sceneGame.stopAllSound();
+			this._game.stopMusic();
+			this._game.stopAllSound();
 			this.camera.clear();
 			Laya.timer.clearAll(this)
 			Laya.Tween.clearAll(this)

@@ -23,7 +23,7 @@ module gamecomponent.story {
 		 * @param roomType 房间类型
 		 * @param dataSource 额外数据 需要加额外参数 
 		 */
-		constructor(v: SceneGame, mapid: string, mapLv: number, dataSource: gamecomponent.object.IStoryCardRoomDataSource) {
+		constructor(v: Game, mapid: string, mapLv: number, dataSource: gamecomponent.object.IStoryCardRoomDataSource) {
 			super(v, mapid, mapLv)
 			if (dataSource as gamecomponent.object.IStoryCardRoomDataSource) {
 				this.RoomID = dataSource.RoomID;
@@ -32,8 +32,8 @@ module gamecomponent.story {
 				this.PayType = dataSource.PayType;
 				this.Agrs = dataSource.Agrs;
 			}
-			this._sceneGame.sceneObjectMgr.on(MapInfo.EVENT_MAP_STR_CARD_ROOM_ID, this, this.onUpdateRoomId);
-			this._sceneGame.network.addHanlder(Protocols.SMSG_OPERATION_FAILED, this, this.onOptHandler);
+			this._game.sceneObjectMgr.on(MapInfo.EVENT_MAP_STR_CARD_ROOM_ID, this, this.onUpdateRoomId);
+			this._game.network.addHanlder(Protocols.SMSG_OPERATION_FAILED, this, this.onOptHandler);
 			this.init();
 		}
 
@@ -44,16 +44,16 @@ module gamecomponent.story {
 
 		private createRoom() {
 			//各种判断
-			this._sceneGame.network.call_create_room(this._mapid, this.maplv, this.RoomRound, this.PayType, this.Agrs);
-			this._sceneGame.setIsLockGame(true, false, "StoryRoomCardBase.createRoom");
+			this._game.network.call_create_room(this._mapid, this.maplv, this.RoomRound, this.PayType, this.Agrs);
+			this._game.setIsLockGame(true, false, "StoryRoomCardBase.createRoom");
 			return true;
 		}
 
 		private joinRoom(): boolean {
 			// 这边maplv当成房间号来用
 			if (this.mapinfo) return false;
-			this._sceneGame.network.call_join_room(this._mapid, this.RoomID);
-			this._sceneGame.setIsLockGame(true, false, "StoryRoomCardBase.joinRoom");
+			this._game.network.call_join_room(this._mapid, this.RoomID);
+			this._game.setIsLockGame(true, false, "StoryRoomCardBase.joinRoom");
 			return true;
 		}
 
@@ -70,28 +70,28 @@ module gamecomponent.story {
 
 		leavelMap() {
 			//各种判断
-			this._sceneGame.network.call_leave_game();
+			this._game.network.call_leave_game();
 			return true;
 		}
 
 		startRoomCardGame(guid: string, card_id: string) {
 			if (WebConfig.server_close) {
-				this._sceneGame.sceneObjectMgr.leaveStory(true);
-				this._sceneGame.alert(StringU.substitute("为了您更好的游戏体验，服务器正在更新中。为避免造成不必要的损失，更新期间无法进入游戏，给您造成的不便我们深表歉意，感谢您的配合。"), () => {
+				this._game.sceneObjectMgr.leaveStory(true);
+				this._game.alert(StringU.substitute("为了您更好的游戏体验，服务器正在更新中。为避免造成不必要的损失，更新期间无法进入游戏，给您造成的不便我们深表歉意，感谢您的配合。"), () => {
 				}, () => {
 				}, true, CompoentPath.ui_dating_tongyong + "btn_qd.png");
 				return;
 			}
-			this._sceneGame.network.call_start_roomcard_game(this._mapid, this.maplv, guid, card_id);
+			this._game.network.call_start_roomcard_game(this._mapid, this.maplv, guid, card_id);
 		}
 
 		endRoomCardGame(seatIndex: number, card_id: string) {
-			this._sceneGame.network.call_end_roomcard_game(this._mapid, parseInt(this.RoomID), seatIndex, card_id);
+			this._game.network.call_end_roomcard_game(this._mapid, parseInt(this.RoomID), seatIndex, card_id);
 		}
 
 		// 是否房卡游戏里的房主
 		isCardRoomMaster() {
-			let mainUnit: Unit = this._sceneGame.sceneObjectMgr.mainUnit;
+			let mainUnit: Unit = this._game.sceneObjectMgr.mainUnit;
 			if (!mainUnit) return false;
 			return mainUnit.GetRoomMaster() == 1;
 		}
@@ -101,19 +101,19 @@ module gamecomponent.story {
 			if (msg.type == Operation_Fields.OPRATE_TELEPORT) {//登录操作错误类型
 				switch (msg.reason) {
 					case Operation_Fields.OPRATE_TELEPORT_MAP_CREATE_ROOM_SUCCESS:             // 地图创建房间成功
-						this._sceneGame.setIsLockGame(false, false, "StoryBase.OPRATE_TELEPORT_MAP_MATHCH_JOIN_SUCESS");
+						this._game.setIsLockGame(false, false, "StoryBase.OPRATE_TELEPORT_MAP_MATHCH_JOIN_SUCESS");
 						this._status = msg.reason;
 						break;
 					case Operation_Fields.OPRATE_TELEPORT_MAP_JOIN_ROOM_SUCCESS:             // 地图加入房间成功
-						this._sceneGame.setIsLockGame(false, false, "StoryBase.OPRATE_TELEPORT_MAP_MATHCH_CANCLE_SUCESS");
+						this._game.setIsLockGame(false, false, "StoryBase.OPRATE_TELEPORT_MAP_MATHCH_CANCLE_SUCESS");
 						this._status = msg.reason;
 						break;
 				}
 			} else if (msg.type == Operation_Fields.OPRATE_CARDROOM) {//房卡操作错误类型
-				this._sceneGame.setIsLockGame(false, false, "StoryBase.OPRATE_TELEPORT_MAP_MATHCH_CANCLE_SUCESS");
+				this._game.setIsLockGame(false, false, "StoryBase.OPRATE_TELEPORT_MAP_MATHCH_CANCLE_SUCESS");
 				switch (msg.reason) {
 					case Operation_Fields.OPRATE_CARDROOM_DISMISSED:             // 房主解散房间
-						this._sceneGame.showTips("该房间已解散");
+						this._game.showTips("该房间已解散");
 						break;
 				}
 			}
@@ -121,8 +121,8 @@ module gamecomponent.story {
 
 		dispose() {
 			super.dispose();
-			this._sceneGame.network.removeHanlder(Protocols.SMSG_OPERATION_FAILED, this, this.onOptHandler);
-			this._sceneGame.sceneObjectMgr.off(MapInfo.EVENT_MAP_STR_CARD_ROOM_ID, this, this.onUpdateRoomId);
+			this._game.network.removeHanlder(Protocols.SMSG_OPERATION_FAILED, this, this.onOptHandler);
+			this._game.sceneObjectMgr.off(MapInfo.EVENT_MAP_STR_CARD_ROOM_ID, this, this.onUpdateRoomId);
 		}
 
 	}

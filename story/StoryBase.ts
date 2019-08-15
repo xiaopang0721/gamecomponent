@@ -3,7 +3,7 @@
 */
 module gamecomponent.story {
 	export abstract class StoryBase implements gamecomponent.object.IInLook {
-		protected _sceneGame: SceneGame;
+		protected _game: Game;
 		protected _mapinfo: MapInfo;
 		protected _mapid: string;
 		public maplv: number;
@@ -23,8 +23,8 @@ module gamecomponent.story {
 		 * @param mapid 游戏id
 		 * @param mapLv 游戏等级
 		 */
-		constructor(v: SceneGame, mapid: string, mapLv: number) {
-			this._sceneGame = v;
+		constructor(v: Game, mapid: string, mapLv: number) {
+			this._game = v;
 			this._mapid = mapid;
 			this.maplv = mapLv;
 			this.init();
@@ -37,9 +37,9 @@ module gamecomponent.story {
 
 		clearMapInfo() {
 			if (this._mapinfo) {
-				this._sceneGame.sceneObjectMgr.off(MapInfo.EVENT_MAP_INT_MAP_BYTE, this, this.updateMapLv);
+				this._game.sceneObjectMgr.off(MapInfo.EVENT_MAP_INT_MAP_BYTE, this, this.updateMapLv);
 				this._mapinfo = null;
-				this._sceneGame.sceneObjectMgr.event(SceneObjectMgr.EVENT_MAPINFO_CHANGE);
+				this._game.sceneObjectMgr.event(SceneObjectMgr.EVENT_MAPINFO_CHANGE);
 			}
 		}
 
@@ -47,10 +47,10 @@ module gamecomponent.story {
 			let mapLv = this._mapinfo.GetMapLevel();
 			this.maplv = this.maplv || mapLv;
 			if (this.maplv) {
-				this._sceneGame.sceneObjectMgr.off(MapInfo.EVENT_MAP_INT_MAP_BYTE, this, this.updateMapLv);
-				this._sceneGame.sceneObjectMgr.event(SceneObjectMgr.EVENT_MAPINFO_CHANGE);
+				this._game.sceneObjectMgr.off(MapInfo.EVENT_MAP_INT_MAP_BYTE, this, this.updateMapLv);
+				this._game.sceneObjectMgr.event(SceneObjectMgr.EVENT_MAPINFO_CHANGE);
 			} else {
-				this._sceneGame.sceneObjectMgr.on(MapInfo.EVENT_MAP_INT_MAP_BYTE, this, this.updateMapLv);
+				this._game.sceneObjectMgr.on(MapInfo.EVENT_MAP_INT_MAP_BYTE, this, this.updateMapLv);
 			}
 		}
 
@@ -91,14 +91,14 @@ module gamecomponent.story {
 
 		// 清理
 		dispose() {
-			this._sceneGame.sceneObjectMgr.off(MapInfo.EVENT_MAP_INT_MAP_BYTE, this, this.updateMapLv);
+			this._game.sceneObjectMgr.off(MapInfo.EVENT_MAP_INT_MAP_BYTE, this, this.updateMapLv);
 			this.clear();
 			this.clearMapInfo();
 			this._mapid = null;
 			this.maplv = null;
 			Laya.timer.clearAll(this);
 			Laya.Tween.clearAll(this);
-			this._sceneGame.sceneObjectMgr.clearOfflineObject();
+			this._game.sceneObjectMgr.clearOfflineObject();
 		}
 
 		//视图对象创建

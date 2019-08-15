@@ -46,8 +46,7 @@ class GameBase {
 
     get sceneObjectMgr(): SceneObjectMgr {
         if (!this._sceneObjectMgr) {
-            if(this instanceof SceneGame)
-                this._sceneObjectMgr = new SceneObjectMgr(this);
+            this._sceneObjectMgr = new SceneObjectMgr(this._game);
         }
         return this._sceneObjectMgr;
     }

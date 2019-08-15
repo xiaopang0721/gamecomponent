@@ -46,7 +46,7 @@ module gamecomponent {
 			}
 
 			/////////////// 事件监听 ///////////////////
-			let objMgr: SceneObjectMgr = this._game.sceneObjectMgr;
+			let objMgr: SceneObjectMgr = v.sceneObjectMgr;
 			objMgr.on(SceneObjectMgr.__DELETE_OBJECT, this, this.onDeleteObject);
 			objMgr.on(SceneObjectMgr.EVENT_LOAD_MAP, this, this.onLoadMap);
 		}

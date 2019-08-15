@@ -1,0 +1,76 @@
+import MapAssetInfo = gamecomponent.data.MapAssetInfo;
+import Direct = gamecomponent.data.Direct;
+
+import CompoentPath = gamecomponent.data.Path;
+
+
+import GlobalDef = game.object.GlobalDef;
+
+
+import CDSprite = gamecomponent.component.CDSprite;
+import UIFrameAnimation = gamecomponent.component.UIFrameAnimation;
+
+import RedCheckMgr = gamecomponent.managers.RedCheckMgr;
+import PlayCardMgr = gamecomponent.managers.PlayCardMgr;
+
+import MapInfo = gamecomponent.object.MapInfo;
+import UnitOffline = gamecomponent.object.UnitOffline;
+import PlayerData = gamecomponent.object.PlayerData;
+import GlobalData = gamecomponent.object.GlobalData;
+import Unit = gamecomponent.object.Unit;
+import SyncInfo = gamecomponent.object.SyncInfo;
+
+import SceneObjectMgr = gamecomponent.managers.SceneObjectMgr;
+
+import SceneGame = gamecomponent.SceneGame;
+
+import SceneRoot = gamecomponent.SceneRoot;
+import SceneRootBase = gamecomponent.SceneRootBase;
+import UIShowRoot = gamecomponent.UIShowRoot;
+
+
+import Camera = gamecomponent.scene.Camera;
+import SceneRes = gamecomponent.scene.SceneRes;
+import MapLayer = gamecomponent.scene.MapLayer;
+import MapFarLayer = gamecomponent.scene.MapFarLayer;
+import StoryBase = gamecomponent.story.StoryBase;
+
+import AvatarDrawtor = gamecomponent.scene.AvatarDrawtor;
+import AvatarOperator = gamecomponent.scene.AvatarOperator;
+import AvatarBase = gamecomponent.scene.AvatarBase;
+import EffectSkeleton = gamecomponent.scene.EffectSkeleton;
+import EffectLayer = gamecomponent.scene.EffectLayer;
+import EffectFrame = gamecomponent.base.EffectFrame;
+import AnimationFrame = gamecomponent.component.AnimationFrame;
+import GridEditor = gamecomponent.component.GridEditor;
+import AvatarUIShow = gamecomponent.component.AvatarUIShow;
+
+import Layer = gamecomponent.scene.Layer;
+
+import TextFieldU = utils.TextFieldU;
+import TeaStyle = utils.TeaStyle;
+import DisplayU = utils.DisplayU;
+import HtmlFormat = utils.HtmlFormat;
+import EnumToString = utils.EnumToString;
+
+
+import BattleInfoMgr = gamecomponent.object.BattleInfoMgr;
+import SceneOperator = gamecomponent.SceneOperator;
+import Sync = gamecomponent.Sync;
+
+import RedPointCheckMgr = gamecomponent.managers.RedPointCheckMgr;
+import LoadingMgr = gamecomponent.managers.LoadingMgr;
+import LoadingAni = gamecomponent.managers.LoadingAni;
+import RandomUrlFactory = utils.RandomUrlFactory;
+import ScaleEffectFactory = utils.ScaleEffectFactory;
+import MapInfoT = gamecomponent.object.MapInfoT;
+import MapInfoLogObject = gamecomponent.object.MapInfoLogObject;
+import PlayingChip = gamecomponent.object.PlayingChip;
+import PlayingCard = gamecomponent.object.PlayingCard;
+import StoryRoomCardBase = gamecomponent.story.StoryRoomCardBase;
+import StoryNormalBase = gamecomponent.story.StoryNormalBase;
+import StoryBaiRenBase = gamecomponent.story.StoryBaiRenBase;
+import StoryFishBase = gamecomponent.story.StoryFishBase;
+import IStoryCardRoomDataSource = gamecomponent.object.IStoryCardRoomDataSource;
+
+

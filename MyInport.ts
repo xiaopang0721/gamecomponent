@@ -21,6 +21,7 @@ import Unit = gamecomponent.object.Unit;
 import SyncInfo = gamecomponent.object.SyncInfo;
 
 import SceneObjectMgr = gamecomponent.managers.SceneObjectMgr;
+import CardRoomMgr = gamecomponent.managers.CardRoomMgr;
 
 import SceneGame = gamecomponent.SceneGame;
 

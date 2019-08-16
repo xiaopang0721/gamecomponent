@@ -226,7 +226,7 @@ module gamecomponent.object {
 					localSetItem("client_error", Vesion["_defaultVesion"] + "  " + WebConfig.gwUrl + ": gameList" + (this._playerInfo.gameList));
 				}
 				if (WebConfig.gamelist) {
-					DatingPageDef.initPageDef();
+					window["DatingPageDef"].initPageDef();
 					this._game.sceneGame.sceneObjectMgr.event(SceneObjectMgr.EVENT_GAMELIST_UPDATE);
 					ness++;
 				}

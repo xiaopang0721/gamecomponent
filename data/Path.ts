@@ -4,9 +4,9 @@
 module gamecomponent.data {
 	export class Path {
 		static ui: string = "ui/";
-		static ui_dating: string = "ui/dating_ui/";
-		static ui_dating_tongyong: string = "ui/dating_ui/tongyong/";
-		static atlas_dating_ui: string = "res/atlas/ui/dating_ui/";
+		static ui_dating: string = "dating_ui/";
+		static ui_dating_tongyong: string = "dating_ui/tongyong/";
+		static atlas_dating_ui: string = "res/atlas/dating_ui/";
 		
 		
 		static map: string = "map/{0}/";
@@ -18,7 +18,7 @@ module gamecomponent.data {
 		static ui_atlas_effect: string = "custom_atlas/ui/";
 		static custom_atlas: string = "custom_atlas/";
 		
-		static sk_dating: string = 'ui/dating_ui/sk/';
+		static sk_dating: string = 'dating_ui/sk/';
 		
 		static music_bg: string = Path.music + 'bg.mp3';
 		static music_btn: string = Path.music + 'btn.mp3';

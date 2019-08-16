@@ -277,7 +277,7 @@ class GameBase {
             WebConfig.info = null;
             firstAlert = false;
         }
-        this._game.clear();
+        this._game.clearMgr();
         this._reconectTryCount = 0;
         this.closeNetwork(desc, showtip);
         this.sync.dispose();

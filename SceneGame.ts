@@ -37,6 +37,13 @@ module gamecomponent {
 			return this._scenes;
 		}
 
+		/**
+		 * 场景
+		 */
+		get scenesWithOperator(): Array<SceneOperator> {
+			return this._scenes as Array<SceneOperator>;
+		}
+
 		get mainScene(): SceneRoot {
 			return this._scenes[0] as SceneRoot;
 		}
@@ -148,7 +155,7 @@ module gamecomponent {
 										WebConfig.openUrl(value.path || WebConfig.gwUrl)
 									}, (isclose) => {
 										!isclose && (WebConfig.after = true);
-									}, false, "ui/dating_ui/tongyong/btn_liji.png", "ui/dating_ui/tongyong/btn_shaohou.png")
+									}, false, "dating_ui/tongyong/btn_liji.png", "dating_ui/tongyong/btn_shaohou.png")
 								}
 							}
 							// else {
@@ -188,7 +195,7 @@ module gamecomponent {
 							location.reload(true);
 						}, (isclose) => {
 							!isclose && (WebConfig.yihou = true);
-						}, false, "ui/dating_ui/tongyong/btn_gengxin.png", "ui/dating_ui/tongyong/btn_yihou.png");
+						}, false, "dating_ui/tongyong/btn_gengxin.png", "dating_ui/tongyong/btn_yihou.png");
 						return;
 					}
 					else if (newbb < oldbb) {
@@ -197,7 +204,7 @@ module gamecomponent {
 							location.reload(true);
 						}, (isclose) => {
 							!isclose && (WebConfig.yihou = true);
-						}, false, "ui/dating_ui/tongyong/btn_gengxin.png", "ui/dating_ui/tongyong/btn_yihou.png");
+						}, false, "dating_ui/tongyong/btn_gengxin.png", "dating_ui/tongyong/btn_yihou.png");
 						return;
 					}
 				}
@@ -264,7 +271,7 @@ module gamecomponent {
 		}
 
 
-		clear() {
+		clearMgr() {
 			if (this._redPointCheckMgr) {
 				this._redPointCheckMgr.clear();
 				this._redPointCheckMgr = null;

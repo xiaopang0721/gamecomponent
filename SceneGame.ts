@@ -70,15 +70,6 @@ module gamecomponent {
 			this._game.showTips(args);
 		}
 
-		//红点管理器
-		private _redPointCheckMgr: RedPointCheckMgr;
-		public get redPointCheckMgr(): RedPointCheckMgr {
-			if (!this._redPointCheckMgr) {
-				this._redPointCheckMgr = new RedPointCheckMgr(this._game);
-			}
-			return this._redPointCheckMgr;
-		}
-
 		//scale特效管理器
 		private _scaleEffectFactory: ScaleEffectFactory;
 		public get scaleEffectFactory(): ScaleEffectFactory {
@@ -98,9 +89,6 @@ module gamecomponent {
 		}
 
 		onUpdate(diff: number): void {
-			if (!this.inScene) {
-				this._redPointCheckMgr && this._redPointCheckMgr.update(diff);
-			}
 			this._scaleEffectFactory && this._scaleEffectFactory.update(diff);
 
 			if (this._checkVesionTime < 0) {
@@ -272,10 +260,7 @@ module gamecomponent {
 
 
 		clearMgr() {
-			if (this._redPointCheckMgr) {
-				this._redPointCheckMgr.clear();
-				this._redPointCheckMgr = null;
-			}
+			
 			if (this._scaleEffectFactory) {
 				this._scaleEffectFactory.clear(true);
 				this._scaleEffectFactory = null;

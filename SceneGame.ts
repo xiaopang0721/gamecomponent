@@ -155,7 +155,7 @@ module gamecomponent {
 										WebConfig.openUrl(value.path || WebConfig.gwUrl)
 									}, (isclose) => {
 										!isclose && (WebConfig.after = true);
-									}, false, "dating_ui/tongyong/btn_liji.png", "dating_ui/tongyong/btn_shaohou.png")
+									}, false, "datingnqp_ui/tongyong/btn_liji.png", "datingnqp_ui/tongyong/btn_shaohou.png")
 								}
 							}
 							// else {
@@ -195,7 +195,7 @@ module gamecomponent {
 							location.reload(true);
 						}, (isclose) => {
 							!isclose && (WebConfig.yihou = true);
-						}, false, "dating_ui/tongyong/btn_gengxin.png", "dating_ui/tongyong/btn_yihou.png");
+						}, false, "datingnqp_ui/tongyong/btn_gengxin.png", "datingnqp_ui/tongyong/btn_yihou.png");
 						return;
 					}
 					else if (newbb < oldbb) {
@@ -204,7 +204,7 @@ module gamecomponent {
 							location.reload(true);
 						}, (isclose) => {
 							!isclose && (WebConfig.yihou = true);
-						}, false, "dating_ui/tongyong/btn_gengxin.png", "dating_ui/tongyong/btn_yihou.png");
+						}, false, "datingnqp_ui/tongyong/btn_gengxin.png", "datingnqp_ui/tongyong/btn_yihou.png");
 						return;
 					}
 				}

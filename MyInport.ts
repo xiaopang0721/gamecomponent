@@ -10,7 +10,6 @@ import GlobalDef = game.object.GlobalDef;
 import CDSprite = gamecomponent.component.CDSprite;
 import UIFrameAnimation = gamecomponent.component.UIFrameAnimation;
 
-import RedCheckMgr = gamecomponent.managers.RedCheckMgr;
 import PlayCardMgr = gamecomponent.managers.PlayCardMgr;
 
 import MapInfo = gamecomponent.object.MapInfo;
@@ -59,7 +58,6 @@ import BattleInfoMgr = gamecomponent.object.BattleInfoMgr;
 import SceneOperator = gamecomponent.SceneOperator;
 import Sync = gamecomponent.Sync;
 
-import RedPointCheckMgr = gamecomponent.managers.RedPointCheckMgr;
 import LoadingMgr = gamecomponent.managers.LoadingMgr;
 import LoadingAni = gamecomponent.managers.LoadingAni;
 import RandomUrlFactory = utils.RandomUrlFactory;

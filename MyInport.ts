@@ -49,7 +49,6 @@ import Layer = gamecomponent.scene.Layer;
 
 import TextFieldU = utils.TextFieldU;
 import TeaStyle = utils.TeaStyle;
-import DisplayU = utils.DisplayU;
 import HtmlFormat = utils.HtmlFormat;
 import EnumToString = utils.EnumToString;
 
@@ -58,8 +57,7 @@ import BattleInfoMgr = gamecomponent.object.BattleInfoMgr;
 import SceneOperator = gamecomponent.SceneOperator;
 import Sync = gamecomponent.Sync;
 
-import LoadingMgr = gamecomponent.managers.LoadingMgr;
-import LoadingAni = gamecomponent.managers.LoadingAni;
+
 import RandomUrlFactory = utils.RandomUrlFactory;
 import ScaleEffectFactory = utils.ScaleEffectFactory;
 import MapInfoT = gamecomponent.object.MapInfoT;

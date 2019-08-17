@@ -3,12 +3,6 @@
 */
 module gamecomponent.data {
 	export class Path {
-		static ui: string = "ui/";
-		static ui_dating: string = "dating_ui/";
-		static ui_dating_tongyong: string = "dating_ui/tongyong/";
-		static atlas_dating_ui: string = "res/atlas/dating_ui/";
-		
-		
 		static map: string = "map/{0}/";
 		static map_far: string = "map/{0}/far/";
 		static mapEffect: string = "mapEffect/";

@@ -27,7 +27,7 @@ module gamecomponent.story {
 			this._game.sceneObjectMgr.leaveStory(true);
 			this._game.alert(StringU.substitute("为了您更好的游戏体验，服务器正在更新中。为避免造成不必要的损失，更新期间无法进入游戏，给您造成的不便我们深表歉意，感谢您的配合。"), () => {
 			}, () => {
-			}, true, CompoentPath.ui_dating_tongyong + "btn_qd.png");
+			}, true);
 		}
 
 		dispose() {

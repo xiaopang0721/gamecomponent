@@ -29,12 +29,12 @@ elif [[ "$name" =~ "dating" ]];then
 	rm -rf "${out_libs}/gamedating.d.ts"
 elif [[ "$name" =~ "tongyong" ]];then
 	cp -rf "${out_libs}/gamedating.d.ts.dst" "${out_libs}/gamedating.d.ts"
-	rm -rf "${out_libs}/gamecomponent.d.ts"
+	cp -rf "${out_libs}/gamecomponent.d.ts.dst" "${out_libs}/gamecomponent.d.ts"
 	rm -rf "${out_libs}/gametongyong.d.ts"
 else
 	cp -rf "${out_libs}/gamecomponent.d.ts.dst" "${out_libs}/gamecomponent.d.ts"
-	rm -rf "${out_libs}/gamecomponent.d.ts"
-	rm -rf "${out_libs}/gamedating.d.ts"
+	cp -rf "${out_libs}/gametongyong.d.ts.dst" "${out_libs}/gametongyong.d.ts"
+	cp -rf "${out_libs}/gamedating.d.ts.dst" "${out_libs}/gamedating.d.ts"
 fi
 
 rm -rf "$release_lib"

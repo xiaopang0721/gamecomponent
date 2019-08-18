@@ -22,14 +22,19 @@ bin="${out_first_main}/bin"
 if [[ "$name" =~ "component" ]];then
 	rm -rf "${out_libs}/gamecomponent.d.ts"
 	rm -rf "${out_libs}/gametongyong.d.ts"
-else
+	rm -rf "${out_libs}/gamedating.d.ts"
+elif [[ "$name" =~ "dating" ]];then
 	cp -rf "${out_libs}/gamecomponent.d.ts.dst" "${out_libs}/gamecomponent.d.ts"
-fi
-
-if [[ "$name" =~ "tongyong" || "$name" =~ "component" || "$name" =~ "dating" ]];then
+	rm -rf "${out_libs}/gametongyong.d.ts"
+	rm -rf "${out_libs}/gamedating.d.ts"
+elif [[ "$name" =~ "tongyong" ]];then
+	cp -rf "${out_libs}/gamedating.d.ts.dst" "${out_libs}/gamedating.d.ts"
+	rm -rf "${out_libs}/gamecomponent.d.ts"
 	rm -rf "${out_libs}/gametongyong.d.ts"
 else
-	cp -rf "${out_libs}/gametongyong.d.ts.dst" "${out_libs}/gametongyong.d.ts"
+	cp -rf "${out_libs}/gamecomponent.d.ts.dst" "${out_libs}/gamecomponent.d.ts"
+	rm -rf "${out_libs}/gamecomponent.d.ts"
+	rm -rf "${out_libs}/gamedating.d.ts"
 fi
 
 rm -rf "$release_lib"
@@ -55,7 +60,7 @@ if [ $? -ne '0' ]; then
 	exit 2
 fi
 
-if [[ "$name" =~ "tongyong" || "$name" =~ "component" ]];then
+if [[ "$name" =~ "tongyong" || "$name" =~ "component" || "$name" =~ "dating" ]];then
 	cp -rf "$release_lib/1.0/${name}.d.ts" "${out_libs}/${name}.d.ts.dst"
 	cp -rf "$release_lib/1.0/${name}.js" "${bin}/libs/${name}.js"
 fi

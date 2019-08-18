@@ -121,6 +121,12 @@ class GameBase {
     private realLogin(desc: string, data?: any) {
         logd("realLogin", "desc:", desc)
         WebConfig.wxDebug && WebConfig.alert("realLogin登陆" + JSON.stringify(data));
+        if (data.type == Web_operation_fields.ACCOUNT_TYPE_ACCOUNT) {
+            this.connectSoctet(() => {
+                this.network.call_get_session(WebConfig.session_key, "", "");
+            }, "call_get_session");
+            return;
+        }
         if (!this.network.connected) {
             this.connectSoctet(() => {
                 this.login(this._login_desc, this._login_type, this._login_data);
@@ -214,13 +220,12 @@ class GameBase {
     get lockConnectSoctet() {
         return this._lockConnectSoctet;
     }
-    public get game()
-    {
+    public get game()  {
         return this._game;
     }
 
     protected _game: Game;
-    constructor(v: Game)  {
+    constructor(v: Game) {
         this._game = v;
     }
 
@@ -424,6 +429,14 @@ class GameBase {
                     case Operation_Fields.OPRATE_LOGIN_NETWORK_NOT_GOOD:             // 当前网络不通畅，需要重新连接
                         break;
                     case Operation_Fields.OPRATE_LOGIN_MAX_PLAYER:             // 非常抱歉，当前服务器人数已满，请尝试其他服务器登录吧
+                        break;
+                    case Operation_Fields.OPRATE_LOGIN_CALL_SESSION_KEY:             // sessionkey
+                        if (msg.data) {
+                            localSetItem("session_key", msg.data);
+                            this.connectSoctet(() => {
+                                this.network.call_get_session(msg.data, "", "");
+                            }, "call_get_session");
+                        }
                         break;
                 }
             }

@@ -99,7 +99,7 @@ module gamecomponent.object {
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_MONEY)) {
-				this._playerInfo.money = EnumToString.getPointBackNum(this.GetMoney(), 2)
+				this._playerInfo.money = EnumToString.getPointBackNum(this.GetMoney() / 100, 2)
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_SAVE_BOX_MONEY)) {

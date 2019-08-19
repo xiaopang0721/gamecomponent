@@ -15,6 +15,11 @@ module gamecomponent {
 
 		constructor() {
 			super(main.game);
+			//注册后台地址
+			RandomUrlFactory.ins.getUrl(Handler.create(this, (obj: any) => {
+				if (!obj) return;
+				WebConfig.setPlatformUrl(obj.url);
+			}))
 			this.tryCreatedSceneRoot();
 			this.sceneObjectMgr.on(SceneObjectMgr.EVENT_LOAD_MAP, this, this.onIntoNewMap);
 		}
@@ -62,10 +67,10 @@ module gamecomponent {
 		}
 
 		/**
-    * 提示
-    * @param str 
-    * @param isTop 是否顶层
-    */
+		* 提示
+		* @param str 
+		* @param isTop 是否顶层
+		*/
 		public showTips(...args): void {
 			this._game.showTips(args);
 		}
@@ -150,7 +155,7 @@ module gamecomponent {
 
 
 		clearMgr() {
-			
+
 			if (this._scaleEffectFactory) {
 				this._scaleEffectFactory.clear(true);
 				this._scaleEffectFactory = null;

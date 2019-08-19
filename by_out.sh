@@ -19,10 +19,22 @@ make="${out_first_main}/make.sh"
 src="${out_first_main}/src"
 bin="${out_first_main}/bin"
 
-if [[ "$name" =~ "tongyong" ]];then
+if [[ "$name" =~ "component" ]];then
+	rm -rf "${out_libs}/gamecomponent.d.ts"
+	rm -rf "${out_libs}/gametongyong.d.ts"
+	rm -rf "${out_libs}/gamedating.d.ts"
+elif [[ "$name" =~ "dating" ]];then
+	cp -rf "${out_libs}/gamecomponent.d.ts.dst" "${out_libs}/gamecomponent.d.ts"
+	rm -rf "${out_libs}/gametongyong.d.ts"
+	rm -rf "${out_libs}/gamedating.d.ts"
+elif [[ "$name" =~ "tongyong" ]];then
+	cp -rf "${out_libs}/gamedating.d.ts.dst" "${out_libs}/gamedating.d.ts"
+	cp -rf "${out_libs}/gamecomponent.d.ts.dst" "${out_libs}/gamecomponent.d.ts"
 	rm -rf "${out_libs}/gametongyong.d.ts"
 else
+	cp -rf "${out_libs}/gamecomponent.d.ts.dst" "${out_libs}/gamecomponent.d.ts"
 	cp -rf "${out_libs}/gametongyong.d.ts.dst" "${out_libs}/gametongyong.d.ts"
+	cp -rf "${out_libs}/gamedating.d.ts.dst" "${out_libs}/gamedating.d.ts"
 fi
 
 rm -rf "$release_lib"
@@ -48,7 +60,7 @@ if [ $? -ne '0' ]; then
 	exit 2
 fi
 
-if [[ "$name" =~ "tongyong" ]];then
+if [[ "$name" =~ "tongyong" || "$name" =~ "component" || "$name" =~ "dating" ]];then
 	cp -rf "$release_lib/1.0/${name}.d.ts" "${out_libs}/${name}.d.ts.dst"
 	cp -rf "$release_lib/1.0/${name}.js" "${bin}/libs/${name}.js"
 fi
@@ -57,7 +69,6 @@ fi
 if [ ! -f "$release_lib/1.0/$name.bin" ];then
 	touch "$release_lib/1.0/$name.bin"
 fi
-
 
 python "${out_path}/pack.py" "${out_path}" "lib_release/1.0/${name}.bin" "lib_release/1.0/${name}.min.js"
 if [ $? != 0 ]; then
@@ -69,6 +80,9 @@ rm -rf "$release_lib/1.0/$name.min.js"
 cp -rf "$release_lib/1.0/${name}.d.ts" "$first_client_libs/"
 cp -rf "$release_lib/1.0/${name}.js" "$first_release/js/"
 cp -rf "$release_lib/1.0/${name}.bin" "$first_release/bin/"
+
+mkdir -p "$first_release/tsd"
+cp -rf "$release_lib/1.0/${name}.d.ts" "$first_release/tsd/${name}.d.ts.dst"
 
 if [ ! -d "$release" ];then
 	mkdir "$release"

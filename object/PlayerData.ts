@@ -99,6 +99,7 @@ module gamecomponent.object {
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_MONEY)) {
+				//下标值获取到后除以100，得到带两位小数点的金币数，GetMoney下标值只有这里能用
 				this._playerInfo.money = EnumToString.getPointBackNum(this.GetMoney() / 100, 2)
 				ness++;
 			}

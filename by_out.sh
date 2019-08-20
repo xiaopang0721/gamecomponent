@@ -77,7 +77,6 @@ if [ $? != 0 ]; then
 fi
 rm -rf "$release_lib/1.0/$name.min.js"
 
-cp -rf "$release_lib/1.0/${name}.d.ts" "$first_client_libs/"
 cp -rf "$release_lib/1.0/${name}.js" "$first_release/js/"
 cp -rf "$release_lib/1.0/${name}.bin" "$first_release/bin/"
 

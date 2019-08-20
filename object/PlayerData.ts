@@ -132,6 +132,10 @@ module gamecomponent.object {
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_VIP_INFO_UPDATE, 1);
 				ness++;
 			}
+			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_TODAY_SCORE)) {
+				this._playerInfo.today_score = this.GetTodayScore();
+				ness++;
+			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_ACCOUNT)) {
 				this._playerInfo.account = this.GetAccount();
 				ness++;
@@ -338,6 +342,8 @@ module gamecomponent.object {
 
 		is_show_alipay: boolean;
 		is_show_bank: boolean;
+
+		today_score:number;//今日下注数
 
 	}
 }

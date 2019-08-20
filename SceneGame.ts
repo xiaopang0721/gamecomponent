@@ -15,6 +15,11 @@ module gamecomponent {
 
 		constructor() {
 			super(main.game);
+			//注册后台地址
+			RandomUrlFactory.ins.getUrl(Handler.create(this, (obj: any) => {
+				if (!obj) return;
+				WebConfig.setPlatformUrl(obj.url);
+			}))
 			this.tryCreatedSceneRoot();
 			this.sceneObjectMgr.on(SceneObjectMgr.EVENT_LOAD_MAP, this, this.onIntoNewMap);
 		}
@@ -62,10 +67,10 @@ module gamecomponent {
 		}
 
 		/**
-    * 提示
-    * @param str 
-    * @param isTop 是否顶层
-    */
+		* 提示
+		* @param str 
+		* @param isTop 是否顶层
+		*/
 		public showTips(...args): void {
 			this._game.showTips(args);
 		}
@@ -89,6 +94,7 @@ module gamecomponent {
 		}
 
 		onUpdate(diff: number): void {
+			super.onUpdate(diff);
 			this._scaleEffectFactory && this._scaleEffectFactory.update(diff);
 		}
 
@@ -132,25 +138,23 @@ module gamecomponent {
 				logd("====================解锁===========", sign)
 			}
 			this._isLockGame = v;
-			if (this instanceof Game) {
-				if (v) {
-					let page = this.uiRoot.general.getPage(PageDef.PAGE_WAITEFFECT) as WaitEffectPage;
-					if (page && page.isOpened) {
-						(page && playAni) ? page.playAni() : page.closeAni();
-					} else {
-						this.uiRoot.general.open(PageDef.PAGE_WAITEFFECT, (page: WaitEffectPage) => {
-							(page && playAni) ? page.playAni() : page.closeAni();
-						})
-					}
+			if (v) {
+				let page = this.uiRoot.general.getPage(PageDef.PAGE_WAITEFFECT) as WaitEffectPage;
+				if (page && page.isOpened) {
+					(page && playAni) ? page.playAni() : page.closeAni();
 				} else {
-					this.uiRoot.general.close(PageDef.PAGE_WAITEFFECT)
+					this.uiRoot.general.open(PageDef.PAGE_WAITEFFECT, (page: WaitEffectPage) => {
+						(page && playAni) ? page.playAni() : page.closeAni();
+					})
 				}
+			} else {
+				this.uiRoot.general.close(PageDef.PAGE_WAITEFFECT)
 			}
 		}
 
 
 		clearMgr() {
-			
+
 			if (this._scaleEffectFactory) {
 				this._scaleEffectFactory.clear(true);
 				this._scaleEffectFactory = null;

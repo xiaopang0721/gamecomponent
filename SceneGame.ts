@@ -94,6 +94,7 @@ module gamecomponent {
 		}
 
 		onUpdate(diff: number): void {
+			super.onUpdate(diff);
 			this._scaleEffectFactory && this._scaleEffectFactory.update(diff);
 		}
 
@@ -137,19 +138,17 @@ module gamecomponent {
 				logd("====================解锁===========", sign)
 			}
 			this._isLockGame = v;
-			if (this instanceof Game) {
-				if (v) {
-					let page = this.uiRoot.general.getPage(PageDef.PAGE_WAITEFFECT) as WaitEffectPage;
-					if (page && page.isOpened) {
-						(page && playAni) ? page.playAni() : page.closeAni();
-					} else {
-						this.uiRoot.general.open(PageDef.PAGE_WAITEFFECT, (page: WaitEffectPage) => {
-							(page && playAni) ? page.playAni() : page.closeAni();
-						})
-					}
+			if (v) {
+				let page = this.uiRoot.general.getPage(PageDef.PAGE_WAITEFFECT) as WaitEffectPage;
+				if (page && page.isOpened) {
+					(page && playAni) ? page.playAni() : page.closeAni();
 				} else {
-					this.uiRoot.general.close(PageDef.PAGE_WAITEFFECT)
+					this.uiRoot.general.open(PageDef.PAGE_WAITEFFECT, (page: WaitEffectPage) => {
+						(page && playAni) ? page.playAni() : page.closeAni();
+					})
 				}
+			} else {
+				this.uiRoot.general.close(PageDef.PAGE_WAITEFFECT)
 			}
 		}
 

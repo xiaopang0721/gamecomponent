@@ -66,10 +66,10 @@ module gamecomponent {
 
 		//设置窗口大小
 		resize(clientWidth: number, clientHeight: number): void {
-			// this.camera.setSize(clientWidth, clientHeight);
-			// if (this._game.sceneObjectMgr.story instanceof gamecomponent.story.StoryFishBase) {
-			// 	this._game.sceneObjectMgr.story && this._game.sceneObjectMgr.story.resize(clientWidth, clientHeight);
-			// }
+			this.camera.setSize(clientWidth, clientHeight);
+			if (this._game.sceneObjectMgr.story instanceof gamecomponent.story.StoryFishBase) {
+				this._game.sceneObjectMgr.story && this._game.sceneObjectMgr.story.resize(clientWidth, clientHeight);
+			}
 		}
 
 		update(diff: number): void {

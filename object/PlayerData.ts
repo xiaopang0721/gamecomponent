@@ -139,7 +139,7 @@ module gamecomponent.object {
 				this._playerInfo.total_turn_point = this.GetYesterdayScore();
 				ness++;
 			}
-			
+
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_TODAY_SCORE)) {
 				this._playerInfo.today_score = this.GetTodayScore();
 				ness++;
@@ -331,7 +331,7 @@ module gamecomponent.object {
 		vip_received: string;//vip奖励领取标识
 		total_recharge: number;//累计充值金额
 		vip_level: number;//vip等级
-		total_turn_point:number;//当前可以用的转盘积分
+		total_turn_point: number;//当前可以用的转盘积分
 
 		app_android: string
 		app_ios: string
@@ -344,8 +344,8 @@ module gamecomponent.object {
 		is_wx_open: boolean;//微信开关
 		is_outer_jump: boolean;//在线客服是否外跳
 		is_need_bank: boolean;//是否需要判断绑定银行卡
-		is_can_first_get:boolean//首充小红点
-		is_get_fitst_pay:boolean;//首充领取标志
+		is_can_first_get: boolean//首充小红点
+		is_get_fitst_pay: boolean;//首充领取标志
 
 		agency_sharereward: number;
 		agency_shareminpay: number;
@@ -354,24 +354,31 @@ module gamecomponent.object {
 		is_show_alipay: boolean;
 		is_show_bank: boolean;
 
-		today_score:number;//今日下注数
+		today_score: number;//今日下注数
 
 	}
 
 	export class FreeStyle {
-		private static _obj:any;
-		static setData(value:string):void{
+		private static __data: any;
+		static setData(value: string): void {
 			try {
-				this._obj = JSON.parse(value);
+				this.__data = JSON.parse(value);
 			} catch (error) {
 				logd('parse FreeStyle fail');
 			}
 		}
 
-		static getData(type, key):any{
-			let data = null;
-			if (this._obj && this._obj[type] && this._obj[type][key])
-				data = this._obj[type][key];
+		static getData(type, key): any {
+			if (!this.__data || !this.__data[type] || !this.__data[type][key]) return null;
+			let data = this.__data[type][key];
+			let count = 0;
+			if (Object.getOwnPropertyNames(data).length == 1) {
+				for (let mykey in data) {
+					if (data.hasOwnProperty(mykey)) {
+						return data[mykey];
+					}
+				}
+			}
 			return data;
 		}
 	}

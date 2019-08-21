@@ -280,7 +280,7 @@ class GameBase {
     clear(desc: string, isAll: boolean = false, showtip: boolean = false): void {
         if (isAll) {
             WebConfig.info = null;
-            firstAlert = false;
+            DatingPageDef.FirstAlert = false;
         }
         this._game.clearMgr();
         this._reconectTryCount = 0;

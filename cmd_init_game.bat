@@ -13,5 +13,6 @@ if not exist %bin% ( mkdir %bin% )
 if exist %bin% ( @rd /s /Q %bin% )
 @cd %self_path%
 if not exist %release% ( @echo "%release% not exist" ) else ( @mklink /J %bin% %release% )
+if not exist %release%  ( @rd /s /Q %bin% )
 ::if not %xxx% ( pause )
 

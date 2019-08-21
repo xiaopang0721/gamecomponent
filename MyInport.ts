@@ -15,6 +15,7 @@ import PlayCardMgr = gamecomponent.managers.PlayCardMgr;
 import MapInfo = gamecomponent.object.MapInfo;
 import UnitOffline = gamecomponent.object.UnitOffline;
 import PlayerData = gamecomponent.object.PlayerData;
+import FreeStyle = gamecomponent.object.FreeStyle;
 import GlobalData = gamecomponent.object.GlobalData;
 import Unit = gamecomponent.object.Unit;
 import SyncInfo = gamecomponent.object.SyncInfo;

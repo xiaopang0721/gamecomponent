@@ -128,7 +128,7 @@ module gamecomponent.base {
 			this._fps = arg[1];
 			this._callBack = arg.length > 2 ? arg[2] : null;
 			this.setFps(this._fps);
-			this.setAssetPath(CompoentPath.custom_atlas);
+			this.setAssetPath('ui/');
 		}
 
 		/**

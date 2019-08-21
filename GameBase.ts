@@ -257,6 +257,7 @@ class GameBase {
             this.network.addHanlder(Protocols.SMSG_UD_OBJECT, this, this.onObjHandler);
             this.network.addHanlder(Protocols.SMSG_JOIN_GAME_RESULT, this, this.onJoinGameResult);
             this.network.addHanlder(Protocols.SMSG_GRID_UPDATE_DATA, this, this.onObjHandler);
+            this.network.addHanlder(Protocols.CMSG_FREE_SYTLE_SYNC, this, this.onFreeStyleUpdate);
             this.network.addHanlder(core.net.EV_CONNECT, this, this.onConnectHandler);
             this.network.addHanlder(core.net.EV_CLOSED, this, this.onCloseHandler);
             this.network.addHanlder(core.net.EV_ERROR, this, this.onErrorHandle);
@@ -320,6 +321,7 @@ class GameBase {
         this.network.removeHanlder(Protocols.SMSG_UD_OBJECT, this, this.onObjHandler);
         this.network.removeHanlder(Protocols.SMSG_JOIN_GAME_RESULT, this, this.onJoinGameResult);
         this.network.removeHanlder(Protocols.SMSG_GRID_UPDATE_DATA, this, this.onObjHandler);
+        this.network.removeHanlder(Protocols.CMSG_FREE_SYTLE_SYNC, this, this.onFreeStyleUpdate);
         this.network.removeHanlder(core.net.EV_CONNECT, this, this.onConnectHandler);
         this.network.removeHanlder(core.net.EV_CLOSED, this, this.onCloseHandler);
         this.network.removeHanlder(core.net.EV_ERROR, this, this.onErrorHandle);
@@ -333,6 +335,10 @@ class GameBase {
             showtip && this._game.showTips("正在连接服务器...");
             this._game.setIsLockGame(true, true, "GameBase.closeNetwork");
         }
+    }
+
+    private onFreeStyleUpdate(optcode: number, msg: any):void{
+        FreeStyle.setData(msg.data);
     }
 
     private onObjHandler(optcode: number, msg: any): void {
@@ -455,18 +461,18 @@ class GameBase {
                         logd("web有问题")
                         break;
                     case Operation_Fields.OPRATE_WEB_SUCESS_RESULT_INFO:             // web成功返回的信息
-                        if (msg && msg.data) {
-                            let obj;
-                            try {
-                                obj = JSON.parse(msg.data);
-                            } catch (error) {
-                                logd("解析失败", msg.data);
-                                localSetItem("client_error", Vesion["_defaultVesion"] + "  " + WebConfig.gwUrl + ": web成功返回的信息" + (msg.data));
-                            }
-                            if (obj) {
-                                this._sceneObjectMgr.event(SceneObjectMgr.EVENT_OPRATE_SUCESS, obj)
-                            }
-                        }
+                        // if (msg && msg.data) {
+                        //     let obj;
+                        //     try {
+                        //         obj = JSON.parse(msg.data);
+                        //     } catch (error) {
+                        //         logd("解析失败", msg.data);
+                        //         localSetItem("client_error", Vesion["_defaultVesion"] + "  " + WebConfig.gwUrl + ": web成功返回的信息" + (msg.data));
+                        //     }
+                        //     if (obj) {
+                        //         this._sceneObjectMgr.event(SceneObjectMgr.EVENT_OPRATE_SUCESS, obj)
+                        //     }
+                        // }
                         break;
                 }
             }
@@ -476,20 +482,20 @@ class GameBase {
                         this._networkState = GameBase.NETWORK_STATE_INIT;
                         this.clear("GameApp.onOptHandler OPRATE_CLOSE_WEB_GET_INFO_ERR", true)
                         localRemoveItem("session_key")
-                        if (msg && msg.data) {
-                            let obj;
-                            try {
-                                obj = JSON.parse(msg.data);
-                            } catch (error) {
-                                logd("解析失败", msg.data);
-                                localSetItem("client_error", Vesion["_defaultVesion"] + "  " + WebConfig.gwUrl + ": OPRATE_CLOSE_WEB_GET_INFO_ERR" + (msg.data));
-                            }
+                        // if (msg && msg.data) {
+                        //     let obj;
+                        //     try {
+                        //         obj = JSON.parse(msg.data);
+                        //     } catch (error) {
+                        //         logd("解析失败", msg.data);
+                        //         localSetItem("client_error", Vesion["_defaultVesion"] + "  " + WebConfig.gwUrl + ": OPRATE_CLOSE_WEB_GET_INFO_ERR" + (msg.data));
+                        //     }
 
-                            if (obj) {
-                                this._sceneObjectMgr.event(SceneObjectMgr.EVENT_OPRATE_SUCESS, obj)
-                                obj.success && this._game.showTips(Web_operation_fields.web_interface_result_table[obj.success])
-                            }
-                        }
+                        //     if (obj) {
+                        //         this._sceneObjectMgr.event(SceneObjectMgr.EVENT_OPRATE_SUCESS, obj)
+                        //         obj.success && this._game.showTips(Web_operation_fields.web_interface_result_table[obj.success])
+                        //     }
+                        // }
                         this._game.openLoginPage();
 
                         break;
@@ -552,6 +558,16 @@ class GameBase {
                 }
             }
 
+            if (msg.type == Operation_Fields.OPRATE_GAME) {
+                let obj = '';
+                try {
+                    obj = JSON.parse(msg.data);
+                } catch (error) {
+                    logd("解析失败", msg.data);
+                    // localSetItem("client_error", Vesion["_defaultVesion"] + "  " + WebConfig.gwUrl + ": web成功返回的信息" + (msg.data));
+                }                
+                this._sceneObjectMgr.event(SceneObjectMgr.EVENT_OPRATE_SUCESS, msg);                
+            }
     }
 
     private fourceLogin() {

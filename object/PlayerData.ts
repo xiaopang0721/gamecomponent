@@ -58,10 +58,6 @@ module gamecomponent.object {
 				}
 				ness++;
 			}
-			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_BIND_SEND_MONEY)) {
-				this._playerInfo.bindSendMoney = this.GetBindSendMoney();
-				ness++;
-			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_AGENCY_SHAREREWARD)) {
 				this._playerInfo.agency_sharereward = this.GetAgencySharereward();
 				ness++;
@@ -133,6 +129,14 @@ module gamecomponent.object {
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_VIP_LEVEL)) {
 				this._playerInfo.vip_level = this.GetVipLevel();
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_VIP_INFO_UPDATE, 1);
+				ness++;
+			}
+			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_BYTE1)) {
+				this._playerInfo.sign_in_days = this.GetSignInDays();
+				ness++;
+			}
+			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_LAST_SIGN_IN_TIME)) {
+				this._playerInfo.last_signin_time = this.GetLastSignInTime();
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_YESTERDAY_SCORE)) {
@@ -296,7 +300,6 @@ module gamecomponent.object {
 		last_share_time: number;//上次分享时间
 		isCanFenXiang: boolean;//是否可以分享
 		map_level: number = 0;//地图级别
-		bindSendMoney: number;//绑定送的钱
 		wx_unionid: string;//微信id
 		gameid: string;//游戏id
 		money: number;//金钱
@@ -332,6 +335,8 @@ module gamecomponent.object {
 		total_recharge: number;//累计充值金额
 		vip_level: number;//vip等级
 		total_turn_point: number;//当前可以用的转盘积分
+		sign_in_days: number;//连续签到天数
+		last_signin_time: number;//上次签到时间
 
 		app_android: string
 		app_ios: string

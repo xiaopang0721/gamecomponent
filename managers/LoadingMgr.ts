@@ -235,11 +235,11 @@ module gamecomponent.managers {
 		private _label: Label;
 		constructor() {
 			super();
-			this._img_bg = new LImage(DatingPath.ui_dating_tongyong + "load_bg.png");
+			this._img_bg = new LImage(window["DatingPath"].ui_dating_tongyong + "load_bg.png");
 			this._img_bg.anchorX = this._img_bg.anchorY = 0.5;
 			this.addChild(this._img_bg);
 
-			this._img_bg_mask = new LImage(DatingPath.ui_dating_tongyong + "load_bg1.png");
+			this._img_bg_mask = new LImage(window["DatingPath"].ui_dating_tongyong + "load_bg1.png");
 			this._img_bg_mask.anchorX = this._img_bg_mask.anchorY = 0.5;
 			// this.addChild(this._img_bg_mask);
 

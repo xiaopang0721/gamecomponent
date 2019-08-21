@@ -49,6 +49,8 @@ module gamecomponent.object {
 				this._playerInfo.is_wx_open = this.IsIsOpenWX();
 				this._playerInfo.is_outer_jump = this.IsIsOuterJump();
 				this._playerInfo.is_need_bank = this.IsIsNeedBank();
+				this._playerInfo.is_can_first_get = this.IsIsFirstPay();
+				this._playerInfo.is_get_fitst_pay = this.IsIsFisrtPayGive();
 				if (!WebConfig.isSingleEnter) {
 					localSetItem("is_wx_open", this._playerInfo.is_wx_open ? "true" : "false");
 				} else {
@@ -131,6 +133,15 @@ module gamecomponent.object {
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_VIP_LEVEL)) {
 				this._playerInfo.vip_level = this.GetVipLevel();
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_VIP_INFO_UPDATE, 1);
+				ness++;
+			}
+			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_YESTERDAY_SCORE)) {
+				this._playerInfo.total_turn_point = this.GetYesterdayScore();
+				ness++;
+			}
+			
+			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_TODAY_SCORE)) {
+				this._playerInfo.today_score = this.GetTodayScore();
 				ness++;
 			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_ACCOUNT)) {
@@ -320,6 +331,7 @@ module gamecomponent.object {
 		vip_received: string;//vip奖励领取标识
 		total_recharge: number;//累计充值金额
 		vip_level: number;//vip等级
+		total_turn_point:number;//当前可以用的转盘积分
 
 		app_android: string
 		app_ios: string
@@ -332,6 +344,8 @@ module gamecomponent.object {
 		is_wx_open: boolean;//微信开关
 		is_outer_jump: boolean;//在线客服是否外跳
 		is_need_bank: boolean;//是否需要判断绑定银行卡
+		is_can_first_get:boolean//首充小红点
+		is_get_fitst_pay:boolean;//首充领取标志
 
 		agency_sharereward: number;
 		agency_shareminpay: number;
@@ -339,6 +353,8 @@ module gamecomponent.object {
 
 		is_show_alipay: boolean;
 		is_show_bank: boolean;
+
+		today_score:number;//今日下注数
 
 	}
 

@@ -341,4 +341,22 @@ module gamecomponent.object {
 		is_show_bank: boolean;
 
 	}
+
+	export class FreeStyle {
+		private static _obj:any;
+		static setData(value:string):void{
+			try {
+				this._obj = JSON.parse(value);
+			} catch (error) {
+				logd('parse FreeStyle fail');
+			}
+		}
+
+		static getData(type, key):any{
+			let data = null;
+			if (this._obj && this._obj[type] && this._obj[type][key])
+				data = this._obj[type][key];
+			return data;
+		}
+	}
 }

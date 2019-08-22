@@ -166,7 +166,7 @@ module gamecomponent.component {
 			this._effect = null;
 			this._needOverEvent = false;
 			this._haveEventComplete = false;
-			this.removeSelf();
+			this.removeSelf(true);
 			super.destroy(destroyChild);
 		}
 	}

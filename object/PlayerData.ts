@@ -256,6 +256,10 @@ module gamecomponent.object {
 				this._playerInfo.qifu_type = this.GetValidQiFuType()
 				ness++;
 			}
+			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_DRAWING_REQUIRED_FLOW)) {
+				this._playerInfo.drawingRequiredFlow = this.GetDrawingRequiredFlow()
+				ness++;
+			}
 
 
 			if (isNew || mask.GetBits(PlayerData.PLAYERDATA_INT_PLAYER_CARD_VALUE, 20)) {
@@ -332,6 +336,7 @@ module gamecomponent.object {
 		total_recharge: number;//累计充值金额
 		vip_level: number;//vip等级
 		total_turn_point:number;//当前可以用的转盘积分
+		drawingRequiredFlow:number;//兑换所需打码量
 
 		app_android: string
 		app_ios: string

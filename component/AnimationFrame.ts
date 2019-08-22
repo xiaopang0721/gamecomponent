@@ -45,7 +45,7 @@ module gamecomponent.component {
 				else
 					this.size(value.width, value.height);
 			}
-			this.frameLoop(1, this, this.onDraw);
+			// this.frameLoop(1, this, this.onDraw);
 		}
 
 		/**

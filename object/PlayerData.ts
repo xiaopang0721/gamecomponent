@@ -131,14 +131,14 @@ module gamecomponent.object {
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_VIP_INFO_UPDATE, 1);
 				ness++;
 			}
-if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_BYTE1)) {
+			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_BYTE1)) {
 				this._playerInfo.sign_in_days = this.GetSignInDays();
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_LAST_SIGN_IN_TIME)) {
 				this._playerInfo.last_signin_time = this.GetLastSignInTime();
 				ness++;
-			}			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_YESTERDAY_SCORE)) {
+			} if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_YESTERDAY_SCORE)) {
 				this._playerInfo.total_turn_point = this.GetYesterdayScore();
 				ness++;
 			}
@@ -315,7 +315,7 @@ if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_BYTE1)) {
 		userid: string;//用户id
 		username: string;//账号
 		headimg: string;//头像id
-		headKuang:string;//头像框
+		headKuang: string;//头像框
 		mobile: string;//手机
 		invite_code: string = "";//邀请码
 		zhifubao: string;//支付宝

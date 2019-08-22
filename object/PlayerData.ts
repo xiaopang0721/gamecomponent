@@ -58,10 +58,6 @@ module gamecomponent.object {
 				}
 				ness++;
 			}
-			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_BIND_SEND_MONEY)) {
-				this._playerInfo.bindSendMoney = this.GetBindSendMoney();
-				ness++;
-			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_AGENCY_SHAREREWARD)) {
 				this._playerInfo.agency_sharereward = this.GetAgencySharereward();
 				ness++;
@@ -135,11 +131,18 @@ module gamecomponent.object {
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_VIP_INFO_UPDATE, 1);
 				ness++;
 			}
-			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_YESTERDAY_SCORE)) {
+			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_BYTE1)) {
+				this._playerInfo.sign_in_days = this.GetSignInDays();
+				ness++;
+			}
+			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_LAST_SIGN_IN_TIME)) {
+				this._playerInfo.last_signin_time = this.GetLastSignInTime();
+				ness++;
+			} if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_YESTERDAY_SCORE)) {
 				this._playerInfo.total_turn_point = this.GetYesterdayScore();
 				ness++;
 			}
-			
+
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_TODAY_SCORE)) {
 				this._playerInfo.today_score = this.GetTodayScore();
 				ness++;
@@ -183,6 +186,10 @@ module gamecomponent.object {
 			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_HEAD_IMG)) {
 				this._playerInfo.headimg = this.GetHeadImg();
+				ness++;
+			}
+			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_HEAD_KUANG_IMG)) {
+				this._playerInfo.headKuang = this.GetHeadKuangImg();
 				ness++;
 			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_YING_HANG_KA)) {
@@ -300,7 +307,6 @@ module gamecomponent.object {
 		last_share_time: number;//上次分享时间
 		isCanFenXiang: boolean;//是否可以分享
 		map_level: number = 0;//地图级别
-		bindSendMoney: number;//绑定送的钱
 		wx_unionid: string;//微信id
 		gameid: string;//游戏id
 		money: number;//金钱
@@ -313,6 +319,7 @@ module gamecomponent.object {
 		userid: string;//用户id
 		username: string;//账号
 		headimg: string;//头像id
+		headKuang: string;//头像框
 		mobile: string;//手机
 		invite_code: string = "";//邀请码
 		zhifubao: string;//支付宝
@@ -335,7 +342,9 @@ module gamecomponent.object {
 		vip_received: string;//vip奖励领取标识
 		total_recharge: number;//累计充值金额
 		vip_level: number;//vip等级
-		total_turn_point:number;//当前可以用的转盘积分
+		total_turn_point: number;//当前可以用的转盘积分
+		sign_in_days: number;//连续签到天数
+		last_signin_time: number;//上次签到时间
 		drawingRequiredFlow:number;//兑换所需打码量
 
 		app_android: string
@@ -349,8 +358,8 @@ module gamecomponent.object {
 		is_wx_open: boolean;//微信开关
 		is_outer_jump: boolean;//在线客服是否外跳
 		is_need_bank: boolean;//是否需要判断绑定银行卡
-		is_can_first_get:boolean//首充小红点
-		is_get_fitst_pay:boolean;//首充领取标志
+		is_can_first_get: boolean//首充小红点
+		is_get_fitst_pay: boolean;//首充领取标志
 
 		agency_sharereward: number;
 		agency_shareminpay: number;
@@ -359,24 +368,31 @@ module gamecomponent.object {
 		is_show_alipay: boolean;
 		is_show_bank: boolean;
 
-		today_score:number;//今日下注数
+		today_score: number;//今日下注数
 
 	}
 
 	export class FreeStyle {
-		private static _obj:any;
-		static setData(value:string):void{
+		private static __data: any;
+		static setData(value: string): void {
 			try {
-				this._obj = JSON.parse(value);
+				this.__data = JSON.parse(value);
 			} catch (error) {
 				logd('parse FreeStyle fail');
 			}
 		}
 
-		static getData(type, key):any{
-			let data = null;
-			if (this._obj && this._obj[type] && this._obj[type][key])
-				data = this._obj[type][key];
+		static getData(type, key): any {
+			if (!this.__data || !this.__data[type] || !this.__data[type][key]) return null;
+			let data = this.__data[type][key];
+			let count = 0;
+			if (Object.getOwnPropertyNames(data).length == 1) {
+				for (let mykey in data) {
+					if (data.hasOwnProperty(mykey)) {
+						return data[mykey];
+					}
+				}
+			}
 			return data;
 		}
 	}

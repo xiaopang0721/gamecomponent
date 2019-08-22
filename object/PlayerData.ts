@@ -135,6 +135,7 @@ module gamecomponent.object {
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_VIP_INFO_UPDATE, 1);
 				ness++;
 			}
+			
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_YESTERDAY_SCORE)) {
 				this._playerInfo.total_turn_point = this.GetYesterdayScore();
 				ness++;
@@ -183,6 +184,10 @@ module gamecomponent.object {
 			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_HEAD_IMG)) {
 				this._playerInfo.headimg = this.GetHeadImg();
+				ness++;
+			}
+			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_HEAD_KUANG_IMG)) {
+				this._playerInfo.headKuang = this.GetHeadKuangImg();
 				ness++;
 			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_YING_HANG_KA)) {
@@ -309,6 +314,7 @@ module gamecomponent.object {
 		userid: string;//用户id
 		username: string;//账号
 		headimg: string;//头像id
+		headKuang:string;//头像框
 		mobile: string;//手机
 		invite_code: string = "";//邀请码
 		zhifubao: string;//支付宝

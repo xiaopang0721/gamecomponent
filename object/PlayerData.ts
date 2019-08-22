@@ -345,7 +345,7 @@ module gamecomponent.object {
 		total_turn_point: number;//当前可以用的转盘积分
 		sign_in_days: number;//连续签到天数
 		last_signin_time: number;//上次签到时间
-		drawingRequiredFlow:number;//兑换所需打码量
+		drawingRequiredFlow: number;//兑换所需打码量
 
 		app_android: string
 		app_ios: string
@@ -383,7 +383,11 @@ module gamecomponent.object {
 		}
 
 		static getData(type, key): any {
-			if (!this.__data || !this.__data[type] || !this.__data[type][key]) return null;
+			if (!this.__data || !this.__data[type]) return null;
+			if (!key) {
+				return this.__data[type];
+			}
+			if (!this.__data[type][key]) return null;
 			let data = this.__data[type][key];
 			let count = 0;
 			if (Object.getOwnPropertyNames(data).length == 1) {

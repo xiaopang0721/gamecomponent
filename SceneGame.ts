@@ -29,10 +29,14 @@ module gamecomponent {
 		public inScene: boolean;
 		/**进入新地图 */
 		private onIntoNewMap(info: any): void {
+			LoadingMgr.ins.cancleUnLoads();//进出地图取消掉未加载完成的
+			JsLoader.ins.clear();
 			if (typeof info == "string") {
 				this.inScene = false;
+				updateGameJS();
 			} else {
 				this.inScene = true;
+				clearJSGame(info.id);
 			}
 		}
 

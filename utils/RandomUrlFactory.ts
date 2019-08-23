@@ -76,10 +76,9 @@ module utils {
 		private doHandle() {
 			if (this._serverUrlList && this._serverUrlList.length) {
 				let idx = MathU.randomRange(0, this._serverUrlList.length - 1);
-				let url = this._serverUrlList[idx];
-				logd("创建 url", url);
+				logd("创建 url", this._serverUrlList[idx]);
 				if (this._handle) {
-					url && this._handle.runWith({ index: idx, url: url });
+					this._handle.runWith({ index: idx, url: this._serverUrlList[idx] });
 					this._handle && this._handle.recover();
 					this._handle = null;
 				}

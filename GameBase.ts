@@ -244,7 +244,7 @@ class GameBase {
         this.lockConnectSoctet = true;
         this._handle = Handler.create(this, (handleData: any) => {
             this._handleData = handleData;
-            if (!handleData) {
+            if (!handleData || !handleData.url) {
                 this.connectSoctet(this._connectSucessCallBack, desc);
                 return;
             }

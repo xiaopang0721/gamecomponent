@@ -18,7 +18,6 @@ import PlayerData = gamecomponent.object.PlayerData;
 import FreeStyle = gamecomponent.object.FreeStyle;
 import GlobalData = gamecomponent.object.GlobalData;
 import Unit = gamecomponent.object.Unit;
-import SyncInfo = gamecomponent.object.SyncInfo;
 
 import SceneObjectMgr = gamecomponent.managers.SceneObjectMgr;
 import CardRoomMgr = gamecomponent.managers.CardRoomMgr;

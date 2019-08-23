@@ -220,7 +220,7 @@ class GameBase {
     get lockConnectSoctet() {
         return this._lockConnectSoctet;
     }
-    public get game()  {
+    public get game() {
         return this._game;
     }
 
@@ -231,8 +231,6 @@ class GameBase {
 
     public connectSoctet(sucess?: Function, desc?: string) {
         logd("GameApp connectSoctet ", "desc:", desc);
-        if (this.lockConnectSoctet) return;
-        this.lockConnectSoctet = true;
         this._connectSucessCallBack = this._connectSucessCallBack || sucess;
         if (this.network.connected) {
             if (this._connectSucessCallBack != null) {
@@ -242,6 +240,8 @@ class GameBase {
             return;
         }
 
+        if (this.lockConnectSoctet) return;
+        this.lockConnectSoctet = true;
         this._handle = Handler.create(this, (handleData: any) => {
             this._handleData = handleData;
             if (!handleData) {
@@ -336,7 +336,7 @@ class GameBase {
         }
     }
 
-    private onFreeStyleUpdate(optcode: number, msg: any):void{
+    private onFreeStyleUpdate(optcode: number, msg: any): void {
         FreeStyle.setData(msg.data);
     }
 
@@ -557,16 +557,16 @@ class GameBase {
                 }
             }
 
-            if (msg.type == Operation_Fields.OPRATE_GAME) {
-                let obj = '';
-                try {
-                    obj = JSON.parse(msg.data);
-                } catch (error) {
-                    logd("解析失败", msg.data);
-                    // localSetItem("client_error", Vesion["_defaultVesion"] + "  " + WebConfig.gwUrl + ": web成功返回的信息" + (msg.data));
-                }                
-                this._sceneObjectMgr.event(SceneObjectMgr.EVENT_OPRATE_SUCESS, msg);                
+        if (msg.type == Operation_Fields.OPRATE_GAME) {
+            let obj = '';
+            try {
+                obj = JSON.parse(msg.data);
+            } catch (error) {
+                logd("解析失败", msg.data);
+                // localSetItem("client_error", Vesion["_defaultVesion"] + "  " + WebConfig.gwUrl + ": web成功返回的信息" + (msg.data));
             }
+            this._sceneObjectMgr.event(SceneObjectMgr.EVENT_OPRATE_SUCESS, msg);
+        }
     }
 
     private fourceLogin() {

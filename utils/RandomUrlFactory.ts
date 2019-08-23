@@ -42,7 +42,7 @@ module utils {
 				logd("生成一个新地址", this._url);
 				Laya.loader.load(this._url, Handler.create(this, this.completeHandler));
 			} else {//否则去回调
-				this.runHandle();
+				this.doHandle();
 			}
 		}
 
@@ -70,16 +70,19 @@ module utils {
 				this._serverUrlList = conf_url_value.server_url[WebConfig.platform] || conf_url_value.server_url["default"];
 			}
 
-			this.runHandle();
+			this.doHandle();
 		}
 
-		private runHandle() {
-			let idx = MathU.randomRange(0, this._serverUrlList.length - 1);
-			if (this._handle) {
-				logd("创建 url", this._serverUrlList[idx]);
-				this._handle.runWith({ index: idx, url: this._serverUrlList[idx] });
-				this._handle && this._handle.recover();
-				this._handle = null;
+		private doHandle() {
+			if (this._serverUrlList && this._serverUrlList.length) {
+				let idx = MathU.randomRange(0, this._serverUrlList.length - 1);
+				let url = this._serverUrlList[idx];
+				logd("创建 url", url);
+				if (this._handle) {
+					url && this._handle.runWith({ index: idx, url: url });
+					this._handle && this._handle.recover();
+					this._handle = null;
+				}
 			}
 
 			if (this._waitHandleList.length > 0) {

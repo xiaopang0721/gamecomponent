@@ -8,6 +8,7 @@ module utils{
 		public static COLOR_GREEN		:string = "#41fe69";				//绿色、链接
 		public static COLOR_RED			:string = "#ff2400";				//红色、提醒
 		public static COLOR_GRAY		:string = "#8b8b8b";				//灰色、禁用
+		public static COLOR_YELLOW		:string = "#ffff00";				//黄色、进行中
 		public static COLOR_BLACK		:string = "#000000";				//纯黑色
 		public static COLOR_WHITE		:string = "#ffffff";				//纯白色
 

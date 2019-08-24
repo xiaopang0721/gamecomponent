@@ -320,7 +320,7 @@ module gamecomponent.managers {
                 }
             } else {//手动点进去的
                 let pageDef = getPageDef(mapid);
-                if (WebConfig.hudgametype == DatingPageDef.TYPE_CARD && !pageDef["__enterMapLv"]) {//房卡类型
+                if (WebConfig.hudgametype == window["DatingPageDef"].TYPE_CARD && !pageDef["__enterMapLv"]) {//房卡类型
                     let comm = StringU.substitute("new game{0}.story.{1}CardRoomStory({2},{3},{4},{5})", map_id.toLocaleLowerCase(), map_id, "this._game", "mapid", "maplv", "dataSource");
                     this._story = eval(comm);
                 } else {

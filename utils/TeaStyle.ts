@@ -11,6 +11,8 @@ module utils{
 		public static COLOR_BLACK		:string = "#000000";				//纯黑色
 		public static COLOR_WHITE		:string = "#ffffff";				//纯白色
 
+		public static COLOR_INPUT_DEFAULT :string = "#5597d2";				//输入框默认颜色值
+
 		/**=品质颜色：白、绿、蓝、紫、橙=*/
 		public static COLOR_QUALITYS:string[] = ["#d6f3ff", "#00ff2a", "#00baff", "#ae00ff", "#ffa200","#ff2400"];
 		/**

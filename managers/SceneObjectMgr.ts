@@ -404,7 +404,7 @@ module gamecomponent.managers {
                 this._story = null;
                 this.event(SceneObjectMgr.EVENT_LOAD_MAP, old_mapid);
                 //游戏退出计数
-                DatingPageDef.ExitGmeTimes++;
+                this._game.sceneGame.ExitGmeTimes++;
                 if (force) {
                     this._changeStoryCallBack = null;
                 } else {

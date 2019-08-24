@@ -26,7 +26,7 @@ module gamecomponent.component {
 			this.pos(x, y);
 			this._skeleton.anchorPostion = new Vector2(0, 0);
 			this._skeleton.setCompleteFunc = completeFunc;
-			this._skeleton.setData(path + ".sk");
+			this._skeleton.setData(path + ".sk", 2);
 			this._skeleton.setLoop(true);
 			this._skeleton.drawHorizonal = drawHorizonal;
 			this._skeleton.build();

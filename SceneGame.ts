@@ -1,6 +1,8 @@
 module gamecomponent {
 	export class SceneGame extends GameBase {
 
+		public ExitGmeTimes: number = 0;
+
 		private static _ins: SceneGame;
 		public static get ins() {
 			if (!this._ins) {

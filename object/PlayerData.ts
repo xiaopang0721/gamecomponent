@@ -264,7 +264,11 @@ module gamecomponent.object {
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_DRAWING_REQUIRED_FLOW)) {
-				this._playerInfo.drawingRequiredFlow = this.GetDrawingRequiredFlow()
+				this._playerInfo.drawingRequiredFlow = this.GetDrawingRequiredFlow();
+				ness++;
+			}
+			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_DRAWING_CURRENT_FLOW)) {
+				this._playerInfo.drawingCurrentFlow = this.GetDrawingCurrentFlow();
 				ness++;
 			}
 
@@ -346,6 +350,7 @@ module gamecomponent.object {
 		sign_in_days: number;//连续签到天数
 		last_signin_time: number;//上次签到时间
 		drawingRequiredFlow:number;//兑换所需打码量
+		drawingCurrentFlow:number;//当打码量
 
 		app_android: string
 		app_ios: string

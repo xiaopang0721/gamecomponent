@@ -5,7 +5,7 @@ module utils{
 	export class TeaStyle{
 		/*=====文本颜色(格式:COLOR_XXX)=====*/
 		public static COLOR_DEFAULT		:string = "#d6f3ff";				//黑色、默认
-		public static COLOR_GREEN		:string = "#00ff2a";				//绿色、链接
+		public static COLOR_GREEN		:string = "#41fe69";				//绿色、链接
 		public static COLOR_RED			:string = "#ff2400";				//红色、提醒
 		public static COLOR_GRAY		:string = "#8b8b8b";				//灰色、禁用
 		public static COLOR_BLACK		:string = "#000000";				//纯黑色

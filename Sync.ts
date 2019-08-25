@@ -322,7 +322,7 @@ module gamecomponent {
 		 */
 		public static getTimeShortStr(value: number): string {
 			this._date.setTime(value);
-			return this._date.getHours() + ":" + (this._date.getMinutes() + 1) + ":" + this._date.getSeconds();
+			return this._date.getHours() + ":" + this._date.getMinutes() + ":" + this._date.getSeconds();
 		}
 
 		/**
@@ -331,7 +331,7 @@ module gamecomponent {
 		 */
 		public static getTimeShortStr1(value: number): string {
 			this._date.setTime(value);
-			return this._date.getHours() + ":" + (this._date.getMinutes() + 1) + ":" + this._date.getSeconds() + ":" + this._date.getMilliseconds();
+			return this._date.getHours() + ":" + this._date.getMinutes() + ":" + this._date.getSeconds() + ":" + this._date.getMilliseconds();
 		}
 
 		/**

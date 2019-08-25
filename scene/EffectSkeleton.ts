@@ -99,7 +99,7 @@ module gamecomponent.scene {
 			}
 			Laya.timer.clearAll(this);
 			this._refTemplet.off(LEvent.COMPLETE, this, this.buildArmature);
-			this._armature = this._refTemplet.buildArmature(1);//启用换装
+			this._armature = this._refTemplet.buildArmature(0);//启用换装
 			this._armature.playbackRate(this._fps);
 			this._armature.scale(this._drawHorizonal ? this._scale * -1 : this._scale, this._scale);
 			this._armature.play(this._playName, this._loop, false);

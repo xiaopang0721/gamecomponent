@@ -73,6 +73,24 @@ module gamecomponent {
 			}
 		}
 
+		//鼠标滑动事件
+		onMouseMove(e: LEvent): void {
+			if (!this.mapid || this.mapid == "buyu") return;
+			super.onMouseMove(e);
+		}
+
+		//鼠标滑动事件
+		onMouseDown(e: LEvent): void {
+			if (!this.mapid || this.mapid == "buyu") return;
+			super.onMouseDown(e);
+		}
+
+		//鼠标滑动事件
+		onMouseUp(e: LEvent): void {
+			if (!this.mapid || this.mapid == "buyu") return;
+			super.onMouseUp(e);
+		}
+
 		clear(): void {
 			super.clear();
 			//清理avatar

@@ -443,6 +443,18 @@ class GameBase {
                             }, "call_get_session");
                         }
                         break;
+                    case Operation_Fields.OPRATE_LOGIN_GAME_LIST:
+                        try {
+                            WebConfig.gamelist = JSON.parse(msg.data);
+                        } catch (error) {
+                            logd("解析失败", msg.data);
+                            localSetItem("client_error", Vesion["_defaultVesion"] + "  " + WebConfig.gwUrl + ": gameList" + (msg.data));
+                        }
+                        if (WebConfig.gamelist) {
+                            window["DatingPageDef"].initPageDef();
+                            this._game.sceneGame.sceneObjectMgr.event(SceneObjectMgr.EVENT_GAMELIST_UPDATE);
+                        }
+                        break;
                 }
             }
             else if (msg.type == Operation_Fields.OPRATE_WEB) {//与web交互操作错误类型

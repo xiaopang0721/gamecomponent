@@ -235,21 +235,6 @@ module gamecomponent.object {
 				WebConfig.downLoadUrl = WebConfig.gwUrl + "?invitecode=" + this._playerInfo.invite_code;
 				ness++;
 			}
-			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_GAME_LIST)) {
-				this._playerInfo.gameList = this.GetGameList();
-				logd("游戏列表:", this._playerInfo.gameList)
-				try {
-					this._playerInfo.gameList && (WebConfig.gamelist = JSON.parse(this._playerInfo.gameList));
-				} catch (error) {
-					logd("解析失败", this._playerInfo.gameList);
-					localSetItem("client_error", Vesion["_defaultVesion"] + "  " + WebConfig.gwUrl + ": gameList" + (this._playerInfo.gameList));
-				}
-				if (WebConfig.gamelist) {
-					window["DatingPageDef"].initPageDef();
-					this._game.sceneGame.sceneObjectMgr.event(SceneObjectMgr.EVENT_GAMELIST_UPDATE);
-					ness++;
-				}
-			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_DE_ZHOU_MONEY)) {
 				this._playerInfo.dezhouMoney = EnumToString.getPointBackNum(this.GetDeZhouMoney() / 100, 2)
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_DEZHOU_MONEY_UPDATE);

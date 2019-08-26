@@ -15,7 +15,7 @@ module gamecomponent.component {
 		 * @param fullName 完整名称
 		 * 
 		 */
-		public loadSkeleton(path: string, x: number = 0, y: number = 0, drawHorizonal: boolean = false, completeFunc?: any): void {
+		public loadSkeleton(path: string, x: number = 0, y: number = 0, fps:number = 1, drawHorizonal: boolean = false, completeFunc?: any): void {
 			if (this._skeleton) {
 				ObjectPools.free(this._skeleton);
 			}
@@ -26,7 +26,7 @@ module gamecomponent.component {
 			this.pos(x, y);
 			this._skeleton.anchorPostion = new Vector2(0, 0);
 			this._skeleton.setCompleteFunc = completeFunc;
-			this._skeleton.setData(path + ".sk");
+			this._skeleton.setData(path + ".sk", fps);
 			this._skeleton.setLoop(true);
 			this._skeleton.drawHorizonal = drawHorizonal;
 			this._skeleton.build();

@@ -403,8 +403,7 @@ module gamecomponent.managers {
                 this._story.dispose();
                 this._story = null;
                 this.event(SceneObjectMgr.EVENT_LOAD_MAP, old_mapid);
-                //游戏退出计数
-                this._game.sceneGame.ExitGmeTimes++;
+                //计算金钱
                 if (force) {
                     this._changeStoryCallBack = null;
                 } else {

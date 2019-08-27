@@ -103,7 +103,7 @@ module gamecomponent.object {
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_SAVE_BOX_MONEY)) {
-				this._playerInfo.savaBoxMoney = EnumToString.getPointBackNum(this.GetSaveBoxMoney()/100, 2);
+				this._playerInfo.savaBoxMoney = EnumToString.getPointBackNum(this.GetSaveBoxMoney() / 100, 2);
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_SAVE_BOX_RATE)) {
@@ -186,7 +186,7 @@ module gamecomponent.object {
 				ness++;
 			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_HEAD_IMG)) {
-				this._playerInfo.headimg = this.GetHeadImg();
+				this._playerInfo.headimg = this.GetHeadImg() || "0";
 				ness++;
 			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_HEAD_KUANG_IMG)) {
@@ -337,7 +337,7 @@ module gamecomponent.object {
 		sign_in_days: number;//连续签到天数
 		last_signin_time: number;//上次签到时间
 		drawingRequiredFlow: number;//兑换所需打码量
-		drawingCurrentFlow:number;//当打码量
+		drawingCurrentFlow: number;//当打码量
 
 		app_android: string
 		app_ios: string

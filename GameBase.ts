@@ -452,7 +452,7 @@ class GameBase {
                         }
                         if (WebConfig.gamelist) {
                              window["DatingPageDef"].initPageDef && window["DatingPageDef"].initPageDef();
-                            this._game.sceneGame.sceneObjectMgr.event(SceneObjectMgr.EVENT_GAMELIST_UPDATE);
+                            this._game.sceneObjectMgr.event(SceneObjectMgr.EVENT_GAMELIST_UPDATE);
                         }
                         break;
                 }

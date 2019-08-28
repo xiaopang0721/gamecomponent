@@ -10,7 +10,11 @@ module utils {
 		private _platformUrl: string = Laya.URL.basePath + (!WebConfig.isDebug ? "conf/platformUrl.bin?v=" : "conf/platformUrl.json?v=");
 		private static _ins: RandomUrlFactory;
 		constructor() {
-
+			Laya.loader.on(LEvent.ERROR, this, (url) => {
+				if (url && this._url == url) {
+					this.startHandle(this._handle);
+				}
+			})
 		}
 
 		static get ins(): RandomUrlFactory {
@@ -20,21 +24,23 @@ module utils {
 			return this._ins
 		}
 
+		private _isLoading: boolean;
 		/**
 		 * 获取url
 		 * @param type 类型
 		 * @param completeHandler 回调
 		 */
 		getUrl(handle: Handler) {
-			if (this._waitHandleList.length > 0) {//先进入队列
-				this._waitHandleList.push(handle)
+			if (this._isLoading) {
+				this._waitHandleList.push(handle);
 				return;
 			}
 			//开始处理回调
-			this.startHandle(handle)
+			this.startHandle(handle);
 		}
 
 		private startHandle(handle: Handler) {
+			this._isLoading = true;
 			this._handle = handle;
 			let needLoad = !this._serverUrlList.length;
 			if (needLoad) {//列表为空 去加载
@@ -62,12 +68,18 @@ module utils {
 		private completeHandler(data: any) {
 			if (isDebug) {
 				let conf_url_value = Laya.loader.getRes(this._url);
-				this._serverUrlList = conf_url_value.server_url[WebConfig.platform] || conf_url_value.server_url["default"];
+				Laya.loader.clearRes(this._url);
+				if (conf_url_value) {
+					this._serverUrlList = conf_url_value.server_url[WebConfig.platform] || conf_url_value.server_url["default"];
+				}
 			} else {
 				let conf_url = Laya.loader.getRes(this._url);
-				let conf_url_byteArray = new ByteArray(conf_url);
-				let conf_url_value: any = JSON.parse(StringU.readZlibData(conf_url_byteArray));
-				this._serverUrlList = conf_url_value.server_url[WebConfig.platform] || conf_url_value.server_url["default"];
+				Laya.loader.clearRes(this._url);
+				if (conf_url) {
+					let conf_url_byteArray = new ByteArray(conf_url);
+					let conf_url_value: any = JSON.parse(StringU.readZlibData(conf_url_byteArray));
+					this._serverUrlList = conf_url_value.server_url[WebConfig.platform] || conf_url_value.server_url["default"];
+				}
 			}
 
 			this.doHandle();
@@ -85,6 +97,7 @@ module utils {
 			if (this._waitHandleList.length > 0) {
 				this.startHandle(this._waitHandleList.shift());
 			}
+			this._isLoading = false;
 		}
 	}
 }

@@ -451,7 +451,8 @@ class GameBase {
                             localSetItem("client_error", Vesion["_defaultVesion"] + "  " + WebConfig.gwUrl + ": gameList" + (msg.data));
                         }
                         if (WebConfig.gamelist) {
-                            this._game.sceneGame.sceneObjectMgr.onUpdateGameList();
+                             window["DatingPageDef"].initPageDef && window["DatingPageDef"].initPageDef();
+                            this._game.sceneGame.sceneObjectMgr.event(SceneObjectMgr.EVENT_GAMELIST_UPDATE);
                         }
                         break;
                 }

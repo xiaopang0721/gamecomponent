@@ -322,7 +322,7 @@ module gamecomponent {
 		 */
 		public static getTimeShortStr(value: number): string {
 			this._date.setTime(value);
-			return this._date.getHours() + ":" + this._date.getMinutes() + ":" + this._date.getSeconds();
+			return StringU.paddingLeft(this._date.getHours().toString(), "0", 2) + ":" + StringU.paddingLeft(this._date.getMinutes().toString(), "0", 2) + ":" + StringU.paddingLeft(this._date.getSeconds().toString(), "0", 2);
 		}
 
 		/**

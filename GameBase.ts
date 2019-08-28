@@ -464,6 +464,7 @@ class GameBase {
                         break;
                     case Operation_Fields.OPRATE_WEB_RECHARGE_SUCCESS:             // 充值成功
                         this._game.showTips("充值成功")
+                        this._game.datingGame.flyGlodMgr.show(1, this._game.clientWidth, this._game.clientHeight);
                         break;
                     case Operation_Fields.OPRATE_WEB_CASH_SUCCESS:             // 提款成功
                         this._game.showTips("提款成功")

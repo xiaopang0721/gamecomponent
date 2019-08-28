@@ -150,7 +150,6 @@ module gamecomponent.object {
 			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_ACCOUNT)) {
 				this._playerInfo.account = this.GetAccount();
-				this._game.sceneObjectMgr.onUpdateGameList();
 				ness++;
 			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_NICK_NAME)) {

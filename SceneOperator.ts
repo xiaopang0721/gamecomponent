@@ -41,7 +41,7 @@ module gamecomponent {
 			this._preMousePos.setTo(Laya.stage.mouseX, Laya.stage.mouseY);
 			this._preMyPos.setTo(this.mouseX, this.mouseY);
 			this._isDragSelect = false;
-			this._selectLineLayer.graphics.clear();
+			// this._selectLineLayer.graphics.clear();
 		}
 
 		//鼠标滑动事件
@@ -50,8 +50,8 @@ module gamecomponent {
 			this.event(SceneOperator.MOUSE_MOVE, e);
 			if (!this._isMouseDown) return;
 			if (this._isDragSelect) {
-				this._selectLineLayer.graphics.clear();
-				this._selectLineLayer.graphics.drawRect(this._preMyPos.x, this._preMyPos.y, this.mouseX - this._preMyPos.x, this.mouseY - this._preMyPos.y, null, "#ff0000");
+				// this._selectLineLayer.graphics.clear();
+				// this._selectLineLayer.graphics.drawRect(this._preMyPos.x, this._preMyPos.y, this.mouseX - this._preMyPos.x, this.mouseY - this._preMyPos.y, null, "#ff0000");
 				let rect = Laya.Rectangle._getBoundPointS(this._preMyPos.x, this._preMyPos.y, this.mouseX - this._preMyPos.x, (this.mouseY - this._preMyPos.y) || 1)
 				rect && this.onMouseAreaMove(rect)
 			} else {
@@ -69,7 +69,7 @@ module gamecomponent {
 			this._isMouseDown = false;
 			if (this._isDragSelect) {
 				this._isDragSelect = false;
-				this._selectLineLayer.graphics.clear();
+				// this._selectLineLayer.graphics.clear();
 				let rect = Laya.Rectangle._getBoundPointS(this._preMyPos.x, this._preMyPos.y, this.mouseX - this._preMyPos.x, (this.mouseY - this._preMyPos.y) || 1)
 				rect && this.onMouseAreaUp(rect)
 			} else {

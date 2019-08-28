@@ -145,7 +145,7 @@ module gamecomponent.object {
 			}
 
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_TODAY_SCORE)) {
-				this._playerInfo.today_score = this.GetTodayScore();
+				this._playerInfo.today_score = this.GetTodayScore() || 0;
 				ness++;
 			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_ACCOUNT)) {
@@ -292,14 +292,14 @@ module gamecomponent.object {
 
 		}
 
-		setEnterGameInfo(gameKey:string) {
+		setEnterGameInfo(gameKey: string) {
 			//设计为 {'zjh':3, 'ebgang':1}
-			let infoAll = localGetItem('EnterGameInfo'+ (this._playerInfo.account || 0));
+			let infoAll = localGetItem('EnterGameInfo' + (this._playerInfo.account || 0));
 			infoAll = infoAll && infoAll.length ? JSON.parse(infoAll) : {};
 			let times = infoAll[gameKey];
 			times = times ? times + 1 : 1;
 			infoAll[gameKey] = times;
-			localSetItem('EnterGameInfo'+ (this._playerInfo.account || 0), JSON.stringify(infoAll));
+			localSetItem('EnterGameInfo' + (this._playerInfo.account || 0), JSON.stringify(infoAll));
 		}
 
 		getEnterGameInfo() {

@@ -150,6 +150,7 @@ module gamecomponent.object {
 			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_ACCOUNT)) {
 				this._playerInfo.account = this.GetAccount();
+				this._game.sceneObjectMgr.onUpdateGameList();
 				ness++;
 			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_NICK_NAME)) {
@@ -291,6 +292,21 @@ module gamecomponent.object {
 
 		}
 
+		setEnterGameInfo(gameKey:string) {
+			//设计为 {'zjh':3, 'ebgang':1}
+			let infoAll = localGetItem('EnterGameInfo'+ (this._playerInfo.account || 0));
+			infoAll = infoAll && infoAll.length ? JSON.parse(infoAll) : {};
+			let times = infoAll[gameKey];
+			times = times ? times + 1 : 1;
+			infoAll[gameKey] = times;
+			localSetItem('EnterGameInfo'+ (this._playerInfo.account || 0), JSON.stringify(infoAll));
+		}
+
+		getEnterGameInfo() {
+			let infoAll = localGetItem('EnterGameInfo' + (this._playerInfo.account || 0));
+			infoAll = infoAll && infoAll.length ? JSON.parse(infoAll) : {};
+			return infoAll;
+		}
 	}
 
 	export class PlayerInfo {

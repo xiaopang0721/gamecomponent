@@ -130,6 +130,71 @@ module gamecomponent.managers {
             }
         }
 
+        onUpdateGameList() {
+            if (!this.mainPlayer || !WebConfig.gamelist)
+                return;
+            let game_list: any[] = []
+			let game_lists: any[] = []
+			let webPower:number = 0;
+			let enterGameInfo = this.mainPlayer.getEnterGameInfo();
+			// 先筛选有用信息
+			for (let index = 0; index < WebConfig.gamelist.length; index++) {
+				let dz_str: any = WebConfig.gamelist[index];
+				if (typeof dz_str === "number") continue;
+				if (!dz_str) continue;
+				let str: string = dz_str.replace("DZ_", "");
+				let str1 = str.replace("r_", "");
+				let times = enterGameInfo[str] ? enterGameInfo[str] : 0;
+				if (str.indexOf("r_") == -1) {
+					DatingPageDef.GAME_TYPE_LIST[str1] && game_list.push([str, DatingPageDef.GAME_TYPE_LIST[str1], webPower, times]);
+					webPower ++;
+				} else {
+					DatingPageDef.GAME_CARD_TYPE_LIST[str1] && game_list.push([str, DatingPageDef.GAME_CARD_TYPE_LIST[str1], webPower, times]);
+					webPower ++;
+				}
+			}
+
+			// 后台 + 玩家操作习惯排序
+			game_list.sort(this.onSortList);
+
+			// 按类整理
+			DatingPageDef.GAME_SORT_LIST = [];
+			for (let index = 0; index < game_list.length; index++) {
+				let arr = game_list[index];
+				if (!arr || arr.length < 2) continue;
+				let gameStr = arr[0];
+				let type_list = arr[1];
+				if (!type_list || !type_list.length) continue;
+				for (let index = 0; index < type_list.length; index++) {
+					let type = type_list[index];
+					let arr1: string[] = DatingPageDef.GAME_SORT_LIST[type];
+					if (!arr1) {
+						arr1 = []
+						DatingPageDef.GAME_SORT_LIST[type] = arr1;
+					}
+					if (arr1.indexOf(gameStr) == -1) {
+						arr1.push(gameStr);
+					}
+				}
+			}
+
+            this._game.sceneGame.sceneObjectMgr.event(SceneObjectMgr.EVENT_GAMELIST_UPDATE);
+        }
+
+        /**
+		 * 初始化排序列表
+		 */
+		private onSortList(a, b):number {
+			let v1:number = 0;
+			let v2:number = 0;
+			let a_power:number = 10000 - a[2];
+			let b_power:number = 10000 - b[2];
+			let a_times:number = a[3];
+			let b_times:number = b[3];
+			v1 = a_power + (a_times > 5 ? a_times + 100000 : 0);
+			v2 = b_power + (b_times > 5 ? b_times + 100000 : 0);
+			return v2 - v1;
+		}
 
         // 创建对象
         CreateObject(k: string, u: number): GuidObject {

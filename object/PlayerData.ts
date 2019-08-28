@@ -190,7 +190,7 @@ module gamecomponent.object {
 				ness++;
 			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_HEAD_KUANG_IMG)) {
-				this._playerInfo.headKuang = this.GetHeadKuangImg();
+				this._playerInfo.headKuang = this.GetHeadKuangImg() || "0";
 				ness++;
 			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_YING_HANG_KA)) {

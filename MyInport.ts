@@ -65,9 +65,9 @@ import MapInfoLogObject = gamecomponent.object.MapInfoLogObject;
 import PlayingChip = gamecomponent.object.PlayingChip;
 import PlayingCard = gamecomponent.object.PlayingCard;
 import StoryRoomCardBase = gamecomponent.story.StoryRoomCardBase;
+import StoryFishBase = gamecomponent.story.StoryFishBase;
 import StoryNormalBase = gamecomponent.story.StoryNormalBase;
 import StoryBaiRenBase = gamecomponent.story.StoryBaiRenBase;
-import StoryFishBase = gamecomponent.story.StoryFishBase;
 import IStoryCardRoomDataSource = gamecomponent.object.IStoryCardRoomDataSource;
 import LoadingMgr = gamecomponent.managers.LoadingMgr;
 

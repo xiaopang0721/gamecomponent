@@ -250,6 +250,14 @@ module gamecomponent.object {
 				this._playerInfo.qifu_type = this.GetValidQiFuType()
 				ness++;
 			}
+			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_CAN_TAKE_YONG_JIN)) {
+				this._playerInfo.yongjin = this.GetCanTakeYongJin()
+				ness++;
+			}
+			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_TOTAL_YONG_JIN)) {
+				this._playerInfo.history_yongjin = this.GetTotalYongJin()
+				ness++;
+			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_DRAWING_REQUIRED_FLOW)) {
 				this._playerInfo.drawingRequiredFlow = this.GetDrawingRequiredFlow();
 				ness++;
@@ -354,6 +362,8 @@ module gamecomponent.object {
 		last_signin_time: number;//上次签到时间
 		drawingRequiredFlow: number;//兑换所需打码量
 		drawingCurrentFlow: number;//当打码量
+		yongjin: number;//可领取的佣金
+		history_yongjin: number;//历史领取的佣金
 
 		app_android: string
 		app_ios: string

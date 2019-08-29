@@ -35,7 +35,7 @@ module gamecomponent {
 			JsLoader.ins.clear();
 			if (typeof info == "string") {
 				this.inScene = false;
-				// updateGameJS();
+				updateGameJS();
 			} else {
 				this.inScene = true;
 				clearJSGame(info.id);

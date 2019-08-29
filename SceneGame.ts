@@ -35,10 +35,12 @@ module gamecomponent {
 			JsLoader.ins.clear();
 			if (typeof info == "string") {
 				this.inScene = false;
-				updateGameJS();
+				// updateGameJS();
+				localRemoveItem("local_game_id");
 			} else {
 				this.inScene = true;
 				clearJSGame(info.id);
+				localSetItem("local_game_id",info.id);
 			}
 		}
 

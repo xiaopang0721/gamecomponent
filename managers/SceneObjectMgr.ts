@@ -148,9 +148,12 @@ module gamecomponent.managers {
                     let comm = StringU.substitute("new game{0}.data.{1}MapInfo({2})", map_id, mapid, "this")
                     let mapinfo = eval(comm);
                     let isNew = !this._story;
-                    this.intoStory(map_id, mapinfo.GetMapLevel(), undefined, undefined, true);
-                    this._story.isReConnected = isNew || WebConfig.isConnected;
-                    this._story.setMapinfo(mapinfo);
+                    if(!LoadingMgr.ins.isLoaded(map_id)) throw new Error("the game is not in nerver");
+                    JsLoader.ins.startLoad(map_id, Handler.create(this, (assets) => {
+                        this.intoStory(map_id, mapinfo.GetMapLevel(), undefined, undefined, true);
+                        this._story.isReConnected = isNew || WebConfig.isConnected;
+                        this._story.setMapinfo(mapinfo);
+					}))
                     obj = mapinfo;
                     break;
                 case GlobalDef.TYPE_UNIT:

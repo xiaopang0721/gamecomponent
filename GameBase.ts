@@ -444,14 +444,18 @@ class GameBase {
                         }
                         break;
                     case Operation_Fields.OPRATE_LOGIN_GAME_LIST:
+                        let glist
                         try {
-                            WebConfig.gamelist = JSON.parse(msg.data);
+                            glist = JSON.parse(msg.data);
                         } catch (error) {
                             logd("解析失败", msg.data);
                             localSetItem("client_error", Vesion["_defaultVesion"] + "  " + WebConfig.gwUrl + ": gameList" + (msg.data));
                         }
-                        if (WebConfig.gamelist) {
-                             window["DatingPageDef"].initPageDef && window["DatingPageDef"].initPageDef();
+                        if (glist) {
+                            if (JSON.stringify(WebConfig.gamelist) == msg.data)
+                                break;
+                            WebConfig.gamelist = glist;
+                            window["DatingPageDef"].initPageDef && window["DatingPageDef"].initPageDef();
                             this._game.sceneObjectMgr.event(SceneObjectMgr.EVENT_GAMELIST_UPDATE);
                         }
                         break;

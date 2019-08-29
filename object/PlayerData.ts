@@ -40,7 +40,7 @@ module gamecomponent.object {
 				this._playerInfo.isqmdl = this.IsIsQmdl();
 				this._playerInfo.islxqd = this.IsIsLxqd();
 				this._playerInfo.isxylp = this.IsIsXylp();
-				this._playerInfo.isshared = this.IsIsShare();
+				this._playerInfo.is_shared = this.IsIsShare();
 
 				this._playerInfo.is_can_qd = this.IsIsShowRedQianDao();
 				this._playerInfo.is_can_lp = this.IsIsShowRedLunPan();
@@ -335,7 +335,7 @@ module gamecomponent.object {
 		isqmdl: boolean;//是否全民代理
 		islxqd: boolean;//是否连续签到
 		isxylp: boolean;//是否幸运轮盘
-		isshared: boolean;//今日是否分享
+		is_shared: boolean;//今日是否分享
 		savebox_rate: number;// 余额宝利率
 		savebox_min: number;//产生利息最低金额
 		savebox_last_profit: number;//余额宝昨日收益

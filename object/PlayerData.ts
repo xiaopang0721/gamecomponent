@@ -251,11 +251,11 @@ module gamecomponent.object {
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_CAN_TAKE_YONG_JIN)) {
-				this._playerInfo.yongjin = this.GetCanTakeYongJin()
+				this._playerInfo.yongjin = this.GetCanTakeYongJin() / 100
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_TOTAL_YONG_JIN)) {
-				this._playerInfo.history_yongjin = this.GetTotalYongJin()
+				this._playerInfo.history_yongjin = this.GetTotalYongJin() / 100
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_DRAWING_REQUIRED_FLOW)) {

@@ -395,7 +395,8 @@ class GameBase {
             if (msg.type == Operation_Fields.OPRATE_LOGIN) {//登录操作错误类型
                 switch (msg.reason) {
                     case Operation_Fields.OPRATE_LOGIN_SUCCESS:             // 登录成功
-                        logd("登陆成功");
+                        logd("登录成功");
+                        this._game.showTips("登录成功")
                         break;
                     case Operation_Fields.OPRATE_LOGIN_TIMEOUT:             // 超时
                         break;

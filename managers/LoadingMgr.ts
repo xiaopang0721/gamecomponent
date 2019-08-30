@@ -93,6 +93,7 @@ module gamecomponent.managers {
 
 		cancleUnLoads() {
 			//重置 其实就是清掉未加载的gameid
+			this._map = {};
 			for (let key in this._hasLoad) {
 				if (this._hasLoad.hasOwnProperty(key)) {
 					this._map[key] = this._hasLoad[key];

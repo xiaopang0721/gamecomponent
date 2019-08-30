@@ -114,7 +114,11 @@ class GameBase {
                 break;
         }
 
-        this._game.openLoginPage();
+        if (WebConfig.isSingleEnter) {
+            this._game.openLoginPage();
+        } else {
+            this.login("ACCOUNT_TYPE_GUEST", Web_operation_fields.ACCOUNT_TYPE_GUEST)
+        }
     }
 
     //登陆

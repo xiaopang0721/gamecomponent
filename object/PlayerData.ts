@@ -129,6 +129,7 @@ module gamecomponent.object {
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_VIP_LEVEL)) {
 				this._playerInfo.vip_level = this.GetVipLevel();
+				this._playerInfo.vip_level = this._playerInfo.vip_level > 10 ? 10 : this._playerInfo.vip_level;
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_VIP_INFO_UPDATE, 1);
 				ness++;
 			}

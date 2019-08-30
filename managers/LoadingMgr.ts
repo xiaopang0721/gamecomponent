@@ -84,7 +84,7 @@ module gamecomponent.managers {
 			for (let index = 0; index < this._waitList.length; index++) {
 				let preload = this._waitList[index];
 				if (preload && preload.gameId == gameid) {////如果是在等待列表 那就随便给个初始进度
-					return 0.01;
+					return 0.001;
 				}
 			}
 
@@ -93,7 +93,12 @@ module gamecomponent.managers {
 
 		cancleUnLoads() {
 			//重置 其实就是清掉未加载的gameid
-			this._map = this._hasLoad;
+			this._map = {};
+			for (let key in this._hasLoad) {
+				if (this._hasLoad.hasOwnProperty(key)) {
+					this._map[key] = this._hasLoad[key];
+				}
+			}
 			if (this._preLoader) {
 				this._preLoader.preAsset && Laya.loader.cancelLoadByUrls(this._preLoader.preAsset);
 				this._preLoader.clearLoadingRender();

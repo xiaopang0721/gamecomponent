@@ -338,6 +338,7 @@ class GameBase {
 
     private onFreeStyleUpdate(optcode: number, msg: any): void {
         FreeStyle.setData(msg.data);
+        this._game.sceneObjectMgr.event(SceneObjectMgr.EVENT_FREE_STYLE_UPDATE);
     }
 
     private onObjHandler(optcode: number, msg: any): void {

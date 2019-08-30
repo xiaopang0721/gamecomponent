@@ -46,7 +46,8 @@ module gamecomponent.managers {
         static EVENT_DEZHOU_MONEY_UPDATE: string = "SceneObjectMgr.EVENT_DEZHOU_MONEY_UPDATE";
         //vip信息变更
         static EVENT_VIP_INFO_UPDATE: string = "SceneObjectMgr.EVENT_VIP_INFO_UPDATE";
-
+        //配置更新
+        static EVENT_FREE_STYLE_UPDATE: string = "SceneObjectMgr.EVENT_FREE_STYLE_UPDATE";
         //地图id
         private _mapid: string;
 

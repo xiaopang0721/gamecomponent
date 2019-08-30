@@ -84,7 +84,7 @@ module gamecomponent.managers {
 			for (let index = 0; index < this._waitList.length; index++) {
 				let preload = this._waitList[index];
 				if (preload && preload.gameId == gameid) {////如果是在等待列表 那就随便给个初始进度
-					return 0.01;
+					return 0.001;
 				}
 			}
 

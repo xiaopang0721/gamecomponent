@@ -129,6 +129,7 @@ module gamecomponent.object {
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_VIP_LEVEL)) {
 				this._playerInfo.vip_level = this.GetVipLevel();
+				this._playerInfo.vip_level = this._playerInfo.vip_level > 10 ? 10 : this._playerInfo.vip_level;
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_VIP_INFO_UPDATE, 1);
 				ness++;
 			}
@@ -163,6 +164,7 @@ module gamecomponent.object {
 			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_INVITE_CODE)) {
 				this._playerInfo.invite_code = this.GetInviteCode();
+				WebConfig.gwUrl = FreeStyle.getData(Web_operation_fields.FREE_STYLE_TYPES_BASECONFIG_C, "gwurl")
 				WebConfig.ewmbaseUrl = WebConfig.gwUrl + "/qrcode?urlsize=9&urltext=" + encodeURIComponent(WebConfig.gwUrl) + "?invitecode="
 				WebConfig.ewmUrl = WebConfig.ewmbaseUrl + this._playerInfo.invite_code;
 				WebConfig.downLoadUrl = WebConfig.gwUrl + "?invitecode=" + this._playerInfo.invite_code;
@@ -230,7 +232,7 @@ module gamecomponent.object {
 				ness++;
 			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_GW_URL)) {
-				this._playerInfo.gwUrl = this.GetGwUrl();
+				this._playerInfo.gwUrl = FreeStyle.getData(Web_operation_fields.FREE_STYLE_TYPES_BASECONFIG_C, "gwurl");
 				WebConfig.gwUrl = this._playerInfo.gwUrl;
 				WebConfig.ewmbaseUrl = WebConfig.gwUrl + "/qrcode?urlsize=9&urltext=" + encodeURIComponent(WebConfig.gwUrl) + "?invitecode="
 				WebConfig.ewmUrl = WebConfig.ewmbaseUrl + this._playerInfo.invite_code;

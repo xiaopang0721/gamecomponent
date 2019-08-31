@@ -44,7 +44,6 @@ module gamecomponent.object {
 
 				this._playerInfo.is_can_qd = this.IsIsShowRedQianDao();
 				this._playerInfo.is_can_lp = this.IsIsShowRedLunPan();
-				this._playerInfo.is_can_qmdl_lq = this.GetCanTakeYongJin() > 0;//this.IsIsShowRedQMDL();
 				this._playerInfo.is_show_alipay = this.IsIsShowAlipay()
 				this._playerInfo.is_show_bank = this.IsIsShowBank();
 				this._playerInfo.is_wx_open = this.IsIsOpenWX();
@@ -69,6 +68,10 @@ module gamecomponent.object {
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_DAYSHAREGIVEMONEY)) {
 				this._playerInfo.daysharegivemoney = this.GetDaysharegivemoney();
+				ness++;
+			}
+			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_CAN_TAKE_YONG_JIN)) {
+				this._playerInfo.is_can_qmdl_lq = this.GetCanTakeYongJin() > 0;
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_LAST_SHARE_TIME)) {

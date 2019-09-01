@@ -64,15 +64,49 @@ module gamecomponent.managers {
 			return this._isLoading;
 		}
 
-		//缓存 hold 一遍
-		private _assetList: string[] = []
-		private retain(asset: string[]) {
-			for (let index = 0; index < asset.length; index++) {
-				if (this._assetList.indexOf(asset[index]) != -1) continue;
-				this._assetList.push(asset[index]);
-				let refasset = RefAsset.Get(asset[index]);
-				refasset.retain();
+		private _assetsLoader: { [key: string]: AssetsLoader } = {};
+		//创建缓存池
+		public createAssertLoader(gameId: string) {
+			if (!this._assetsLoader[gameId]) {
+				this._assetsLoader[gameId] = new AssetsLoader();
 			}
+			return this._assetsLoader[gameId];
+		}
+
+		/**
+		 * 重新hold住游戏
+		 * @param gameId 
+		 * @param handle 
+		 */
+		public retain(gameId: string, assets: Array<string>, handle: Handler) {
+			// let assertloader = this.createAssertLoader(gameId);
+			// if (assertloader) {
+			// 	assertloader.retain(assets, handle);
+			// }
+		}
+
+		public update(diff: number) {
+			this._assetsLoader
+		}
+
+		/**
+		 * 清理
+		 * @param ignore 忽略id
+		 */
+		public clearAssert(ignore?: string[] | string) {
+			// for (let key in this._assetsLoader) {
+			// 	if (this._assetsLoader.hasOwnProperty(key)) {
+			// 		if (ignore && ignore.indexOf(key) != -1) continue;
+			// 		let assertloader = this._assetsLoader[key];
+			// 		if (assertloader) {
+			// 			assertloader.clear(true);
+			// 			assertloader.clearAssert();
+			// 			assertloader = null;
+			// 		}
+
+			// 		delete this._assetsLoader[key];
+			// 	}
+			// }
 		}
 
 		//获取进度
@@ -113,19 +147,16 @@ module gamecomponent.managers {
 					}
 				}
 			}
+
 			this._waitList.length = 0;//等待列表清空
 			this._isLoading = false;
 		}
-
-
 
 		freeAndLoadNext() {
 			if (this._preLoader) {
 				if (this._hasLoad[this._preLoader.gameId] != findGameVesion(this._preLoader.gameId)) {
 					this._hasLoad[this._preLoader.gameId] = findGameVesion(this._preLoader.gameId);
 				}
-				//缓存 hold 一遍
-				this.retain(this._preLoader.preAsset);
 				//再去清理
 				this._preLoader.clearLoadingRender();
 				this._preLoader = null;
@@ -142,7 +173,6 @@ module gamecomponent.managers {
 	}
 
 	class LoadingRender {
-		private _preLoader: PreLoad;
 		private _gameId: string;
 		private _preAssets: any[];
 		private _priority: number;
@@ -164,27 +194,19 @@ module gamecomponent.managers {
 			return this._preAssets;
 		}
 
+		private _assertloader: AssetsLoader;
 		startLoad(): boolean {
-			if (this._preLoader) return false;
-			if (!this._preLoader) {
-				this._preLoader = new PreLoad();
+			if (this._assertloader) return false;
+			if (!this._assertloader) {
+				this._assertloader = LoadingMgr.ins.createAssertLoader(this._gameId);
 			}
-			this._preLoader.on(LEvent.CHANGED, this, this.onUpdateProgress);
-			for (let index = 0; index < this._preAssets.length; index++) {
-				let asset = this._preAssets[index];
-				let type = asset.indexOf(".sk") == -1 ? RefAsset.GENRAL : RefAsset.TEMPLET;
-				this._preLoader.load(asset, type);
-			}
-			this.onUpdateProgress();
+			this._assertloader.on(LEvent.PROGRESS, this, this.onUpdateProgress);
+			this._assertloader.load(this._preAssets, Handler.create(this, this.onLoadAssetCom), true, this._priority);
 			return true;
 		}
 
 		private _obj: any = { progress: 0.001 }
-		private onUpdateProgress(): void {
-			if (this._isClear || this._isComplete) return;
-			let totalCount = this._preLoader.totalCount;
-			let loadCount = this._preLoader.loadCount;
-			let v = loadCount / totalCount;
+		private onUpdateProgress(v: number): void {
 			if (v && this._obj.progress && this._obj.progress == v) return;
 			Laya.Tween.clearTween(this._obj);
 			Laya.Tween.to(this._obj, { progress: v }, 200, null, Handler.create(this, () => {
@@ -194,11 +216,8 @@ module gamecomponent.managers {
 			}))
 		}
 
-
-		private _isComplete: boolean;
 		//资源加载完
 		private onLoadAssetCom(): void {
-			this._isComplete = true;
 			let gameLoadedObj = localGetItem("gameLoadedObj");
 			let obj: { [key: string]: string } = {};
 			if (gameLoadedObj) {
@@ -213,22 +232,10 @@ module gamecomponent.managers {
 			this.clearLoadingRender();
 		}
 
-		private _isClear: boolean;
 		clearLoadingRender() {
-			this._isClear = true;
-			if (this._preLoader) {
-				Laya.Tween.clearAll(this);
-				Laya.timer.clearAll(this);
-				this._preLoader.off(LEvent.CHANGED, this, this.onUpdateProgress)
-				this._preLoader.offAll();
-				for (let index = 0; index < this._preAssets.length; index++) {
-					let asset = this._preAssets[index];
-					this._preLoader.clear(asset);
-				}
-				this._preLoader = null;
-				this._preAssets = null;
-				this._gameId = null;
-			}
+			this._assertloader = null;
+			this._preAssets = null;
+			this._gameId = null;
 		}
 	}
 

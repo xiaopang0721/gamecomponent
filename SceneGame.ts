@@ -1,7 +1,7 @@
 module gamecomponent {
 	export class SceneGame extends GameBase {
 
-	
+
 
 		private static _ins: SceneGame;
 		public static get ins() {
@@ -36,11 +36,21 @@ module gamecomponent {
 			if (typeof info == "string") {
 				this.inScene = false;
 				// updateGameJS();
+				JsLoader.ins.startLoad("dating", Handler.create(this, (asserts) => {
+					LoadingMgr.ins.retain("dating", asserts, Handler.create(this, () => {
+						LoadingMgr.ins.clearAssert("dating");
+					}));
+				}));
 				localRemoveItem("local_game_id");
 			} else {
 				this.inScene = true;
+				JsLoader.ins.startLoad(info.id, Handler.create(this, (asserts) => {
+					LoadingMgr.ins.retain(info.id, asserts, Handler.create(this, () => {
+						LoadingMgr.ins.clearAssert(info.id);
+					}));
+				}));
 				clearJSGame(info.id);
-				localSetItem("local_game_id",info.id);
+				localSetItem("local_game_id", info.id);
 			}
 		}
 
@@ -106,6 +116,7 @@ module gamecomponent {
 		onUpdate(diff: number): void {
 			super.onUpdate(diff);
 			this._scaleEffectFactory && this._scaleEffectFactory.update(diff);
+			LoadingMgr.ins.update(diff);
 		}
 
 		// 尝试初始化场景

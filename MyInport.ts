@@ -69,6 +69,5 @@ import StoryFishBase = gamecomponent.story.StoryFishBase;
 import StoryNormalBase = gamecomponent.story.StoryNormalBase;
 import StoryBaiRenBase = gamecomponent.story.StoryBaiRenBase;
 import IStoryCardRoomDataSource = gamecomponent.object.IStoryCardRoomDataSource;
-import LoadingMgr = gamecomponent.managers.LoadingMgr;
 
 

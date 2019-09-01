@@ -79,10 +79,10 @@ module gamecomponent.managers {
 		 * @param handle 
 		 */
 		public retain(gameId: string, assets: Array<string>, handle: Handler) {
-			// let assertloader = this.createAssertLoader(gameId);
-			// if (assertloader) {
-			// 	assertloader.retain(assets, handle);
-			// }
+			let assertloader = this.createAssertLoader(gameId);
+			if (assertloader) {
+				assertloader.retain(assets, handle);
+			}
 		}
 
 		public update(diff: number) {
@@ -94,19 +94,19 @@ module gamecomponent.managers {
 		 * @param ignore 忽略id
 		 */
 		public clearAssert(ignore?: string[] | string) {
-			// for (let key in this._assetsLoader) {
-			// 	if (this._assetsLoader.hasOwnProperty(key)) {
-			// 		if (ignore && ignore.indexOf(key) != -1) continue;
-			// 		let assertloader = this._assetsLoader[key];
-			// 		if (assertloader) {
-			// 			assertloader.clear(true);
-			// 			assertloader.clearAssert();
-			// 			assertloader = null;
-			// 		}
+			for (let key in this._assetsLoader) {
+				if (this._assetsLoader.hasOwnProperty(key)) {
+					if (ignore && ignore.indexOf(key) != -1) continue;
+					let assertloader = this._assetsLoader[key];
+					if (assertloader) {
+						assertloader.forceMoveRef();
+						assertloader.clearAssert();
+						assertloader = null;
+					}
 
-			// 		delete this._assetsLoader[key];
-			// 	}
-			// }
+					delete this._assetsLoader[key];
+				}
+			}
 		}
 
 		//获取进度

@@ -36,20 +36,20 @@ module gamecomponent {
 			if (typeof info == "string") {
 				this.inScene = false;
 				// updateGameJS();
-				JsLoader.ins.startLoad("dating", Handler.create(this, (asserts) => {
-					LoadingMgr.ins.clearAssert("dating");
-					LoadingMgr.ins.retain("dating", asserts, Handler.create(this, () => {
-					}));
-				}));
+				// JsLoader.ins.startLoad("dating", Handler.create(this, (asserts) => {
+				// 	LoadingMgr.ins.clearAssert("dating");
+				// 	LoadingMgr.ins.retain("dating", asserts, Handler.create(this, () => {
+				// 	}));
+				// }));
 				localRemoveItem("local_game_id");
 			} else {
 				this.inScene = true;
-				JsLoader.ins.startLoad(info.id, Handler.create(this, (asserts) => {
-					LoadingMgr.ins.clearAssert(info.id);
-					LoadingMgr.ins.retain(info.id, asserts, Handler.create(this, () => {
-					}));
-				}));
-				clearJSGame(info.id);
+				// JsLoader.ins.startLoad(info.id, Handler.create(this, (asserts) => {
+				// 	LoadingMgr.ins.retain(info.id, asserts, Handler.create(this, () => {
+				// 	}));
+				// }));
+				// LoadingMgr.ins.clearAssert([info.id,"dating"]);
+				// clearJSGame(info.id);
 				localSetItem("local_game_id", info.id);
 			}
 		}

@@ -136,7 +136,7 @@ class GameBase {
                 this.login(this._login_desc, this._login_type, this._login_data);
             }, desc);
         } else {
-            this.network.call_login_parameter(data.type, data.server_name, data.account, data.pwd, WebConfig.getInviteCode() || "", WebConfig.systemInfo || "", WebConfig.modelInfo || "", WebConfig.deviceId || "");
+            this.network.call_login_parameter(data.type, data.server_name, data.account, data.pwd, WebConfig.inviteCode, WebConfig.systemInfo || "", WebConfig.modelInfo || "", WebConfig.deviceId || "");
             logd("realLogin", 'SystemInfo:', WebConfig.systemInfo || "", 'ModelInfo:', WebConfig.modelInfo || "", 'DeviceId:', WebConfig.deviceId || "");
         }
     }

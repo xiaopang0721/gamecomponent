@@ -33,10 +33,12 @@ module utils {
 			info.url = url;
 
 			info.data = data;
+			info.sendmode = (data && data.sendmode) ? data.sendmode : this.SENDMODE_A;
+			info.method = (data && data.method) ? data.method : "";
 			info.callback = Handler.create(this, this.complete, [info, callback], false);
 			info.timeoutFunc = (timeoutFunc || this.defTimeoutFunc);
-			info.failback = this.failFunc;
-			info.sucessback = this.sucessFunc;
+			info.failback = (data && data.failback) ? data.failback : this.failFunc;
+			info.sucessback = (data && data.sucessFunc) ? data.sucessFunc : this.sucessFunc;
 			info.waitFunc = (waitFunc || this.defWaitFunc);
 			this._queue.push(info);
 			this.checkQueue();
@@ -148,6 +150,14 @@ module utils {
 		 * 状态
 		 */
 		state: number;
+		/**
+		 * 请求类型
+		 */
+		sendmode: number;
+		/**
+		 * 请求方法
+		 */
+		method: string
 
 		/**
 		 * 是否等待数据返回
@@ -223,13 +233,25 @@ module utils {
 			this._request.once(LEvent.ERROR, this, (...args) => {
 				logd('RequestInfo ERROR:', this.url, data, 'info:' + args);
 				if (this._request.http.status != 500) {
-					// 出错3000后再次尝试
-					this.doTimeout(false);
-					Laya.timer.once(3000, this, this.trySend);
+					if (this.sendmode == Request.SENDMODE_A) {
+						// 出错3000后再次尝试
+						this.doTimeout(false);
+						Laya.timer.once(3000, this, this.trySend);
+					} else {
+						if (this.timeoutFunc != null) {
+							let args = this.timeoutFunc.args;
+							if (!args) {
+								args = [];
+								this.timeoutFunc.args = args;
+							}
+							args.indexOf(this) == -1 && args.push(this);
+							this.timeoutFunc.run();
+						}
+					}
 				}
 			});
 
-			this._request.send(this.url, data, "post");
+			this._request.send(this.url, data, this.method || "post");
 		}
 
 		private doTimeout(realTimeOut: boolean = true): void {

@@ -37,16 +37,16 @@ module gamecomponent {
 				this.inScene = false;
 				// updateGameJS();
 				JsLoader.ins.startLoad("dating", Handler.create(this, (asserts) => {
+					LoadingMgr.ins.clearAssert("dating");
 					LoadingMgr.ins.retain("dating", asserts, Handler.create(this, () => {
-						LoadingMgr.ins.clearAssert("dating");
 					}));
 				}));
 				localRemoveItem("local_game_id");
 			} else {
 				this.inScene = true;
 				JsLoader.ins.startLoad(info.id, Handler.create(this, (asserts) => {
+					LoadingMgr.ins.clearAssert(info.id);
 					LoadingMgr.ins.retain(info.id, asserts, Handler.create(this, () => {
-						LoadingMgr.ins.clearAssert(info.id);
 					}));
 				}));
 				clearJSGame(info.id);

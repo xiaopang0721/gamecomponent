@@ -472,7 +472,7 @@ class GameBase {
             else if (msg.type == Operation_Fields.OPRATE_WEB) {//与web交互操作错误类型
                 switch (msg.reason) {
                     case Operation_Fields.OPRATE_WEB_FAIL_RESULT:             // web返回的错误信息
-                        if ((msg.data == 33 || msg.data == 164) && !WebConfig.isSingleEnter) return;//密码错误和验证码错误不飘字，更换表现
+                        if ((msg.data == 24 || msg.data == 33 || msg.data == 164) && !WebConfig.isSingleEnter) return;//密码错误和验证码错误不飘字，更换表现
                         this._game.showTips(Web_operation_fields.web_interface_result_table[msg.data])
                         break;
                     case Operation_Fields.OPRATE_WEB_RECHARGE_SUCCESS:             // 充值成功

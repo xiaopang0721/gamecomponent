@@ -315,6 +315,7 @@ class GameBase {
         if (!this.sceneObjectMgr.mainPlayer) {
             return;
         }
+        this.lockConnectSoctet = false;
         this.sceneObjectMgr.off(SceneObjectMgr.___MAIN_PLAYER_CHANGE, this, this.checkMainPlayerReady);
     }
 

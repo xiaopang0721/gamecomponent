@@ -136,6 +136,8 @@ class GameBase {
                 this.login(this._login_desc, this._login_type, this._login_data);
             }, desc);
         } else {
+            if (this.lockConnectSoctet) return;
+            this.lockConnectSoctet = true;
             this.network.call_login_parameter(data.type, data.server_name, data.account, data.pwd, WebConfig.inviteCode || "", WebConfig.systemInfo || "", WebConfig.modelInfo || "", WebConfig.deviceId || "", WebConfig.webParms || '');
             logd("realLogin", 'inviteCode:', WebConfig.inviteCode || "", 'SystemInfo:', WebConfig.systemInfo || "", 'ModelInfo:', WebConfig.modelInfo || "", 'DeviceId:', WebConfig.deviceId || "", 'Parms:', WebConfig.webParms || "");
         }

@@ -145,6 +145,7 @@ module gamecomponent.managers {
                     let startIdx = k.indexOf(".");
                     let endIdx = k.lastIndexOf("_");
                     let map_id = k.substr(startIdx + 1, endIdx - 2);
+                    if (!checkGameJsLoad(map_id)) return;
                     let mapid = map_id.substr(0, 1).toUpperCase() + map_id.substr(1, map_id.length);
                     let comm = StringU.substitute("new game{0}.data.{1}MapInfo({2})", map_id, mapid, "this")
                     let mapinfo = eval(comm);

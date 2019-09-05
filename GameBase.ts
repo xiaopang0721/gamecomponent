@@ -393,6 +393,7 @@ class GameBase {
     }
 
     private onOptHandler(optcode: number, msg: any): void {
+        this.lockConnectSoctet = false;
         msg.type != Operation_Fields.OPRATE_WEB && logd("GameApp.onOptHandler", 'optcode', optcode, 'msg:', msg.type, msg.reason, msg.data);
         if (msg.type != Operation_Fields.OPRATE_PLAYING)
             // this._game.showTips(Operation_Fields.getOpateMsg(msg.type, msg.reason));

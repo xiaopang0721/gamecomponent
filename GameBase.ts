@@ -620,13 +620,13 @@ class GameBase {
             }
         }
 
-        this._game.alert("由于网络波动的影响，您已登出游戏\n是否重新登录游戏？", () => {
+        this._game.alert("您的账号已在别处登录，是否立即重新登录？", () => {
             this.connectSoctet(() => {
                 this.network.call_forced_into();
             }, "fourceLogin");
         }, () => {
 
-        }, false);
+        }, true);
     }
 
     // 更新断线重连

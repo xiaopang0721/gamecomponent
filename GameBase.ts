@@ -85,12 +85,9 @@ class GameBase {
                     return;
                 }
 
-                if (!WebConfig.isSingleEnter)//多入口才能游客登录
-                {
-                    data = { device: WebConfig.device, server_name: WebConfig.server_name, type: type, account: '', pwd: '' }
-                    this.realLogin("login Web_operation_fields.ACCOUNT_TYPE_GUEST", data)
-                    return;
-                }
+                data = { device: WebConfig.device, server_name: WebConfig.server_name, type: type, account: '', pwd: '' }
+                this.realLogin("login Web_operation_fields.ACCOUNT_TYPE_GUEST", data)
+
                 break;
             case Web_operation_fields.ACCOUNT_TYPE_WEIXIN://微信登陆
                 data = { device: WebConfig.device, server_name: WebConfig.server_name, account: data, type: type, pwd: '' }

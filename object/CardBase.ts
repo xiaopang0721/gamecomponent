@@ -13,16 +13,29 @@ module gamecomponent.object {
 
 		}
 
+		get scaleX() {
+			if (!this.isShow && this._scaleX < 0) {
+				this._scaleX = -this._scaleX;
+			}
+			return this._scaleX;
+		}
+
+		set scaleX(v: number) {
+			this._scaleX = v;
+		}
+
 		/**
 		* 翻牌
 		*/
 		public fanpai() {
 			let handle = Handler.create(this, () => {
-				if (this.scaleX >= 0) {
+				if (this._scaleX >= 0) {
 					this.isShow = true;
 				}
 			}, null, false)
-			Laya.Tween.to(this, { scaleX: 1, update: handle }, this.time_interval, Laya.Ease.linearNone, Handler.create(this, () => {
+			this._scaleX = -1;
+			this.isShow=false;
+			Laya.Tween.to(this, { _scaleX: 1, update: handle }, this.time_interval, Laya.Ease.linearNone, Handler.create(this, () => {
 				handle.recover();
 				handle = null;
 			}));
@@ -33,11 +46,13 @@ module gamecomponent.object {
 		*/
 		public gaipai() {
 			let handle = Handler.create(this, () => {
-				if (this.scaleX < 0) {
+				if (this._scaleX < 0) {
 					this.isShow = false;
 				}
 			}, null, false)
-			Laya.Tween.to(this, { scaleX: -1, update: handle }, this.time_interval, Laya.Ease.linearNone, Handler.create(this, () => {
+			this._scaleX = 1;
+			this.isShow = true;
+			Laya.Tween.to(this, { _scaleX: -1, update: handle }, this.time_interval, Laya.Ease.linearNone, Handler.create(this, () => {
 				handle.recover();
 				handle = null;
 			}));
@@ -47,8 +62,8 @@ module gamecomponent.object {
          * 发牌
          */
 		public fapai() {
-			if(!this.targe_pos) return;
-			if(!this.pos) return;
+			if (!this.targe_pos) return;
+			if (!this.pos) return;
 			Laya.Tween.clearAll(this.pos);
 			Laya.Tween.to(this.pos, { x: this.targe_pos.x, y: this.targe_pos.y }, this.time_interval, null, Handler.create(this, () => {
 				this.isFinalPos = true;

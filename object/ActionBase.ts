@@ -27,13 +27,7 @@ module gamecomponent.object {
 		skew_x: number = 0;//斜旋转x
 		skew_y: number = 0;//斜旋转y
 		rotateAngle: number = 0;//旋转角度
-		_scaleX: number = 1;
-		get scaleX() {
-			return this._scaleX;
-		}
-		set scaleX(v: number) {
-			this._scaleX = v;
-		}
+		scaleX: number = 1;
 		scaleY: number = 1;
 		size: number = 1;
 		sortScore: number = 0;//

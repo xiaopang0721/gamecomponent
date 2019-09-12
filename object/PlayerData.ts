@@ -51,6 +51,7 @@ module gamecomponent.object {
 				this._playerInfo.is_need_bank = this.IsIsNeedBank();
 				this._playerInfo.is_can_first_get = this.IsIsFirstPay();
 				this._playerInfo.is_get_fitst_pay = this.IsIsFisrtPayGive();
+				this._playerInfo.is_new_bulletin = this.IsIsNewBulletin();
 				if (!WebConfig.isSingleEnter) {
 					localSetItem("is_wx_open", this._playerInfo.is_wx_open ? "true" : "false");
 				} else {
@@ -378,6 +379,7 @@ module gamecomponent.object {
 		is_can_qd: boolean;//签到小红点
 		is_can_lp: boolean;//轮盘小红点
 		is_can_qmdl_lq: boolean;//全面代理小红点
+		is_new_bulletin: boolean;//新公告小红点
 		is_wx_open: boolean;//微信开关
 		is_outer_jump: boolean;//在线客服是否外跳
 		is_need_bank: boolean;//是否需要判断绑定银行卡

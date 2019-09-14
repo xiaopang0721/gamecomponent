@@ -34,8 +34,9 @@ module gamecomponent.object {
 					this.isShow = true;
 				}
 			}, null, false)
-			this._scaleX = -1;
+			if (this.isShow) return;
 			this.isShow = false;
+			this._scaleX = -1;
 			Laya.Tween.to(this, { _scaleX: 1, update: handle }, this.time_interval, Laya.Ease.linearNone, Handler.create(this, () => {
 				handle.recover();
 				handle = null;
@@ -51,8 +52,9 @@ module gamecomponent.object {
 					this.isShow = false;
 				}
 			}, null, false)
-			this._scaleX = 1;
+			if (!this.isShow) return;
 			this.isShow = true;
+			this._scaleX = 1;
 			Laya.Tween.to(this, { _scaleX: -1, update: handle }, this.time_interval, Laya.Ease.linearNone, Handler.create(this, () => {
 				handle.recover();
 				handle = null;

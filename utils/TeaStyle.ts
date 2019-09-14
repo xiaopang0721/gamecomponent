@@ -11,6 +11,7 @@ module utils{
 		public static COLOR_YELLOW		:string = "#ffff00";				//黄色、进行中
 		public static COLOR_BLACK		:string = "#000000";				//纯黑色
 		public static COLOR_WHITE		:string = "#ffffff";				//纯白色
+		public static COLOR_JIESUAN		:string = "#efffb2";				//结算界面主玩家颜色
 
 		public static COLOR_INPUT_DEFAULT :string = "#5597d2";				//输入框默认颜色值
 

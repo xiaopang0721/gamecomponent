@@ -72,7 +72,7 @@ module gamecomponent.object {
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_CAN_TAKE_YONG_JIN)) {
-				this._playerInfo.is_can_qmdl_lq = this.GetCanTakeYongJin() > 0;
+				this._playerInfo.is_can_qmdl_lq = this.GetCanTakeYongJin() >= 1;
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_LAST_SHARE_TIME)) {

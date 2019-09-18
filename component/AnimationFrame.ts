@@ -100,6 +100,7 @@ module gamecomponent.component {
 		//绘制
 		onDraw(): void {
 			this.graphics.clear();
+			if(!this.visible) return;
 			if (this._effect) {
 				if (!this._effect.isPlayEnd || (this._effect.isPlayEnd && this._effect.getStopLastFrame())) {
 					this._effect.updateTexture();

@@ -15,7 +15,7 @@ module gamecomponent.component {
 		 * @param fullName 完整名称
 		 * 
 		 */
-		public loadSkeleton(path: string, x: number = 0, y: number = 0, fps:number = 1, drawHorizonal: boolean = false, completeFunc?: any): void {
+		public loadSkeleton(path: string, x: number = 0, y: number = 0, fps: number = 1, drawHorizonal: boolean = false, completeFunc?: any): void {
 			if (this._skeleton) {
 				ObjectPools.free(this._skeleton);
 			}
@@ -43,6 +43,18 @@ module gamecomponent.component {
 			// TODO
 			// return this._runTime < this._totalTime || this._drawInfoInvalided;
 			return !this._skeleton.isPlayEnd;
+		}
+
+		set setVisible(v: boolean) {
+			this.visible = v;
+			if (!this._skeleton || !this._skeleton.armature) return;
+			if (v) {
+				this.resume();
+				this._skeleton.parent = this;
+			} else {
+				this._skeleton.parent = null;
+				this.paused();
+			}
 		}
 
 		public onDraw(): void {

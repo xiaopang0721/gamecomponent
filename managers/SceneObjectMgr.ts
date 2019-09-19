@@ -34,8 +34,6 @@ module gamecomponent.managers {
         static EVENT_PLAYER_INFO_UPDATE: string = "SceneObjectMgr.EVENT_PLAYER_INFO_UPDATE";
         //游戏列表变更
         static EVENT_GAMELIST_UPDATE: string = "SceneObjectMgr.EVENT_GAMELIST_UPDATE";
-        //游戏账号更新
-        static EVENT_ACCOUNT_UPDATE: string = "SceneObjectMgr.EVENT_ACCOUNT_UPDATE";
         //主玩家精灵有变化
         static EVENT_MAIN_UNIT_CHANGE: string = "SceneObjectMgr.EVENT_MAIN_UNIT_CHANGE";
         //精灵信息变化

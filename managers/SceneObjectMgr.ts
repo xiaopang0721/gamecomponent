@@ -315,7 +315,7 @@ module gamecomponent.managers {
             let map_id = mapid.substr(0, 1).toUpperCase() + mapid.substr(1, mapid.length);
             if (fource) {//断线重连进来的
                 if (WebConfig.game_type == Web_operation_fields.GAME_ROOM_CONFIG_CARD_ROOM) {//房卡类型
-                    let comm = StringU.substitute("new game{0}.story.{1}CardRoomStory({2},{3},{4},{5})", map_id.toLocaleLowerCase(), map_id, "this._game", "mapid", "maplv", "dataSource");
+                    let comm = StringU.substitute("new game{0}.story.{1}Story({2},{3},{4},{5})", map_id.toLocaleLowerCase(), map_id, "this._game", "mapid", "maplv", "dataSource");
                     this._story = eval(comm);
                 } else {
                     let comm = StringU.substitute("new game{0}.story.{1}Story({2},{3},{4})", map_id.toLocaleLowerCase(), map_id, "this._game", "mapid", "maplv");
@@ -324,7 +324,7 @@ module gamecomponent.managers {
             } else {//手动点进去的
                 let pageDef = getPageDef(mapid);
                 if (WebConfig.hudgametype == window["DatingPageDef"].TYPE_CARD && !pageDef["__enterMapLv"]) {//房卡类型
-                    let comm = StringU.substitute("new game{0}.story.{1}CardRoomStory({2},{3},{4},{5})", map_id.toLocaleLowerCase(), map_id, "this._game", "mapid", "maplv", "dataSource");
+                    let comm = StringU.substitute("new game{0}.story.{1}Story({2},{3},{4},{5})", map_id.toLocaleLowerCase(), map_id, "this._game", "mapid", "maplv", "dataSource");
                     this._story = eval(comm);
                 } else {
                     let comm = StringU.substitute("new game{0}.story.{1}Story({2},{3},{4})", map_id.toLocaleLowerCase(), map_id, "this._game", "mapid", "maplv");

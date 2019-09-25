@@ -72,7 +72,7 @@ module gamecomponent.object {
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_CAN_TAKE_YONG_JIN)) {
-				this._playerInfo.is_can_qmdl_lq = (this.GetCanTakeYongJin()/100) >= 1;
+				this._playerInfo.is_can_qmdl_lq = (this.GetCanTakeYongJin() / 100) >= 1;
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_LAST_SHARE_TIME)) {
@@ -248,11 +248,13 @@ module gamecomponent.object {
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_VALID_QI_FU_END_TIME)) {
-				this._playerInfo.qifu_endtime = this.GetValidQiFuEndTime()
+				this._playerInfo.qifu_endtime = this.GetQiFuEndTime(this.GetValidQiFuType() - 1)
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_VALID_QI_FU_TYPE)) {
+				//从1开始
 				this._playerInfo.qifu_type = this.GetValidQiFuType()
+				this._playerInfo.qifu_endtime = this.GetQiFuEndTime(this._playerInfo.qifu_type - 1)
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_CAN_TAKE_YONG_JIN)) {

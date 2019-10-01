@@ -38,7 +38,10 @@ module utils {
                 html.style.bold = txt["bold"];
                 html.width = txt["width"];
                 html.style.align = txt["align"];
-                (txt as Sprite).addChild(html);
+                html.x = txt['x'];
+                html.y = txt['y'];
+                txt.parent.addChild(html);
+                txt.visible = false;
             } else {
                 html.removeChildren();
             }

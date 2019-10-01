@@ -38,6 +38,8 @@ module gamecomponent.object {
     const BATTLE_TYPE_SPECIAL = 37; //特殊牌结算(跑得快炸弹现结)
     const BATTLE_TYPE_SPECIAL_CARD = 38;    //特殊牌型
     const BATTLE_TYPE_SSS_CARD_TYPE = 39;    //十三水结算牌型
+    const BATTLE_TYPE_SPONSOR_VOTE = 40;    //发起投票
+    const BATTLE_TYPE_VOTEING = 41;         //投票中
 
     export class BattleInfoBase {
         protected _typ: number;
@@ -829,6 +831,33 @@ module gamecomponent.object {
         }
     }
 
+    export class BattleInfoSponsorVote extends BattleInfoBase {
+        private _state: number;
+        private _tpResult: number;
+        constructor(index: number, state: number, tpResult: number) {
+            super(BATTLE_TYPE_SPONSOR_VOTE, index);
+            this._state = state;
+            this._tpResult = tpResult;
+        }
+        get state() {
+            return this._state;
+        }
+        get tpResult() {
+            return this._tpResult;
+        }
+    }
+
+    export class BattleInfoVoting extends BattleInfoBase {
+        private _tpType: number
+        constructor(index: number, tpType: number) {
+            super(BATTLE_TYPE_VOTEING, index);
+            this._tpType = tpType;
+        }
+        get tpType(): number {
+            return this._tpType;
+        }
+    }
+
     export class BattleInfoMgr<T extends gamecomponent.object.MapInfoLogObject> {
         protected _map_info: MapInfoT<T>;
         protected _index: number;
@@ -1242,6 +1271,19 @@ module gamecomponent.object {
                     }
                     case BATTLE_TYPE_DISCARD: {
                         let obj = new BattleInfoDisCard(seatIndex);
+                        this._infos.push(obj);
+                        break;
+                    }
+                    case BATTLE_TYPE_SPONSOR_VOTE: {
+                        let _state = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 1);
+                        let _tpResult = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 2);
+                        let obj = new BattleInfoSponsorVote(seatIndex, _state, _tpResult);
+                        this._infos.push(obj);
+                        break;
+                    }
+                    case BATTLE_TYPE_VOTEING: {
+                        let _tpType = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 1);
+                        let obj = new BattleInfoVoting(seatIndex, _tpType);
                         this._infos.push(obj);
                         break;
                     }

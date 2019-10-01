@@ -2,9 +2,9 @@
 * name 
 */
 module gamecomponent.object {
-	export class Unit extends game.object.UnitField implements IClear{
+	export class Unit extends game.object.UnitField implements IClear {
 		static EVENT_TYPE_CHANGED: string = "Unit.EVENT_TYPE_CHANGED";
-		isCanClear:boolean;
+		isCanClear: boolean;
 		// 场景对象管理器
 		protected _sceneObjectMgr: SceneObjectMgr;
 		get sceneObjectMgr(): SceneObjectMgr {
@@ -17,9 +17,8 @@ module gamecomponent.object {
 			this._after_update = this.onUpdate;
 		}
 
-		private _type:number;
-		get type()
-		{
+		private _type: number;
+		get type() {
 			return this._type;
 		}
 
@@ -42,10 +41,12 @@ module gamecomponent.object {
 			if (isNew || mask.GetBit(UnitField.UNIT_INT_QI_FU_END_TIME)) {
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_UNIT_QIFU_TIME_CHANGE)
 			}
+			if (isNew || strmask.GetBit(UnitField.UNIT_STR_NAME)) {
+				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_UNIT_NAME_CHANGE)
+			}
 		}
 
-		clear()
-		{
+		clear() {
 
 		}
 	}

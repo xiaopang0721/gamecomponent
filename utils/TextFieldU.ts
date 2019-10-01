@@ -38,8 +38,10 @@ module utils {
                 html.style.bold = txt["bold"];
                 html.width = txt["width"];
                 html.style.align = txt["align"];
-                html.x = txt['x'];
-                html.y = txt['y'];
+                let x = (typeof (txt["centerX"]) == "number") ? (txt.parent as Sprite).width / 2 + txt["centerX"] : txt['x'];
+                let y = (typeof (txt["centerY"]) == "number") ? (txt.parent as Sprite).height / 2 + txt["centerY"] : txt['y'];;
+                html.x = (typeof (txt["anchorX"]) == "number") ? x - txt["width"] / 2 : x;
+                html.y = (typeof (txt["anchorY"]) == "number") ? y - txt["height"] / 2 : y;
                 txt.parent.addChild(html);
                 txt.visible = false;
             } else {

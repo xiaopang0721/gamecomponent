@@ -46,8 +46,6 @@ module gamecomponent.managers {
         static EVENT_VIP_INFO_UPDATE: string = "SceneObjectMgr.EVENT_VIP_INFO_UPDATE";
         //配置更新
         static EVENT_FREE_STYLE_UPDATE: string = "SceneObjectMgr.EVENT_FREE_STYLE_UPDATE";
-        //app状态变化
-        static EVENT_APP_STATE_CHANGE: string = "SceneObjectMgr.EVENT_APP_STATE_CHANGE";
         //地图id
         private _mapid: string;
 

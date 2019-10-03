@@ -40,6 +40,7 @@ module gamecomponent.object {
     const BATTLE_TYPE_SSS_CARD_TYPE = 39;    //十三水结算牌型
     const BATTLE_TYPE_SPONSOR_VOTE = 40;    //发起投票
     const BATTLE_TYPE_VOTEING = 41;         //投票中
+    const BATTLE_TYPE_QIANGGUAN_END = 42;   //跑得快抢关结束
 
     export class BattleInfoBase {
         protected _typ: number;
@@ -243,9 +244,15 @@ module gamecomponent.object {
 
     export class BattleInfoSeeCard extends BattleInfoBase {
         protected _round: number;
-        constructor(index: number, round: number) {
+        private _extra: number;
+        constructor(index: number, round: number, extra: number) {
             super(BATTLE_TYPE_SEE_CARD, index);
             this._round = round;
+            this._extra = extra;
+        }
+
+        get extra(): number {
+            return this._extra;
         }
 
         get round(): number {
@@ -858,6 +865,17 @@ module gamecomponent.object {
         }
     }
 
+    export class BattleInfoQiangGuanEnd extends BattleInfoBase {
+        private _qiang_pos: number
+        constructor(index: number, _qiang_pos: number) {
+            super(BATTLE_TYPE_QIANGGUAN_END, index);
+            this._qiang_pos = _qiang_pos;
+        }
+        get qiang_pos(): number {
+            return this._qiang_pos;
+        }
+    }
+
     export class BattleInfoMgr<T extends gamecomponent.object.MapInfoLogObject> {
         protected _map_info: MapInfoT<T>;
         protected _index: number;
@@ -1013,7 +1031,8 @@ module gamecomponent.object {
                     }
                     case BATTLE_TYPE_SEE_CARD: {
                         let round = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 1)
-                        let obj = new BattleInfoSeeCard(seatIndex, round);
+                        let extra = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 2)
+                        let obj = new BattleInfoSeeCard(seatIndex, round, extra);
                         this._infos.push(obj);
                         break;
                     }
@@ -1033,7 +1052,8 @@ module gamecomponent.object {
                     }
                     case BATTLE_TYPE_START: {
                         let round = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 1);
-                        let obj = new BattleInfoStart(seatIndex, this._map_info.GetUInt32(MapInfo.MAP_INT_BATTLE_BEING + index + 2), round);
+                        let bet_val = this._map_info.GetUInt32(MapInfo.MAP_INT_BATTLE_BEING + index + 2);
+                        let obj = new BattleInfoStart(seatIndex, bet_val, round);
                         this._infos.push(obj);
                         break;
                     }
@@ -1284,6 +1304,12 @@ module gamecomponent.object {
                     case BATTLE_TYPE_VOTEING: {
                         let _tpType = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 1);
                         let obj = new BattleInfoVoting(seatIndex, _tpType);
+                        this._infos.push(obj);
+                        break;
+                    }
+                    case BATTLE_TYPE_QIANGGUAN_END:{
+                        let _qiang_pos = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 1);
+                        let obj = new BattleInfoQiangGuanEnd(seatIndex, _qiang_pos);
                         this._infos.push(obj);
                         break;
                     }

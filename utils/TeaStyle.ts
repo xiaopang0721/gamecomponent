@@ -13,6 +13,7 @@ module utils{
 		public static COLOR_WHITE		:string = "#ffffff";				//纯白色
 		public static COLOR_JIESUAN		:string = "#efffb2";				//结算界面主玩家颜色
 
+		public static COLOR_ROOM_JIESUAN  :string = "#ffc32c";				//房卡结算界面主玩家颜色
 		public static COLOR_INPUT_DEFAULT :string = "#5597d2";				//输入框默认颜色值
 
 		/**=品质颜色：白、绿、蓝、紫、橙=*/

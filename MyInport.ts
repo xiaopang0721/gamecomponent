@@ -44,6 +44,7 @@ import EffectFrame = gamecomponent.base.EffectFrame;
 import AnimationFrame = gamecomponent.component.AnimationFrame;
 import GridEditor = gamecomponent.component.GridEditor;
 import AvatarUIShow = gamecomponent.component.AvatarUIShow;
+import QRCodeSprite = gamecomponent.component.QRCodeSprite;
 
 import Layer = gamecomponent.scene.Layer;
 

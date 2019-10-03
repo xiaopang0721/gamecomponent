@@ -106,9 +106,9 @@ module utils {
         public static findHtmlDiv(txt: Sprite): HTMLDivElement {
             if (!txt) return null;
             let node: laya.display.Node;
-            let num = txt.numChildren;
+            let num = txt.parent.numChildren;
             for (let i: number = 0; i < num; i++) {
-                node = txt.getChildAt(i);
+                node = txt.parent.getChildAt(i);
                 if (node instanceof HTMLDivElement) return node;
             }
             return null;

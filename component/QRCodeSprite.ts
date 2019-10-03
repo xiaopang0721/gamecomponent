@@ -21,6 +21,7 @@ module gamecomponent.component {
         destroy(destroyChild?: boolean): void {
             if (this._qrcode) {
                 this._qrcode.clear();
+                this._qrcode = null;
             }
             this._url = null;
             this._complate = null;

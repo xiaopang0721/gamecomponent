@@ -169,7 +169,7 @@ module gamecomponent.object {
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_INVITE_CODE)) {
 				this._playerInfo.invite_code = this.GetInviteCode();
 				WebConfig.gwUrl = FreeStyle.getData(Web_operation_fields.FREE_STYLE_TYPES_BASECONFIG_C, "gwurl")
-				WebConfig.ewmbaseUrl = WebConfig.gwUrl + "/qrcode?urlsize=9&urltext=" + encodeURIComponent(WebConfig.gwUrl) + "?invitecode="
+				WebConfig.ewmbaseUrl = WebConfig.ai_url + "/qrcode?urlsize=9&urltext=" + encodeURIComponent(WebConfig.gwUrl) + "?invitecode="
 				WebConfig.ewmUrl = WebConfig.ewmbaseUrl + this._playerInfo.invite_code;
 				WebConfig.downLoadUrl = WebConfig.gwUrl + "?invitecode=" + this._playerInfo.invite_code;
 				ness++;
@@ -238,7 +238,7 @@ module gamecomponent.object {
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_GW_URL)) {
 				this._playerInfo.gwUrl = FreeStyle.getData(Web_operation_fields.FREE_STYLE_TYPES_BASECONFIG_C, "gwurl");
 				WebConfig.gwUrl = this._playerInfo.gwUrl;
-				WebConfig.ewmbaseUrl = WebConfig.gwUrl + "/qrcode?urlsize=9&urltext=" + encodeURIComponent(WebConfig.gwUrl) + "?invitecode="
+				WebConfig.ewmbaseUrl = WebConfig.ai_url + "/qrcode?urlsize=9&urltext=" + encodeURIComponent(WebConfig.gwUrl) + "?invitecode="
 				WebConfig.ewmUrl = WebConfig.ewmbaseUrl + this._playerInfo.invite_code;
 				WebConfig.downLoadUrl = WebConfig.gwUrl + "?invitecode=" + this._playerInfo.invite_code;
 				ness++;

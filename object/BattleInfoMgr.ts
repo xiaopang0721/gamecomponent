@@ -10,7 +10,7 @@ module gamecomponent.object {
     const BATTLE_TYPE_ADD_CHIP = 9;     //加注
     const BATTLE_TYPE_START = 10;       //游戏开始下底注(跑得快抢关)
     const BATTLE_TYPE_SETTLEMENT = 11   //结算
-    const BATTLE_TYPE_BANKER = 12       //抢庄
+    const BATTLE_TYPE_BANKER = 12       //抢庄（斗地主春天）
     const BATTLE_TYPE_BETRATE = 13      //定闲家可下注倍数
     const BATTLE_TYPE_XIQIAN = 14       //喜钱
     const BATTLE_TYPE_DEAL = 15         //发牌

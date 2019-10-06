@@ -231,6 +231,14 @@ module gamecomponent.object {
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_VIP_INFO_UPDATE, 3);
 				ness++;
 			}
+			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_GW_URL)) {
+				this._playerInfo.gwUrl = FreeStyle.getData(Web_operation_fields.FREE_STYLE_TYPES_BASECONFIG_C, "gwurl");
+				WebConfig.gwUrl = this._playerInfo.gwUrl;
+				WebConfig.ewmbaseUrl = WebConfig.ai_url + "/qrcode?urlsize=9&urltext=" + encodeURIComponent(WebConfig.gwUrl) + "?invitecode="
+				WebConfig.ewmUrl = WebConfig.ewmbaseUrl + this._playerInfo.invite_code;
+				WebConfig.downLoadUrl = WebConfig.gwUrl + "?invitecode=" + this._playerInfo.invite_code;
+				ness++;
+			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_DE_ZHOU_MONEY)) {
 				this._playerInfo.dezhouMoney = EnumToString.getPointBackNum(this.GetDeZhouMoney() / 100, 2)
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_DEZHOU_MONEY_UPDATE);

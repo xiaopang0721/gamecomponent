@@ -867,12 +867,17 @@ module gamecomponent.object {
 
     export class BattleInfoQiangGuanEnd extends BattleInfoBase {
         private _qiang_pos: number
-        constructor(index: number, _qiang_pos: number) {
+        private _qiang_type: number
+        constructor(index: number, _qiang_pos: number, _qiang_type: number) {
             super(BATTLE_TYPE_QIANGGUAN_END, index);
             this._qiang_pos = _qiang_pos;
+            this._qiang_type = _qiang_type;
         }
         get qiang_pos(): number {
             return this._qiang_pos;
+        }
+        get qiang_type(): number {
+            return this._qiang_type
         }
     }
 
@@ -1307,9 +1312,10 @@ module gamecomponent.object {
                         this._infos.push(obj);
                         break;
                     }
-                    case BATTLE_TYPE_QIANGGUAN_END:{
+                    case BATTLE_TYPE_QIANGGUAN_END: {
                         let _qiang_pos = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 1);
-                        let obj = new BattleInfoQiangGuanEnd(seatIndex, _qiang_pos);
+                        let _qiang_type = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 2);
+                        let obj = new BattleInfoQiangGuanEnd(seatIndex, _qiang_pos,_qiang_type);
                         this._infos.push(obj);
                         break;
                     }

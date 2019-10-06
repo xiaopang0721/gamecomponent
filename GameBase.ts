@@ -333,7 +333,6 @@ class GameBase {
             logd("GameApp closeNetwork", "call_logout")
             this.network.call_logout();
         }
-        localSetItem("rniuniu", "0");
         this.network.close();//关闭连接
         if (this._networkState != GameBase.NETWORK_STATE_INIT) {
             showtip && this._game.showTips("正在连接服务器...");

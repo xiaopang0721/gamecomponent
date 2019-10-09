@@ -41,6 +41,7 @@ module gamecomponent.object {
     const BATTLE_TYPE_SPONSOR_VOTE = 40;    //发起投票
     const BATTLE_TYPE_VOTEING = 41;         //投票中
     const BATTLE_TYPE_QIANGGUAN_END = 42;   //跑得快抢关结束
+    const BATTLE_TYPE_QIANGDIZHU_END = 43;   //斗地主抢地主结束
 
     export class BattleInfoBase {
         protected _typ: number;
@@ -878,6 +879,17 @@ module gamecomponent.object {
         }
         get qiang_type(): number {
             return this._qiang_type
+        }
+    }
+
+    export class BattleInfoQiangDZEnd extends BattleInfoBase {
+        private _qiang_pos: number
+        constructor(index: number, _qiang_pos: number, _qiang_type: number) {
+            super(BATTLE_TYPE_QIANGDIZHU_END, index);
+            this._qiang_pos = _qiang_pos;
+        }
+        get qiang_pos(): number {
+            return this._qiang_pos;
         }
     }
 

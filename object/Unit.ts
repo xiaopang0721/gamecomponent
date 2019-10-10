@@ -38,7 +38,7 @@ module gamecomponent.object {
 			if (isNew || mask.GetBit(UnitField.UNIT_INT_MONEY)) {
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_UNIT_MONEY_CHANGE)
 			}
-			if (isNew || mask.GetBit(UnitField.UNIT_INT_QI_FU_END_TIME)) {
+			if (isNew || mask.GetBits(UnitField.UNIT_INT_Q_F_END_TIME, 6)) {
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_UNIT_QIFU_TIME_CHANGE)
 			}
 			if (isNew || strmask.GetBit(UnitField.UNIT_STR_NAME)) {

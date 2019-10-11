@@ -15,6 +15,8 @@ module gamecomponent.managers {
         static __EVENT_PLAYER_INFO_GAME_ID: string = "SceneObjectMgr.__EVENT_PLAYER_INFO_GAME_ID";
         //房卡类型变更
         static __EVENT_PLAYER_CARDROOM_CHUANGE: string = "SceneObjectMgr.__EVENT_PLAYER_CARDROOM_CHUANGE";
+        //加入房间触发游戏更新
+        static __EVENT_JOIN_CARDROOM_GAME_UPDATE: string = "SceneObjectMgr.__EVENT_JOIN_CARDROOM_GAME_UPDATE";
 
 
         /***************场景事件******************** */

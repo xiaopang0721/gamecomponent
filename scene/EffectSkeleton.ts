@@ -54,6 +54,7 @@ module gamecomponent.scene {
 				return;
 			}
 			this._parent = v;
+			this._parent.addChildAt(this._armature, 0);
 		}
 
 		private _completeFunc: any;
@@ -74,9 +75,9 @@ module gamecomponent.scene {
 			if (this._armature) this._armature.scale(this._drawHorizonal ? this._scale * -1 : this._scale, this._scale);
 		}
 
-		// 设置数据 fps动画播放速率1为标准速率
-		setData(ani: string, fps: number = 1): void {
-			super.setData(ani, fps);
+		// 设置数据 playRate动画播放速率1为标准速率
+		setData(ani: string, playRate: number = 1): void {
+			super.setData(ani, playRate);
 		}
 
 		build(): void {
@@ -169,9 +170,18 @@ module gamecomponent.scene {
 			this.isPlayEnd = false;
 		}
 
+		playbackRate(playRate) {
+			if (this._fps == playRate)
+				return;
+			this._fps = playRate;
+			this._armature.playbackRate(this._fps);
+		}
+
 		// 绘制
 		onDraw(g: Graphics, camera: Camera): void {
-			if (this.isPlayEnd || !this._armature) {
+			if (!this._armature || this._armature.parent == this._parent)
+				return;
+			if (this.isPlayEnd) {
 				this.updataPos(camera);
 				return;
 			}
@@ -198,6 +208,7 @@ module gamecomponent.scene {
 
 		reset(): void {
 			parent = null;
+			this._parent = null;
 			Laya.timer.clearAll(this);
 			Laya.Tween.clearAll(this);
 			if (this._refTemplet) {

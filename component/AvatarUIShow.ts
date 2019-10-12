@@ -15,7 +15,7 @@ module gamecomponent.component {
 		 * @param fullName 完整名称
 		 * 
 		 */
-		public loadSkeleton(path: string, x: number = 0, y: number = 0, fps: number = 1, drawHorizonal: boolean = false, completeFunc?: any): void {
+		public loadSkeleton(path: string, x: number = 0, y: number = 0, playRate: number = 1, drawHorizonal: boolean = false, completeFunc?: any): void {
 			if (this._skeleton) {
 				ObjectPools.free(this._skeleton);
 			}
@@ -25,8 +25,11 @@ module gamecomponent.component {
 			this._skeleton.is_uiShow = true;
 			this.pos(x, y);
 			this._skeleton.anchorPostion = new Vector2(0, 0);
-			this._skeleton.setCompleteFunc = completeFunc;
-			this._skeleton.setData(path + ".sk", fps);
+			this._skeleton.setCompleteFunc = ()=>{
+				completeFunc && completeFunc();
+				this._skeleton.parent = this;
+			};
+			this._skeleton.setData(path + ".sk", playRate);
 			this._skeleton.setLoop(true);
 			this._skeleton.drawHorizonal = drawHorizonal;
 			this._skeleton.build();
@@ -36,6 +39,11 @@ module gamecomponent.component {
 		public set SetScale(v: number) {
 			if (this._skeleton)
 				this._skeleton.scale = v;
+		}
+
+		public set playbackRate(v: number) {
+			if (this._skeleton)
+				this._skeleton.playbackRate(v);
 		}
 
 		/*是否播放进行中*/
@@ -58,11 +66,12 @@ module gamecomponent.component {
 		}
 
 		public onDraw(): void {
-			if (!this.visible) return;
-			if (this._skeleton) {
-				this._skeleton.onDraw(this.graphics, null);
-				this._skeleton.parent = this;
-			}
+			// if (!this.visible) return;
+			// if (this._skeleton) {
+				// this._skeleton.onDraw(this.graphics, null);
+				// if (!this._skeleton.parent)
+				// 	this._skeleton.parent = this;
+			// }
 		}
 
 		play(name: string, loop: boolean): void {

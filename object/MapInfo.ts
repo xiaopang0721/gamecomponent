@@ -113,5 +113,10 @@ module gamecomponent.object {
 		public getBattleInfoToString(): string {
 			throw "not implement";
 		}
+
+		//战斗日志转成对象
+		public getBattleInfoToObj(): any {
+			throw "not implement";
+		}
 	}
 }

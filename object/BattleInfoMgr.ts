@@ -41,6 +41,8 @@ module gamecomponent.object {
     const BATTLE_TYPE_SPONSOR_VOTE = 40;    //发起投票
     const BATTLE_TYPE_VOTEING = 41;         //投票中
     const BATTLE_TYPE_QIANGGUAN_END = 42;   //跑得快抢关结束
+    const BATTLE_TYPE_QIANGDIZHU_END = 43;   //斗地主抢地主结束
+    const BATTLE_TYPE_CARD_RULE = 44;   //房卡规则信息
 
     export class BattleInfoBase {
         protected _typ: number;
@@ -184,6 +186,17 @@ module gamecomponent.object {
         }
         get Val(): number {
             return this._val;
+        }
+    }
+    export class BattleInfoCardRule extends BattleInfoBase {
+        protected _rules: Array<any>;
+        constructor(index: number) {
+            super(BATTLE_TYPE_CARD_RULE, index);
+            this._rules = new Array<any>();
+        }
+
+        get Rules(): Array<any> {
+            return this._rules;
         }
     }
     export class BattleInfoBetRate extends BattleInfoBase {
@@ -881,6 +894,17 @@ module gamecomponent.object {
         }
     }
 
+    export class BattleInfoQiangDZEnd extends BattleInfoBase {
+        private _qiang_pos: number
+        constructor(index: number, _qiang_pos: number, _qiang_type: number) {
+            super(BATTLE_TYPE_QIANGDIZHU_END, index);
+            this._qiang_pos = _qiang_pos;
+        }
+        get qiang_pos(): number {
+            return this._qiang_pos;
+        }
+    }
+
     export class BattleInfoMgr<T extends gamecomponent.object.MapInfoLogObject> {
         protected _map_info: MapInfoT<T>;
         protected _index: number;
@@ -1007,6 +1031,16 @@ module gamecomponent.object {
                         for (let i = 0; i < cards_len; i++) {
                             let val = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 2 + Math.floor(i / 4), i % 4)
                             obj.Cards.push(val);
+                        }
+                        this._infos.push(obj);
+                        break;
+                    }
+                    case BATTLE_TYPE_CARD_RULE: {
+                        let rules_len = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 1);
+                        let obj = new BattleInfoCardRule(seatIndex);
+                        for (let i = 0; i < rules_len; i++) {
+                            let val = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 2 + Math.floor(i / 4), i % 4)
+                            obj.Rules.push(val);
                         }
                         this._infos.push(obj);
                         break;

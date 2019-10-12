@@ -101,11 +101,11 @@ module gamecomponent.story {
 			if (msg.type == Operation_Fields.OPRATE_TELEPORT) {//登录操作错误类型
 				switch (msg.reason) {
 					case Operation_Fields.OPRATE_TELEPORT_MAP_CREATE_ROOM_SUCCESS:             // 地图创建房间成功
-						this._game.setIsLockGame(false, false, "StoryBase.OPRATE_TELEPORT_MAP_MATHCH_JOIN_SUCESS");
+						this._game.setIsLockGame(false, false, "StoryBase.OPRATE_TELEPORT_MAP_CREATE_CARDROOM_SUCESS");
 						this._status = msg.reason;
 						break;
 					case Operation_Fields.OPRATE_TELEPORT_MAP_JOIN_ROOM_SUCCESS:             // 地图加入房间成功
-						this._game.setIsLockGame(false, false, "StoryBase.OPRATE_TELEPORT_MAP_MATHCH_CANCLE_SUCESS");
+						this._game.setIsLockGame(false, false, "StoryBase.OPRATE_TELEPORT_MAP_JOIN_CARDROOM_SUCESS");
 						this._status = msg.reason;
 						break;
 				}

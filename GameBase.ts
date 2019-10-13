@@ -292,6 +292,7 @@ class GameBase {
         //这个记得要清啊！！！死人的！
         this.sceneObjectMgr.off(SceneObjectMgr.___MAIN_PLAYER_CHANGE, this, this.checkMainPlayerReady);
         this.sceneObjectMgr.clear();
+        localSetItem("rniuniu", "0");//重置房卡牛牛提醒气泡缓存标志
     }
 
     protected checkMainPlayerReady(): void {

@@ -6,6 +6,7 @@ module gamecomponent.component {
 
         private static QRCodes = {};
         static createQRCodeBase64(url, imgWidth: number, imgHeight: number, complate: Function) {
+            if (!url) return;
             let qr = this.QRCodes[url] as QRCodeBase64;
             if (qr) {
                 if (qr.base64)

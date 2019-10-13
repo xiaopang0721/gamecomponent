@@ -45,6 +45,7 @@ import AnimationFrame = gamecomponent.component.AnimationFrame;
 import GridEditor = gamecomponent.component.GridEditor;
 import AvatarUIShow = gamecomponent.component.AvatarUIShow;
 import QRCodeSprite = gamecomponent.component.QRCodeSprite;
+import DisplayU = gamecomponent.component.DisplayU;
 
 import Layer = gamecomponent.scene.Layer;
 

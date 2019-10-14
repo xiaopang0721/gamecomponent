@@ -12,24 +12,23 @@ module gamecomponent.component {
                 if (qr.base64)
                     complate && complate(qr.base64);
                 else {                    
-                    qr.on(LEvent.COMPLETE, this, ()=>{
-                        complate && complate(qr.base64);
-                        qr.offAll();
-                    });
+                    qr.handler = Handler.create(this, (base64)=>{
+                        complate && complate(base64);
+                    })
                 }
                 return;
             }                
-            qr = new QRCodeBase64(url, imgWidth, imgHeight);
-            qr.on(LEvent.COMPLETE, this, ()=>{
-                complate && complate(qr.base64);
-                qr.offAll();
-            });
+            qr = new QRCodeBase64();
+            qr.handler = Handler.create(this, (base64)=>{
+                complate && complate(base64);
+            })
+            qr.make(url, imgWidth, imgHeight);
             this.QRCodes[url] = qr;
         }
         static deleteQRCodeBase64(url) {
             let qr = this.QRCodes[url];
             if (qr instanceof QRCodeBase64) {
-                qr.offAll();
+                
                 qr.clear();
                 delete this.QRCodes[url];
             }
@@ -51,14 +50,21 @@ module gamecomponent.component {
         }
     }
 
-    class QRCodeBase64 extends EventDispatcher{
+    class QRCodeBase64 {
         private _base64: string;
         get base64(): string {
             return this._base64;
         }
+        private _handlers:Handler[];
+        set handler(h:Handler) {
+            if (!this._handlers)
+                this._handlers = [];
+            this._handlers.push(h);
+        }
 
-        constructor(url, imgW, imgH) {
-            super();
+        constructor() {}
+
+        make(url, imgW, imgH) {
             let div: any = Laya.Browser.document.createElement("div");
             let qrcode = new Laya.Browser.window.QRCode(div, {
                 width: imgW,
@@ -67,7 +73,13 @@ module gamecomponent.component {
             qrcode.makeCode(url);
             Laya.timer.frameOnce(1, this, () => {
                 this._base64 = qrcode._oDrawing._elImage.src;
-                this.event(LEvent.COMPLETE, this._base64);
+                if (this._handlers) {
+                    this._handlers.forEach(handler => {
+                        (<Handler>handler).runWith(this._base64);
+                    });
+                    this._handlers.length = 0;
+                }
+                this._handlers = null;
                 div = null;
                 qrcode = null;
             });

@@ -316,6 +316,12 @@ module gamecomponent.managers {
             if (this._story) return;
             let map_id = mapid.substr(0, 1).toUpperCase() + mapid.substr(1, mapid.length);
             if (fource) {//断线重连进来的
+                for (var key in DatingPageDef.LOGIN_POPUP) {
+                    if (DatingPageDef.LOGIN_POPUP.hasOwnProperty(key)) {
+                        var page = DatingPageDef.LOGIN_POPUP[key];
+                        this._game.uiRoot.general.close(page);
+                    }
+                }            
                 if (WebConfig.game_type == Web_operation_fields.GAME_ROOM_CONFIG_CARD_ROOM) {//房卡类型
                     let comm = StringU.substitute("new game{0}.story.{1}Story({2},{3},{4},{5})", map_id.toLocaleLowerCase(), map_id, "this._game", "mapid", "maplv", "dataSource");
                     this._story = eval(comm);

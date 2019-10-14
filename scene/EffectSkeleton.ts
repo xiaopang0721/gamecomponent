@@ -171,7 +171,7 @@ module gamecomponent.scene {
 		}
 
 		playbackRate(playRate) {
-			if (this._fps == playRate)
+			if (this._fps == playRate || !this._armature)
 				return;
 			this._fps = playRate;
 			this._armature.playbackRate(this._fps);

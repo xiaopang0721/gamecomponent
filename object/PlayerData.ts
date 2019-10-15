@@ -87,6 +87,11 @@ module gamecomponent.object {
 			}
 			if (isNew || strmask.GetBit(PlayerData.PLAYERDATA_STR_GAME_ID)) {
 				this._playerInfo.gameid = this.GetGameId();
+				if (this._playerInfo.gameid) {
+					localSetItem("local_game_id", this._playerInfo.gameid);
+				} else {
+					localRemoveItem("local_game_id");
+				}
 				if (isNew) {
 					WebConfig.isConnected = this._playerInfo.gameid ? true : false;
 				} else {

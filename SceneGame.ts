@@ -41,7 +41,7 @@ module gamecomponent {
 				// 	LoadingMgr.ins.retain("dating", asserts, Handler.create(this, () => {
 				// 	}));
 				// }));
-				localRemoveItem("local_game_id");
+				// localRemoveItem("local_game_id");
 			} else {
 				this.inScene = true;
 				// JsLoader.ins.startLoad(info.id, Handler.create(this, (asserts) => {
@@ -50,7 +50,7 @@ module gamecomponent {
 				// }));
 				// LoadingMgr.ins.clearAssert([info.id,"dating"]);
 				// clearJSGame(info.id);
-				localSetItem("local_game_id", info.id);
+				// localSetItem("local_game_id", info.id);
 			}
 		}
 

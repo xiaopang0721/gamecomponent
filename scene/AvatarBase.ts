@@ -62,6 +62,10 @@ module gamecomponent.scene {
          */
         protected _light: boolean;
         /**
+         * 是否有角标
+         */
+        protected _isShowJb: boolean = false;
+        /**
         * 位置
         */
         protected _drawX: number;
@@ -135,7 +139,7 @@ module gamecomponent.scene {
             let url = this._texture_url;
             if (!url) return;
             if (this._refAssetComplete) return;
-            if (!this._refAsset)  {
+            if (!this._refAsset) {
                 this._refAsset = RefAsset.Get(url)
                 this._refAsset.retain();
             }
@@ -155,7 +159,7 @@ module gamecomponent.scene {
             // 获取贴图
             let url = this._texture_url;
             if (!url) return;
-            if(this._refAssetComplete) return;
+            if (this._refAssetComplete) return;
             let atlas = Loader.getAtlas(url);
             for (let index = 0; index < atlas.length; index++) {
                 let a: string = atlas[index];
@@ -223,6 +227,11 @@ module gamecomponent.scene {
             }
             if (this._light) {
                 bg.drawTexture(this._textures[SceneRes.LIGHT], 0, 0, this._drawW, this._drawH, matrix, this._alpha);
+            }
+            if (this._isShowJb) {
+                let texture_jb: Texture = this._textures[SceneRes.JB_DDZ];
+                if (texture_jb)
+                    bg.drawTexture(texture_jb, this._drawW - texture_jb.sourceWidth - 2, 1, texture_jb.sourceWidth, texture_jb.sourceHeight, matrix, this._alpha);
             }
         }
 

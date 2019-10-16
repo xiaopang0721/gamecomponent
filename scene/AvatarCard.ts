@@ -28,6 +28,7 @@ module gamecomponent.scene {
 			this._disable = this._baseData.disable;
 			this._light = this._baseData.light;
 			this.visible = this._baseData.visible;
+			this._isShowJb = this._baseData.isShowJB;
 			this._value = this.card.GetVal();
 		}
 
@@ -49,7 +50,6 @@ module gamecomponent.scene {
 			// 	thitx, thity + drawH
 			// ];
 			super.onDraw(diff, bg, scene);
-
 			// this.drawHitArea(this._hitArea, bg, this.pos.x, this.pos.y, this._drawX, this._drawY);
 		}
 

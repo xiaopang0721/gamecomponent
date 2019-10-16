@@ -40,6 +40,7 @@ module gamecomponent.object {
 		toggle: boolean;
 		toggleEnable: boolean;//toggle 开关
 		toggleDistance: number = -20;//toggle 距离
+		isShowJB:boolean = false;
 		constructor() {
 			super()
 		}

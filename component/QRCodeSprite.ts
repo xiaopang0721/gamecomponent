@@ -5,42 +5,30 @@ module gamecomponent.component {
     export class QRCodeSprite extends laya.display.Sprite {
 
         private static QRCodes = {};
-        static createQRCodeBase64(url, imgWidth: number, imgHeight: number, complate: Function) {
+        static createQRCodeBase64(url, imgWidth: number, imgHeight: number, handle: Handler) {
             if (!url) return;
             let qr = this.QRCodes[url] as QRCodeBase64;
-            if (qr) {
-                if (qr.base64)
-                    complate && complate(qr.base64);
-                else {                    
-                    qr.handler = Handler.create(this, (base64)=>{
-                        complate && complate(base64);
-                    })
-                }
+            if (qr && qr.base64) {
+                handle && handle.runWith(qr.base64);
                 return;
-            }                
+            }
             qr = new QRCodeBase64();
-            qr.handler = Handler.create(this, (base64)=>{
-                complate && complate(base64);
-            })
+            qr.handler = handle;
             qr.make(url, imgWidth, imgHeight);
             this.QRCodes[url] = qr;
         }
         static deleteQRCodeBase64(url) {
             let qr = this.QRCodes[url];
             if (qr instanceof QRCodeBase64) {
-                
+
                 qr.clear();
                 delete this.QRCodes[url];
             }
         }
 
-        constructor(url: string, imgWidth: number, imgHeight: number, complate?: Function) {
+        constructor(url: string, imgWidth: number, imgHeight: number, handle?: Handler) {
             super();
-            QRCodeSprite.createQRCodeBase64(url, imgWidth, imgHeight, (base64)=>{
-                this.loadImage(base64, 0, 0, imgWidth, imgHeight, Handler.create(this, () => {
-                    complate && complate(url);
-                }));
-            });
+            QRCodeSprite.createQRCodeBase64(url, imgWidth, imgHeight, handle);
         }
 
         destroy(destroyChild?: boolean): void {
@@ -55,22 +43,22 @@ module gamecomponent.component {
         get base64(): string {
             return this._base64;
         }
-        private _handlers:Handler[];
-        set handler(h:Handler) {
+        private _handlers: Handler[];
+        set handler(h: Handler) {
             if (!this._handlers)
                 this._handlers = [];
             this._handlers.push(h);
         }
 
-        constructor() {}
+        constructor() { }
 
         make(url, imgW, imgH) {
-            let div: any = Laya.Browser.document.createElement("div");
-            let qrcode = new Laya.Browser.window.QRCode(div, {
+            let img: any = Laya.Browser.document.createElement("img");
+            let qrcode = new Laya.Browser.window.QRCode(img, {
+                text: url,
                 width: imgW,
                 height: imgH
             });
-            qrcode.makeCode(url);
             Laya.timer.frameOnce(1, this, () => {
                 this._base64 = qrcode._oDrawing._elImage.src;
                 if (this._handlers) {
@@ -80,7 +68,7 @@ module gamecomponent.component {
                     this._handlers.length = 0;
                 }
                 this._handlers = null;
-                div = null;
+                img = null;
                 qrcode = null;
             });
         }

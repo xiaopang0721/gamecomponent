@@ -49,7 +49,13 @@ module gamecomponent.component {
 			}
 			let scroll: laya.ui.ScrollBar;
 			if (target instanceof Laya.List) scroll = target.scrollBar;
-			else if (target instanceof Laya.Panel) scroll = target.vScrollBar;
+			else if (target instanceof Laya.Panel) {
+				if (slideType == DisplayU.SLIDE_H) {
+					scroll = target.vScrollBar;
+				} else if (slideType == DisplayU.SLIDE_V) {
+					scroll = target.hScrollBar;
+				}
+			}
 			if (!scroll) return;
 			if (scroll.min == scroll.max) {
 				if (type == this.MASK_TYPE_RESET) {
@@ -76,19 +82,26 @@ module gamecomponent.component {
 			if (!target) return;
 			let key: string = target.$_GID.toString();
 			if (kind == this.MASK_KIND_NULL) {
-				if (target.parent.mask) target.parent.mask = null;
+				if (target.mask) target.mask = null;
 				if (this.MASK_DICT[key]) delete this.MASK_DICT[key];
 				return;
 			}
 			if (this.MASK_DICT[key] && this.MASK_DICT[key].kind == kind) return;
+			let maskObj: any = this.MASK_DICT[key];
 			let mask: Sprite;
-			if (!this.MASK_DICT[key]) {
+			if (!maskObj) {
 				mask = new Sprite();
 				mask.pos(0, 0);
 				mask.size(target.width, target.height);
-				this.MASK_DICT[key] = { mask: mask };
-			} else mask = this.MASK_DICT[key].mask;
-			if(!target.mask) target.mask = mask;
+				this.MASK_DICT[key] = {
+					mask: mask,
+				};
+			} else {
+				mask = maskObj.mask;
+				mask.width = target.width;
+				mask.height = target.height;
+			}
+			target.mask = mask;
 			let height: number = DisplayU.MASK_HEIGHT;
 			let width: number = DisplayU.MASK_WIDHT;
 			let graphics: Graphics = mask.graphics;

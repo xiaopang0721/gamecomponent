@@ -61,6 +61,9 @@ module gamecomponent.component {
             });
             Laya.timer.frameOnce(1, this, () => {
                 this._base64 = qrcode._oDrawing._elImage.src;
+                if (!this._base64 || !this._base64.length) {
+                    this._base64 = 'WebConfig.erwmUrl';
+                }
                 if (this._handlers) {
                     this._handlers.forEach(handler => {
                         (<Handler>handler).runWith(this._base64);

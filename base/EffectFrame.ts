@@ -173,7 +173,7 @@ module gamecomponent.base {
 		}
 
 		private onAssetsLoaded(data: string, dataFix: string = "", startIdx: number = 10000, reverse: boolean = false): void {
-			this.setFrames(this._assetPath + data + '/' + dataFix + "{0}.png", startIdx, reverse)
+			this.setFrames(WebConfig.platform + '/' + this._assetPath + data + '/' + dataFix + "{0}.png", startIdx, reverse)
 		}
 
 		setFrames(img: string, start: number = 0, reverse: boolean = false): void {

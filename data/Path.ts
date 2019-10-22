@@ -9,6 +9,8 @@ module gamecomponent.data {
 		static music: string = "music/";
 		static data: string = 'data/';
 		static temp: string = 'data/temp/';
+		static ui_atlas_effect: string = "custom_atlas/ui/";
+		static custom_atlas: string = "custom_atlas/";
 		
 		static sk_dating: string = 'dating_ui/sk/';
 		
@@ -19,16 +21,8 @@ module gamecomponent.data {
 		static music_kefu: string = Path.music + 'kefu.mp3';
 		static music_tuiguang: string = Path.music + 'tuiguang.mp3';
 		static music_zhuanpan: string = Path.music + 'zhuanpan.mp3';
-		
-		static get custom_atlas():string {
-			return "custom_atlas/" + WebConfig.platform + "/";
-		}
-		static get ui_atlas_effect():string {
-			return Path.custom_atlas + "ui/";
-		}
-		static get custom_atlas_scene():string {
-			return Path.custom_atlas + 'scene/';
-		}
+		static scene: string = 'scene/';
+		static custom_atlas_scene: string = 'custom_atlas/scene/';
 		
 		/**
 		 * 获得一直序列帧地址

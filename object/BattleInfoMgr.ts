@@ -276,10 +276,12 @@ module gamecomponent.object {
     export class BattleInfoGuzhuyizhi extends BattleInfoBase {
         protected _target_idx: number;
         protected _win_idx: number;
-        constructor(index: number, target_idx: number, index2: number) {
+        protected _bet_val: number;
+        constructor(index: number, target_idx: number, index2: number, bet_val: number) {
             super(BATTLE_TYPE_GUZHUYIZHI, index);
             this._target_idx = target_idx;
             this._win_idx = index2;
+            this._bet_val = bet_val;
         }
 
         get TargetIdx(): number {
@@ -288,6 +290,10 @@ module gamecomponent.object {
 
         get WinIdx(): number {
             return this._win_idx;
+        }
+
+        get BetVal(): number {
+            return this._bet_val;
         }
     }
 
@@ -1078,7 +1084,8 @@ module gamecomponent.object {
                     case BATTLE_TYPE_GUZHUYIZHI: {
                         let target_idx = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 1)
                         let win_idx = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 2);
-                        let obj = new BattleInfoGuzhuyizhi(seatIndex, target_idx, win_idx);
+                        let bet_val = this._map_info.GetUInt32(MapInfo.MAP_INT_BATTLE_BEING + index + 2);
+                        let obj = new BattleInfoGuzhuyizhi(seatIndex, target_idx, win_idx, bet_val);
                         this._infos.push(obj);
                         break;
                     }

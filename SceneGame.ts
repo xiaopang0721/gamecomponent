@@ -22,8 +22,6 @@ module gamecomponent {
 				if (!obj) return;
 				WebConfig.setPlatformUrl(obj.url);
 			}))
-			CompoentPath.map_far = StringU.substitute(Path.map_far, WebConfig.baseplatform);
-			CompoentPath.map = StringU.substitute(Path.map, WebConfig.baseplatform);
 			this.tryCreatedSceneRoot();
 			this.sceneObjectMgr.on(SceneObjectMgr.EVENT_LOAD_MAP, this, this.onIntoNewMap);
 		}

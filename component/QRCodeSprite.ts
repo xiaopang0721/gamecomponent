@@ -53,6 +53,11 @@ module gamecomponent.component {
         constructor() { }
 
         make(url, imgW, imgH) {
+            if (!Laya.Browser.window.QRCode) {
+                this._base64 = WebConfig.ewmUrl;
+                this.doHandler();
+                return;
+            }
             let img: any = Laya.Browser.document.createElement("img");
             let qrcode = new Laya.Browser.window.QRCode(img, {
                 text: url,
@@ -64,16 +69,20 @@ module gamecomponent.component {
                 if (!this._base64 || !this._base64.length) {
                     this._base64 = WebConfig.ewmUrl;
                 }
-                if (this._handlers) {
-                    this._handlers.forEach(handler => {
-                        (<Handler>handler).runWith(this._base64);
-                    });
-                    this._handlers.length = 0;
-                }
-                this._handlers = null;
+                this.doHandler();
                 img = null;
                 qrcode = null;
             });
+        }
+
+        private doHandler() {
+            if (this._handlers) {
+                this._handlers.forEach(handler => {
+                    (<Handler>handler).runWith(this._base64);
+                });
+                this._handlers.length = 0;
+            }
+            this._handlers = null;
         }
 
         clear() {

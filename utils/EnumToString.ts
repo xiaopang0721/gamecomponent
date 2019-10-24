@@ -135,7 +135,7 @@ module utils {
             //定制地图标签
             result = result.replace(new RegExp(this.LABEL_MAP, "gm"), (word: string) => {
                 word = word.substring(3, word.length - 4);
-                return StringU.substitute("<span style='color:#00ffff'>{0}</span>",  PageDef.getNameById(word));
+                return StringU.substitute("<span style='color:#00ffff'>{0}</span>", PageDef.getNameById(word));
             });
             //定制前往标签
             let id = -1;
@@ -245,6 +245,27 @@ module utils {
                 }
             }
             return text;
+        }
+
+        /**
+		 * 获取精简的官网地址
+		 * @param url 原官网地址
+		 */
+        public static getLimitUrl(url: string): string {
+            if (!url) return "";
+            let data = [];
+            let newurl = "";
+            if (url.indexOf("https://www.") != -1) {
+                data = url.split("https://www.");
+                newurl = data[1];
+            } else if (url.indexOf("https://") != -1) {
+                data = url.split("https://")
+                newurl = data[1];
+            } else {
+                newurl = url;
+            }
+
+            return newurl;
         }
 
 

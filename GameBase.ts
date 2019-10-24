@@ -499,6 +499,9 @@ class GameBase {
                             }
                         }
                         break;
+                    case Operation_Fields.OPRATE_WEB_SPECIAL_PLAYER_SUCCESS:             // 特邀用戶返回成功
+                        this._game.alert("尊敬的特邀玩家，您的特邀奖励金已发放。", null, null, true);
+                        break
                 }
             }
             else if (msg.type == Operation_Fields.OPRATE_CLOSE) {//关闭客户端操作错误类型

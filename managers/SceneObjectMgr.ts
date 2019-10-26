@@ -130,7 +130,11 @@ module gamecomponent.managers {
                         })
                         this.event(SceneObjectMgr.EVENT_LOAD_MAP, this._mapAssetInfo);
                     }
-                    this._mapAssetInfo.load(newMapid, this._story.mapUrl, this._story.maplv);
+                    JsLoader.ins.startLoad(newMapid, Handler.create(this, (asserts) => {
+                        this._game.uiRoot.showLoadProgress("资源加载中...", Handler.create(this, () => {
+                            this._mapAssetInfo.load(newMapid, this._story.mapUrl, this._story.maplv);
+                        }), asserts);
+                    }));
                 }
             }
         }
@@ -147,7 +151,6 @@ module gamecomponent.managers {
                     let startIdx = k.indexOf(".");
                     let endIdx = k.lastIndexOf("_");
                     let map_id = k.substr(startIdx + 1, endIdx - 2);
-                    if (!checkGameJsLoad(map_id)) return;
                     let mapid = map_id.substr(0, 1).toUpperCase() + map_id.substr(1, map_id.length);
                     let comm = StringU.substitute("new game{0}.data.{1}MapInfo({2})", map_id, mapid, "this")
                     let mapinfo = eval(comm);

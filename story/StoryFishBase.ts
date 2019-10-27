@@ -24,6 +24,10 @@ module gamecomponent.story {
 					case Operation_Fields.OPRATE_TELEPORT_MAP_MATHCH_JOIN_SUCESS:             // 地图匹配加入成功
 						this._game.setIsLockGame(true, false, "StoryBase.OPRATE_TELEPORT_MAP_MATHCH_JOIN_SUCESS");
 						break;
+					case Operation_Fields.OPRATE_TELEPORT_CAN_NOT_JOIN:             //加入游戏失败，条件不允许
+						this._game.showTips("加入游戏失败，条件不允许");
+						this._game.setIsLockGame(false, false, "StoryBase.OPRATE_TELEPORT_MAP_MATHCH_JOIN_SUCESS");
+						break;
 				}
 			}
 		}

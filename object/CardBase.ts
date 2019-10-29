@@ -68,7 +68,9 @@ module gamecomponent.object {
 			if (!this.targe_pos) return;
 			if (!this.pos) return;
 			Laya.Tween.clearAll(this.pos);
+			this.isUIShow = true;
 			Laya.Tween.to(this.pos, { x: this.targe_pos.x, y: this.targe_pos.y }, this.time_interval, null, Handler.create(this, () => {
+				this.isUIShow = false;
 				this.isFinalPos = true;
 			}));
 		}

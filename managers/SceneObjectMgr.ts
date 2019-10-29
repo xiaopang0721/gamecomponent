@@ -128,7 +128,9 @@ module gamecomponent.managers {
                         this.ForEachObject((obj) => {
 
                         })
-                        this.event(SceneObjectMgr.EVENT_LOAD_MAP, this._mapAssetInfo);
+                        Laya.timer.frameOnce(1, this, ()=>{
+                            this.event(SceneObjectMgr.EVENT_LOAD_MAP, this._mapAssetInfo);
+                        })
                     }
                     JsLoader.ins.startLoad(newMapid, Handler.create(this, (asserts) => {
                         this._game.uiRoot.showLoadProgress("资源加载中...", Handler.create(this, () => {

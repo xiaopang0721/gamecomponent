@@ -260,6 +260,7 @@ class GameBase {
             this.network.addHanlder(Protocols.SMSG_JOIN_GAME_RESULT, this, this.onJoinGameResult);
             this.network.addHanlder(Protocols.SMSG_GRID_UPDATE_DATA, this, this.onObjHandler);
             this.network.addHanlder(Protocols.CMSG_FREE_SYTLE_SYNC, this, this.onFreeStyleUpdate);
+            this.network.addHanlder(Protocols.SMSG_HONGBAO_SYNC, this, this.onHongBaoUpdate);
             this.network.addHanlder(core.net.EV_CONNECT, this, this.onConnectHandler);
             this.network.addHanlder(core.net.EV_CLOSED, this, this.onCloseHandler);
             this.network.addHanlder(core.net.EV_ERROR, this, this.onErrorHandle);
@@ -326,6 +327,7 @@ class GameBase {
         this.network.removeHanlder(Protocols.SMSG_JOIN_GAME_RESULT, this, this.onJoinGameResult);
         this.network.removeHanlder(Protocols.SMSG_GRID_UPDATE_DATA, this, this.onObjHandler);
         this.network.removeHanlder(Protocols.CMSG_FREE_SYTLE_SYNC, this, this.onFreeStyleUpdate);
+        this.network.removeHanlder(Protocols.SMSG_HONGBAO_SYNC, this, this.onHongBaoUpdate);
         this.network.removeHanlder(core.net.EV_CONNECT, this, this.onConnectHandler);
         this.network.removeHanlder(core.net.EV_CLOSED, this, this.onCloseHandler);
         this.network.removeHanlder(core.net.EV_ERROR, this, this.onErrorHandle);
@@ -344,6 +346,10 @@ class GameBase {
     private onFreeStyleUpdate(optcode: number, msg: any): void {
         FreeStyle.setData(msg.data);
         this._game.sceneObjectMgr.event(SceneObjectMgr.EVENT_FREE_STYLE_UPDATE);
+    }
+
+    private onHongBaoUpdate(optcode: number, msg: any): void {
+        this._game.sceneObjectMgr.event(SceneObjectMgr.EVENT_HONGBAO_UPDATE, msg);
     }
 
     private onObjHandler(optcode: number, msg: any): void {

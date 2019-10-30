@@ -26,7 +26,6 @@ module gamecomponent.object {
 		 */
 		public comebackChip(){
 			this.isUIShow = true;
-			this.sortScore = 1;
 		}
 	}
 }

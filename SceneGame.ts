@@ -138,7 +138,9 @@ module gamecomponent {
 				for (let i = 0; i < sceneCount; i++) {
 					scene = new UIShowRoot(this);
 					scene.selfScale = sceneScle;
-					Laya.stage.addChild(scene);
+					//UI显示层位于UIRoot之下，HUD之上
+					let index: number = Laya.stage.getChildIndex(this._game.uiRoot.HUD);
+					Laya.stage.addChildAt(scene, index + 1);
 					this._scenes.push(scene);
 				}
 				this._game.onResize(this._game.clientWidth, this._game.clientHeight, this._game.clientScale);

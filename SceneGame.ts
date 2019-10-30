@@ -35,6 +35,8 @@ module gamecomponent {
 			JsLoader.ins.clear();
 			if (typeof info == "string") {
 				this.inScene = false;
+				//退出地图后补弹红包
+				this._game.sceneObjectMgr.event(SceneObjectMgr.EVENT_HONGBAO_DELAY_UPDATE);
 				// updateGameJS();
 				// JsLoader.ins.startLoad("dating", Handler.create(this, (asserts) => {
 				// 	LoadingMgr.ins.clearAssert("dating");

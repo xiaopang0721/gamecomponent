@@ -349,7 +349,7 @@ class GameBase {
     }
 
     private onHongBaoUpdate(optcode: number, msg: any): void {
-        this._game.sceneObjectMgr.event(SceneObjectMgr.EVENT_HONGBAO_UPDATE, msg);
+        this._game.sceneObjectMgr.event(SceneObjectMgr.EVENT_HONGBAO_UPDATE, msg.data);
     }
 
     private onObjHandler(optcode: number, msg: any): void {

@@ -30,12 +30,12 @@ module gamecomponent.object {
 		scaleX: number = 1;
 		scaleY: number = 1;
 		size: number = 1;
-		sortScore: number = 0;//
+		sortScore: number = 0;//同一场景中的深度排序值
 		disable: boolean;//置灰
 		light: boolean;//高光
 		visible: boolean = true;//隐藏
 		index: number;//序列
-		isUIShow: Boolean;//是否UI
+		isUIShow: boolean = false;//是否UI
 		isFinalPos: boolean;//是否是终点坐标
 		toggle: boolean;
 		toggleEnable: boolean;//toggle 开关

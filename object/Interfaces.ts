@@ -41,7 +41,7 @@ module gamecomponent.object {
 		/**
 		 * 是否ui场景
 		 */
-		isUIShow: Boolean;
+		isUIShow: boolean;
 		/**
 		 * 是否可以清理
 		 */

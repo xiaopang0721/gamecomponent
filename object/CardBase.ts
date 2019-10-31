@@ -68,6 +68,20 @@ module gamecomponent.object {
 			if (!this.targe_pos) return;
 			if (!this.pos) return;
 			Laya.Tween.clearAll(this.pos);
+			this.isUIShow = true;
+			Laya.Tween.to(this.pos, { x: this.targe_pos.x, y: this.targe_pos.y }, this.time_interval, null, Handler.create(this, () => {
+				this.isUIShow = false;
+				this.isFinalPos = true;
+			}));
+		}
+		
+		/**
+         * 移动牌
+         */
+		public movePai() {
+			if (!this.targe_pos) return;
+			if (!this.pos) return;
+			Laya.Tween.clearAll(this.pos);
 			Laya.Tween.to(this.pos, { x: this.targe_pos.x, y: this.targe_pos.y }, this.time_interval, null, Handler.create(this, () => {
 				this.isFinalPos = true;
 			}));

@@ -39,6 +39,7 @@ module gamecomponent.scene {
 		}
 
 		protected _scene: SceneRootBase;
+		//是否是UI上的场景层
 		private _isUiShow: boolean;
 		constructor(v: SceneRootBase) {
 			super(v.game);
@@ -72,7 +73,18 @@ module gamecomponent.scene {
 			let objMgr: SceneObjectMgr = this._game.sceneGame.sceneObjectMgr;
 			objMgr.ForEachObject((obj: GuidObject): void => {
 				if (obj instanceof PlayerData || obj instanceof GlobalData || obj instanceof MapInfo) return;//这些都不处理视图
-				if (this._isUiShow && (obj instanceof gamecomponent.object.ActionBase) && !obj.isUIShow) return; //ui上层 但是不是UI上层显示的 不处理
+				if ((obj instanceof gamecomponent.object.ActionBase) && this._isUiShow && !obj.isUIShow) {
+					//不同层级的对象不绘制
+					//在scenceTop层，自身条件不被允许绘制在这个层级之上，剔除
+					let obj2: any = obj;
+					if (obj2 && obj2.userData) {
+						let idx: number = this._avatars.indexOf(obj2.userData);
+						if (idx >= 0) {
+							this._avatars.splice(idx, 1);
+						}
+					}
+					return; //ui上层 但是不是UI上层显示的 不处理
+				}
 				if (obj instanceof Unit && this._scene.mapid != "buyu") return;//除了捕鱼 其他精灵对象不需要做视图处理
 				let story = this._game.sceneGame.sceneObjectMgr.story as gamecomponent.object.IInLook;
 				if (story) {
@@ -272,7 +284,7 @@ module gamecomponent.scene {
 				g.drawRect(0, camera.bufferOffsetY + camera.bufferHeight, camera.width, h, color);
 			}
 		}
-		
+
 		//设置窗口大小
 		resize(clientWidth: number, clientHeight: number): void {
 			super.resize(clientWidth, clientHeight);

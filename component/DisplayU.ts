@@ -58,10 +58,10 @@ module gamecomponent.component {
 			}
 			if (!scroll) return;
 			if (scroll.min == scroll.max) {
-				if (type == this.MASK_TYPE_RESET) {
-					this.drawMaskByType(target, this.MASK_KIND_ALL, slideType);
-					return;
-				}
+				// if (type == this.MASK_TYPE_RESET) {
+				this.drawMaskByType(target, this.MASK_KIND_ALL, slideType);
+				return;
+				// }
 			}
 			if (scroll.value <= scroll.min) {
 				if (slideType == DisplayU.SLIDE_H) {

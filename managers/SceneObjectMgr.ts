@@ -52,8 +52,6 @@ module gamecomponent.managers {
         static EVENT_FREE_STYLE_UPDATE: string = "SceneObjectMgr.EVENT_FREE_STYLE_UPDATE";
         //红包更新
         static EVENT_HONGBAO_UPDATE: string = "SceneObjectMgr.EVENT_HONGBAO_UPDATE";
-        //红包延迟更新
-        static EVENT_HONGBAO_DELAY_UPDATE: string = "SceneObjectMgr.EVENT_HONGBAO_DELAY_UPDATE";
         //地图id
         private _mapid: string;
 

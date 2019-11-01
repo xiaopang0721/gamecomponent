@@ -90,7 +90,7 @@ module gamecomponent.object {
 		/**
          * 移动牌
          */
-		public refapai() {
+		public reFapai() {
 			if (!this.targe_pos) return;
 			if (!this.pos) return;
 			Laya.Tween.clearAll(this.pos);

@@ -310,7 +310,7 @@ module gamecomponent.managers {
                 return;//你需要断线重连
             }
             if (WebConfig.server_close) {
-                this._game.alert(StringU.substitute("为了您更好的游戏体验，服务器正在更新中。为避免造成不必要的损失，更新期间无法进入游戏，给您造成的不便我们深表歉意，感谢您的配合。"), () => {
+                this._game.alert(StringU.substitute("亲爱的玩家，游戏服务器正在火速升级中，请稍候1分钟再进入游戏场，游戏有您更精彩~"), () => {
                 }, () => {
                 }, true, window["DatingPageDef"].ui_dating_tongyong + "btn_qd.png");
                 return;//服务器更新重启

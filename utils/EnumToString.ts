@@ -261,7 +261,7 @@ module utils {
             } else if (url.indexOf("https://") != -1) {
                 data = url.split("https://")
                 newurl = data[1];
-            } if (url.indexOf("http://www.") != -1) {
+            }else if (url.indexOf("http://www.") != -1) {
                 data = url.split("http://www.");
                 newurl = data[1];
             } else if (url.indexOf("http://") != -1) {

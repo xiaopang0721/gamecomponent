@@ -133,12 +133,7 @@ module gamecomponent.managers {
                         this.event(SceneObjectMgr.EVENT_LOAD_MAP, this._mapAssetInfo);
                     }
 
-                    JsLoader.ins.startLoad(newMapid, Handler.create(this, (asserts) => {
-                        this._game.uiRoot.showLoadProgress("资源加载中...", Handler.create(this, () => {
-                            this._mapAssetInfo.load(newMapid, this._story.mapUrl, this._story.maplv);
-                        }), asserts, newMapid);
-                    }));
-
+                    this._mapAssetInfo.load(newMapid, this._story.mapUrl, this._story.maplv);
                 }
             }
         }

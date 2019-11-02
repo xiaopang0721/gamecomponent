@@ -161,6 +161,7 @@ module gamecomponent.scene {
             if (!url) return;
             if (this._refAssetComplete) return;
             let atlas = Loader.getAtlas(url);
+            if (!atlas) return;
             for (let index = 0; index < atlas.length; index++) {
                 let a: string = atlas[index];
                 let name = a.substring(a.lastIndexOf("/") + 1, a.lastIndexOf(".png"));

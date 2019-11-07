@@ -32,6 +32,9 @@ module gamecomponent.object {
 			if (isNew || mask.GetBit(UnitField.UNIT_INT_BYTE1)) {
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_UNIT_CHANGE)
 			}
+			if (isNew || mask.GetBit(UnitField.UNIT_INT_UINT16)) {
+				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_UNIT_CHANGE)
+			}
 			if (isNew || mask.GetBit(UnitField.UNIT_INT_BIT1)) {
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_UNIT_ACTION)
 			}

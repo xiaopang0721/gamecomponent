@@ -31,6 +31,18 @@ module utils {
 		 * @param completeHandler 回调
 		 */
 		getUrl(handle: Handler) {
+			let server_url = WebConfig.serviceurl;
+			if (server_url) {
+				let arr = server_url.split(":");
+				if (arr.length > 1 && parseInt(arr[1]) < 65535) {
+					if (handle) {
+						handle.runWith({ index: 0, url: server_url });
+						handle && handle.recover();
+						handle = null;
+					}
+					return;
+				}
+			}
 			if (this._isLoading) {
 				this._waitHandleList.push(handle);
 				return;

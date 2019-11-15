@@ -121,7 +121,7 @@ class GameBase {
     private realLogin(desc: string, data?: any) {
         logd("realLogin", "desc:", desc)
         WebConfig.wxDebug && WebConfig.alert("realLogin登陆" + JSON.stringify(data));
-        if (data.type == Web_operation_fields.ACCOUNT_TYPE_ACCOUNT) {
+        if (data.type == Web_operation_fields.ACCOUNT_TYPE_ACCOUNT || WebConfig.enterGameLocked) {
             this.connectSoctet(() => {
                 this.network.call_get_session(WebConfig.session_key, "", "");
             }, "call_get_session");

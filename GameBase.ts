@@ -581,6 +581,9 @@ class GameBase {
                         this._reconnectTimer = 1000;
                         this._networkState = GameBase.NETWORK_STATE_FORCERELOGIN;
                         break;
+                    case Operation_Fields.OPRATE_CLOSE_LOGIN_TYPE_ERROR:             // 	登录类型错误
+                        this._game.showTips("登录类型错误");
+                        break;
                     case Operation_Fields.OPRATE_CLOSE_OTHER_ONLINE:             // 	其他在线中
                         this._isCanReconnect = false;
                         this._networkState = GameBase.NETWORK_STATE_FORCE;

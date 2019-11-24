@@ -247,14 +247,14 @@ module utils {
             return text;
         }
 
-        public static getLimitStrMiddle(text: string, limit: number): string {
+        public static getLimitStrGameName(text: string, limit: number): string {
             if (!text) return "";
             if (text.length <= limit) return text;
             let num = Math.floor(limit / 2);
             let frontStr = "";
             let endStr = "";
             for (let i = 0; i < num; i++) {
-                frontStr += text[i];
+                if (frontStr == "") frontStr += text[i];
                 endStr += text[text.length - 1 - i];
             }
             endStr = endStr.split("").reverse().join("");

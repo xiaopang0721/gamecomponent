@@ -121,7 +121,7 @@ class GameBase {
     private realLogin(desc: string, data?: any) {
         logd("realLogin", "desc:", desc)
         WebConfig.wxDebug && WebConfig.alert("realLogin登陆" + JSON.stringify(data));
-        if (data.type == Web_operation_fields.ACCOUNT_TYPE_ACCOUNT) {
+        if (data.type == Web_operation_fields.ACCOUNT_TYPE_ACCOUNT || WebConfig.enterGameLocked) {
             this.connectSoctet(() => {
                 this.network.call_get_session(WebConfig.session_key, "", "");
             }, "call_get_session");
@@ -260,6 +260,7 @@ class GameBase {
             this.network.addHanlder(Protocols.SMSG_JOIN_GAME_RESULT, this, this.onJoinGameResult);
             this.network.addHanlder(Protocols.SMSG_GRID_UPDATE_DATA, this, this.onObjHandler);
             this.network.addHanlder(Protocols.CMSG_FREE_SYTLE_SYNC, this, this.onFreeStyleUpdate);
+            this.network.addHanlder(Protocols.SMSG_HONGBAO_SYNC, this, this.onHongBaoUpdate);
             this.network.addHanlder(core.net.EV_CONNECT, this, this.onConnectHandler);
             this.network.addHanlder(core.net.EV_CLOSED, this, this.onCloseHandler);
             this.network.addHanlder(core.net.EV_ERROR, this, this.onErrorHandle);
@@ -326,6 +327,7 @@ class GameBase {
         this.network.removeHanlder(Protocols.SMSG_JOIN_GAME_RESULT, this, this.onJoinGameResult);
         this.network.removeHanlder(Protocols.SMSG_GRID_UPDATE_DATA, this, this.onObjHandler);
         this.network.removeHanlder(Protocols.CMSG_FREE_SYTLE_SYNC, this, this.onFreeStyleUpdate);
+        this.network.removeHanlder(Protocols.SMSG_HONGBAO_SYNC, this, this.onHongBaoUpdate);
         this.network.removeHanlder(core.net.EV_CONNECT, this, this.onConnectHandler);
         this.network.removeHanlder(core.net.EV_CLOSED, this, this.onCloseHandler);
         this.network.removeHanlder(core.net.EV_ERROR, this, this.onErrorHandle);
@@ -344,6 +346,10 @@ class GameBase {
     private onFreeStyleUpdate(optcode: number, msg: any): void {
         FreeStyle.setData(msg.data);
         this._game.sceneObjectMgr.event(SceneObjectMgr.EVENT_FREE_STYLE_UPDATE);
+    }
+
+    private onHongBaoUpdate(optcode: number, msg: any): void {
+        this._game.sceneObjectMgr.event(SceneObjectMgr.EVENT_HONGBAO_UPDATE, msg.data);
     }
 
     private onObjHandler(optcode: number, msg: any): void {
@@ -477,7 +483,7 @@ class GameBase {
                         break;
                     case Operation_Fields.OPRATE_WEB_RECHARGE_SUCCESS:             // 充值成功
                         this._game.showTips("充值成功")
-                        this._game.datingGame.flyGlodMgr.show(1, this._game.clientWidth, this._game.clientHeight);
+                        this._game.datingGame.flyGlodMgr.show(1, 0, this._game.clientWidth, this._game.clientHeight);
                         break;
                     case Operation_Fields.OPRATE_WEB_CASH_SUCCESS:             // 提款成功
                         this._game.showTips("提款成功")
@@ -574,6 +580,9 @@ class GameBase {
                         this._isCanReconnect = true;
                         this._reconnectTimer = 1000;
                         this._networkState = GameBase.NETWORK_STATE_FORCERELOGIN;
+                        break;
+                    case Operation_Fields.OPRATE_CLOSE_LOGIN_TYPE_ERROR:             // 	登录类型错误
+                        this._game.showTips("登录类型错误");
                         break;
                     case Operation_Fields.OPRATE_CLOSE_OTHER_ONLINE:             // 	其他在线中
                         this._isCanReconnect = false;

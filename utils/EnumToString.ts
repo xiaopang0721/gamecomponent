@@ -247,6 +247,20 @@ module utils {
             return text;
         }
 
+        public static getLimitStrGameName(text: string, limit: number): string {
+            if (!text) return "";
+            if (text.length <= limit) return text;
+            let num = Math.floor(limit / 2);
+            let frontStr = "";
+            let endStr = "";
+            for (let i = 0; i < num; i++) {
+                if (frontStr == "") frontStr += text[i];
+                endStr += text[text.length - 1 - i];
+            }
+            endStr = endStr.split("").reverse().join("");
+            return frontStr + "..." + endStr
+        }
+
         /**
 		 * 获取精简的官网地址
 		 * @param url 原官网地址
@@ -260,6 +274,12 @@ module utils {
                 newurl = data[1];
             } else if (url.indexOf("https://") != -1) {
                 data = url.split("https://")
+                newurl = data[1];
+            } else if (url.indexOf("http://www.") != -1) {
+                data = url.split("http://www.");
+                newurl = data[1];
+            } else if (url.indexOf("http://") != -1) {
+                data = url.split("http://")
                 newurl = data[1];
             } else {
                 newurl = url;

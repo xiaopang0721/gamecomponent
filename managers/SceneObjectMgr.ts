@@ -50,6 +50,8 @@ module gamecomponent.managers {
         static EVENT_VIP_INFO_UPDATE: string = "SceneObjectMgr.EVENT_VIP_INFO_UPDATE";
         //配置更新
         static EVENT_FREE_STYLE_UPDATE: string = "SceneObjectMgr.EVENT_FREE_STYLE_UPDATE";
+        //红包更新
+        static EVENT_HONGBAO_UPDATE: string = "SceneObjectMgr.EVENT_HONGBAO_UPDATE";
         //地图id
         private _mapid: string;
 
@@ -130,6 +132,7 @@ module gamecomponent.managers {
                         })
                         this.event(SceneObjectMgr.EVENT_LOAD_MAP, this._mapAssetInfo);
                     }
+
                     this._mapAssetInfo.load(newMapid, this._story.mapUrl, this._story.maplv);
                 }
             }
@@ -147,7 +150,6 @@ module gamecomponent.managers {
                     let startIdx = k.indexOf(".");
                     let endIdx = k.lastIndexOf("_");
                     let map_id = k.substr(startIdx + 1, endIdx - 2);
-                    if (!checkGameJsLoad(map_id)) return;
                     let mapid = map_id.substr(0, 1).toUpperCase() + map_id.substr(1, map_id.length);
                     let comm = StringU.substitute("new game{0}.data.{1}MapInfo({2})", map_id, mapid, "this")
                     let mapinfo = eval(comm);
@@ -308,7 +310,7 @@ module gamecomponent.managers {
                 return;//你需要断线重连
             }
             if (WebConfig.server_close) {
-                this._game.alert(StringU.substitute("为了您更好的游戏体验，服务器正在更新中。为避免造成不必要的损失，更新期间无法进入游戏，给您造成的不便我们深表歉意，感谢您的配合。"), () => {
+                this._game.alert(StringU.substitute("亲爱的玩家，游戏服务器正在火速升级中，请稍候1分钟再进入游戏场，游戏有您更精彩~"), () => {
                 }, () => {
                 }, true, window["DatingPageDef"].ui_dating_tongyong + "btn_qd.png");
                 return;//服务器更新重启

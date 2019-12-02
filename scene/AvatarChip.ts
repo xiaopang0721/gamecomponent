@@ -73,6 +73,7 @@ module gamecomponent.scene {
 			for (let index = 0; index < len; index++) {
 				let str = value_str.charAt(index);
 				let texture = this._textures["sz_" + str];
+				if(!texture)continue;
 				let drawW = texture.sourceWidth * scale;
 				let drawH = texture.sourceHeight * scale;
 				let w = drawW;

@@ -14,7 +14,8 @@ module utils{
 		public static COLOR_JIESUAN		:string = "#efffb2";				//结算界面主玩家颜色
 
 		public static COLOR_ROOM_JIESUAN  :string = "#ffc32c";				//房卡结算界面主玩家颜色
-		public static COLOR_INPUT_DEFAULT :string = "#5597d2";				//输入框默认颜色值
+		public static COLOR_INPUT_PROMPT :string = "#60594e";				//输入框提示符默认颜色值
+		public static COLOR_INPUT_CONTENT :string = "#e9e9fb";				//输入框内容默认颜色值
 
 		/**=品质颜色：白、绿、蓝、紫、橙=*/
 		public static COLOR_QUALITYS:string[] = ["#d6f3ff", "#00ff2a", "#00baff", "#ae00ff", "#ffa200","#ff2400"];

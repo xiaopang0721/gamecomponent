@@ -6,7 +6,7 @@ module gamecomponent.managers {
 		protected _game: Game;
 		//数量
 		private _num: number = 50;
-		set Num(v: number) {
+		set num(v: number) {
 			this._num = v
 		}
 		//创建间隔

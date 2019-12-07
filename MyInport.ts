@@ -21,6 +21,7 @@ import Unit = gamecomponent.object.Unit;
 
 import SceneObjectMgr = gamecomponent.managers.SceneObjectMgr;
 import CardRoomMgr = gamecomponent.managers.CardRoomMgr;
+import SenceItemFlyMgr = gamecomponent.managers.SenceItemFlyMgr;
 
 import SceneGame = gamecomponent.SceneGame;
 

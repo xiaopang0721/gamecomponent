@@ -15,10 +15,10 @@ module gamecomponent.managers {
 			this._creat_time = v
 		}
 		//飞行时长
-		private _fly_time: number = 2000;
-		set flyTime(v: number) {
-			this._fly_time = v;
-		}
+		// private _fly_time: number = 2000;
+		// set flyTime(v: number) {
+		// 	this._fly_time = v;
+		// }
 		//资源
 		private _asset_url: string = "tongyong_ui/game_ui/tongyong/general/icon_money.png";
 		set assetUrl(v: string) {
@@ -43,10 +43,10 @@ module gamecomponent.managers {
 			let refAsset = this._refAsset;
 			if (!refAsset.parseComplete) {
 				refAsset.once(LEvent.COMPLETE, this, () => {
-					this.onStart(stratX,stratY,endX,endY);
+					this.onStart(stratX, stratY, endX, endY);
 				});
 			} else {
-				this.onStart(stratX,stratY,endX,endY);
+				this.onStart(stratX, stratY, endX, endY);
 			}
 		}
 
@@ -57,13 +57,14 @@ module gamecomponent.managers {
 				Laya.timer.once(this._creat_time * i, this, () => {
 					let startVec = new Vector2(stratX, stratY);
 					let endVec = new Vector2(MathU.randomRange(endX, endX + 65), MathU.randomRange(endY, endY + 65));
-					let glodcell = GlodItem.create(startVec, endVec, this._asset_url, this._fly_time);
-					this._goldArr.push(glodcell);
+					let glodItem:GlodItem = GlodItem.create(startVec, endVec, this._asset_url);
+					this._goldArr.push(glodItem);
 				})
 			}
 		}
 
-		update(diff: number) {
+		private _insertCount;
+		update(diff: number) {	
 			this._game.uiRoot.top.graphics.clear();
 			for (let index = 0; index < this._goldArr.length; index++) {
 				let glodcell = this._goldArr[index];
@@ -110,14 +111,14 @@ module gamecomponent.managers {
 		private _curScale: number = 1;
 		//当前角度
 		private _curRotation: number = 0;
-		//持续时间
-		private _fly_time: number;
 		//插值数量
 		private _inset_count: number = 25;
 		//位置數組
 		private _posTemp: Array<number>;
 		//下标位
 		private _index: number;
+		//间隔时间执行
+		private _diff_time: number;
 		/**
          * 进池 （相当于对象dispose函数）
          */
@@ -131,18 +132,17 @@ module gamecomponent.managers {
 
 		}
 
-		static create(startVec: Vector2, endVec: Vector2, asset_url: string, fly_time: number): GlodItem {
+		static create(startVec: Vector2, endVec: Vector2, asset_url: string, fly_time?: number): GlodItem {
 			let obj = ObjectPools.malloc(GlodItem) as GlodItem;
 			obj.create(startVec, endVec, asset_url, fly_time);
 			return obj;
 		}
 
-		private create(startVec: Vector2, endVec: Vector2, asset_url: string, fly_time: number) {
+		private create(startVec: Vector2, endVec: Vector2, asset_url: string, fly_time?: number) {
 			this.isDestroy = false;
 			this._curPos = this._stratVec = startVec;
 			this._endVec = this._endVec;
 			this._curTexture = Loader.getRes(asset_url);
-			this._fly_time = fly_time;
 			//贝塞尔曲线，求出多点坐标
 			let rand_num = MathU.randomRange(-60, 60);
 			let middleX = (startVec.x + endVec.x) / 2;
@@ -167,7 +167,6 @@ module gamecomponent.managers {
 			this._curPos.x = this._posTemp[this._index++];
 			this._curPos.y = this._posTemp[this._index++]
 
-			this.judgeDestory()
 
 			matrix.tx = -tw / 2;
 			matrix.ty = -th / 2;
@@ -176,6 +175,7 @@ module gamecomponent.managers {
 			matrix.tx += Camera.ins.getScenePxByCellX(this._curPos.x);
 			matrix.ty += Camera.ins.getScenePxByCellY(this._curPos.y);
 			g.drawTexture(texture, 0, 0, tw, th, matrix);
+			this.judgeDestory()
 		}
 
 		private updateRotation(): void {
@@ -190,7 +190,7 @@ module gamecomponent.managers {
 
 		//释放
 		private dispose() {
-			
+
 		}
 	}
 }

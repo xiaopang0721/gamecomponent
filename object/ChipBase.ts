@@ -18,7 +18,7 @@ module gamecomponent.object {
 			Laya.Tween.clearAll(this);
 			this.scaleX = 1.4;
 			this.scaleY = 1.4;
-			let rotateAngle = this.rotateAngle + MathU.randomRange(0, 15);
+			let rotateAngle = this.rotateAngle + 5;
 			Laya.Tween.to(this.pos, { x: this.targe_pos.x, y: this.targe_pos.y }, 500, Laya.Ease.circInOut, Handler.create(this, () => {
 				this.isUIShow = false;
 				this.isFinalPos = true;

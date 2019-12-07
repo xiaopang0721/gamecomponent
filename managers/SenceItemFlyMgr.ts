@@ -33,21 +33,9 @@ module gamecomponent.managers {
 			this._game = v || main.game;
 		}
 
-		private _startX: number;
-		private _startY: number;
-		private _endX: number;
-		private _endY: number;
 		//初始化
 		init(stratX: number, stratY: number, endX: number, endY: number) {
-			this._startX = stratX;
-			this._startY = stratY;
-			this._endX = endX;
-			this._endY = endY;
 			//资源加载
-			this.assetLoad();
-		}
-
-		private assetLoad(): void {
 			if (!this._refAsset) {
 				this._refAsset = RefAsset.Get(this._asset_url)
 				this._refAsset.retain();
@@ -55,19 +43,20 @@ module gamecomponent.managers {
 			let refAsset = this._refAsset;
 			if (!refAsset.parseComplete) {
 				refAsset.once(LEvent.COMPLETE, this, () => {
-					this.onStart();
+					this.onStart(stratX,stratY,endX,endY);
 				});
 			} else {
-				this.onStart();
+				this.onStart(stratX,stratY,endX,endY);
 			}
 		}
 
+
 		//开始动画
-		private onStart(): void {
+		private onStart(stratX: number, stratY: number, endX: number, endY: number): void {
 			for (let i: number = 0; i < this._num; i++) {
 				Laya.timer.once(this._creat_time * i, this, () => {
-					let startVec = new Vector2(this._startX, this._startY);
-					let endVec = new Vector2(MathU.randomRange(this._endX, this._endX + 65), MathU.randomRange(this._endY, this._endY + 65));
+					let startVec = new Vector2(stratX, stratY);
+					let endVec = new Vector2(MathU.randomRange(endX, endX + 65), MathU.randomRange(endY, endY + 65));
 					let glodcell = GlodItem.create(startVec, endVec, this._asset_url, this._fly_time);
 					this._goldArr.push(glodcell);
 				})
@@ -201,7 +190,7 @@ module gamecomponent.managers {
 
 		//释放
 		private dispose() {
-
+			
 		}
 	}
 }

@@ -33,14 +33,14 @@ module gamecomponent.object {
 		/**
 		 * 筹码飞到指定位置
 		 */
-		public flyChipBase(time: number, game: Game) {
+		public flyChipBase(time: number, game?: Game) {
 			this.isUIShow = true;
 			Laya.Tween.clearAll(this);
 			Laya.Tween.clearAll(this.pos);
 			Laya.Tween.to(this, { scaleX: 1.55, scaleY: 1.55 }, 300, Laya.Ease.circInOut, Handler.create(this, () => {
 				Laya.Tween.to(this.pos, { x: this.targe_pos.x, y: this.targe_pos.y, scaleX: 1.4, scaleY: 1.4 }, time, Laya.Ease.backIn, Handler.create(this, () => {
 					this.isFinalPos = true;
-					game.sceneObjectMgr.clearOfflineObject(this);
+					game ? game.sceneObjectMgr.clearOfflineObject(this) : main.game && main.game.sceneObjectMgr.clearOfflineObject(this);
 				}));
 			}))
 		}

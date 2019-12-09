@@ -5,12 +5,12 @@ module gamecomponent.managers {
 	export class SenceItemFlyMgr extends Laya.EventDispatcher {
 		protected _game: Game;
 		//数量
-		private _num: number = 50;
+		private _num: number = 80;
 		set num(v: number) {
 			this._num = v
 		}
 		//创建间隔
-		private _creat_time: number = 20;
+		private _creat_time: number = 200;
 		set creatTime(v: number) {
 			this._creat_time = v
 		}
@@ -54,17 +54,17 @@ module gamecomponent.managers {
 		//开始动画
 		private onStart(stratX: number, stratY: number, endX: number, endY: number): void {
 			for (let i: number = 0; i < this._num; i++) {
-				Laya.timer.once(this._creat_time * i, this, () => {
+				Laya.timer.once(MathU.randomRange(0, this._creat_time), this, () => {
 					let startVec = new Vector2(stratX, stratY);
 					let endVec = new Vector2(MathU.randomRange(endX, endX + 65), MathU.randomRange(endY, endY + 65));
-					let glodItem:GlodItem = GlodItem.create(startVec, endVec, this._asset_url);
+					let glodItem: GlodItem = GlodItem.create(startVec, endVec, this._asset_url);
 					this._goldArr.push(glodItem);
 				})
 			}
 		}
 
 		private _insertCount;
-		update(diff: number) {	
+		update(diff: number) {
 			this._game.uiRoot.top.graphics.clear();
 			for (let index = 0; index < this._goldArr.length; index++) {
 				let glodcell = this._goldArr[index];
@@ -112,7 +112,7 @@ module gamecomponent.managers {
 		//当前角度
 		private _curRotation: number = 0;
 		//插值数量
-		private _inset_count: number = 25;
+		private _inset_count: number = 15;
 		//位置數組
 		private _posTemp: Array<number>;
 		//下标位
@@ -146,7 +146,7 @@ module gamecomponent.managers {
 			//贝塞尔曲线，求出多点坐标
 			let rand_num = MathU.randomRange(-60, 60);
 			let middleX = (startVec.x + endVec.x) / 2;
-			let middleY = endVec.y / 2;
+			let middleY = endVec.y / 2 - 50;
 			let middleVec = new Vector2(MathU.randomRange(middleX, middleX + rand_num), MathU.randomRange(middleY, middleY + rand_num))
 			let curves = [startVec.x, startVec.y, middleVec.x, middleVec.y, endVec.x, endVec.y]
 			this._posTemp = Laya.Bezier.I.getBezierPoints(curves, this._inset_count);

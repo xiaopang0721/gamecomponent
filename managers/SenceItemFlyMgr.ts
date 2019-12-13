@@ -93,6 +93,18 @@ module gamecomponent.managers {
 				this._refAsset.release(true);
 				this._refAsset = null;
 			}
+			this._game.uiRoot.top.graphics.clear();
+			if (this._goldArr.length > 0) {
+				for (let index = 0; index < this._goldArr.length; index++) {
+					let glodcell = this._goldArr[index];
+					glodcell.isDestroy = true;
+					if (glodcell.isDestroy) {
+						this._goldArr.splice(index, 1);
+						ObjectPools.free(glodcell);
+						index--;
+					}
+				}
+			}
 		}
 	}
 

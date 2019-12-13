@@ -5,20 +5,16 @@ module gamecomponent.managers {
 	export class SenceItemFlyMgr extends Laya.EventDispatcher {
 		protected _game: Game;
 		//数量
-		private _num: number = 80;
+		private _num: number = 120;
 		set num(v: number) {
 			this._num = v
 		}
 		//创建间隔
-		private _creat_time: number = 200;
+		private _creat_time: number = 300;
 		set creatTime(v: number) {
 			this._creat_time = v
 		}
-		//飞行时长
-		// private _fly_time: number = 2000;
-		// set flyTime(v: number) {
-		// 	this._fly_time = v;
-		// }
+		
 		//资源
 		private _asset_url: string = "tongyong_ui/game_ui/tongyong/general/icon_money.png";
 		set assetUrl(v: string) {
@@ -56,7 +52,7 @@ module gamecomponent.managers {
 			for (let i: number = 0; i < this._num; i++) {
 				Laya.timer.once(MathU.randomRange(0, this._creat_time), this, () => {
 					let startVec = new Vector2(stratX, stratY);
-					let endVec = new Vector2(MathU.randomRange(endX, endX + 65), MathU.randomRange(endY, endY + 65));
+					let endVec = new Vector2(MathU.randomRange(endX, endX + 30), MathU.randomRange(endY, endY + 30));
 					let glodItem: GlodItem = GlodItem.create(startVec, endVec, this._asset_url);
 					this._goldArr.push(glodItem);
 				})

@@ -545,10 +545,12 @@ module gamecomponent.object {
     export class BattleInfoAsk extends BattleInfoBase {
         protected _card: number;
         protected _card_type: number;
-        constructor(index: number, card: number, type: number) {
+        protected _unit_index: number;
+        constructor(index: number, card: number, type: number, unit_index: number) {
             super(BATTLE_TYPE_ASK, index);
             this._card = card;
             this._card_type = type;
+            this._unit_index = unit_index;
         }
 
         get Card(): number {
@@ -557,6 +559,10 @@ module gamecomponent.object {
 
         get CardType(): number {
             return this._card_type;
+        }
+
+        get UnitIndex(): number {
+            return this._unit_index;
         }
     }
 
@@ -1202,7 +1208,8 @@ module gamecomponent.object {
                     case BATTLE_TYPE_ASK: {
                         let card = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 1);
                         let type = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 2);
-                        let obj = new BattleInfoAsk(seatIndex, card + 1, type);
+                        let unit_index = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 3);
+                        let obj = new BattleInfoAsk(seatIndex, card + 1, type, unit_index);
                         this._infos.push(obj);
                         break;
                     }
@@ -1356,7 +1363,7 @@ module gamecomponent.object {
                     case BATTLE_TYPE_QIANGGUAN_END: {
                         let _qiang_pos = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 1);
                         let _qiang_type = this._map_info.GetByte(MapInfo.MAP_INT_BATTLE_BEING + index + 1, 2);
-                        let obj = new BattleInfoQiangGuanEnd(seatIndex, _qiang_pos,_qiang_type);
+                        let obj = new BattleInfoQiangGuanEnd(seatIndex, _qiang_pos, _qiang_type);
                         this._infos.push(obj);
                         break;
                     }

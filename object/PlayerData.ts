@@ -275,11 +275,6 @@ module gamecomponent.object {
 				this._playerInfo.drawingCurrentFlow = this.GetDrawingCurrentFlow();
 				ness++;
 			}
-			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_STR_LOGIN_API_DATA)) {
-				let api_str = this.GetLoginApiData();
-				this._playerInfo.apiData = api_str ? api_str.split("&") : [];
-				ness++;
-			}
 
 
 			if (isNew || mask.GetBits(PlayerData.PLAYERDATA_INT_PLAYER_CARD_VALUE, 20)) {
@@ -383,7 +378,6 @@ module gamecomponent.object {
 		app_ios: string
 		gwUrl: string
 		gameList: any
-		apiData: any
 
 		is_can_qd: boolean;//签到小红点
 		is_can_lp: boolean;//轮盘小红点

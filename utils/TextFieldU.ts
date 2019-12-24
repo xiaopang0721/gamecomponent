@@ -38,7 +38,7 @@ module utils {
                 html.style.bold = txt["bold"];
                 html.width = txt["width"];
                 html.style.align = txt["align"];
-                html.style.wordWrap = txt["wordWrap"]; 
+                html.style.wordWrap = txt["wordWrap"];
                 let x = (typeof (txt["centerX"]) == "number" && !isNaN((txt["centerX"]))) ? (txt.parent as Sprite).width / 2 + txt["centerX"] : txt['x'];
                 let y = (typeof (txt["centerY"]) == "number" && !isNaN((txt["centerX"]))) ? (txt.parent as Sprite).height / 2 + txt["centerY"] : txt['y'];;
                 html.x = (typeof (txt["anchorX"]) == "number" && !isNaN((txt["centerX"]))) ? x - txt["width"] / 2 : x;
@@ -54,8 +54,9 @@ module utils {
                 align = strArr[1];
                 if (align && (align == "left" || align == "center" || align == "right")) html.style.align = align;
                 html.innerHTML = strArr[0];
+            } else {
+                html.innerHTML = htmlText;
             }
-            else html.innerHTML = htmlText;
             html.layout();
             txt["text"] = "";
             if (isContent) return [html.contextWidth, html.contextHeight];

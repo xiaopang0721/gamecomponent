@@ -47,6 +47,9 @@ module gamecomponent.object {
 			if (isNew || strmask.GetBit(UnitField.UNIT_STR_NAME)) {
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_UNIT_NAME_CHANGE)
 			}
+			if (isNew || strmask.GetBit(UnitField.UNIT_STR_HEAD_IMG)) {
+				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_UNIT_HEAD_IMG_CHANGE)
+			}
 		}
 
 		clear() {

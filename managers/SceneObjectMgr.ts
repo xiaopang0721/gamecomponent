@@ -32,6 +32,8 @@ module gamecomponent.managers {
         static EVENT_UNIT_QIFU_TIME_CHANGE: string = "SceneObjectMgr.EVENT_UNIT_QIFU_TIME_CHANGE";
         //地图精灵名称发生变化
         static EVENT_UNIT_NAME_CHANGE: string = "SceneObjectMgr.EVENT_UNIT_NAME_CHANGE";
+        //地图精灵头像发生变化
+        static EVENT_UNIT_HEAD_IMG_CHANGE: string = "SceneObjectMgr.EVENT_UNIT_HEAD_IMG_CHANGE";
         //mapinfo改变
         static EVENT_MAPINFO_CHANGE: string = "SceneObjectMgr.EVENT_MAPINFO_CHANGE";
         //主玩家更新

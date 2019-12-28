@@ -1,5 +1,5 @@
 /**
-* name 发牌管理器
+* name 发牌测试管理器
 */
 module gamecomponent.managers {
 	export class PlayCardMgr {
@@ -16,7 +16,17 @@ module gamecomponent.managers {
 			return this._ins;
 		}
 
-		init() {
+		initCard() {
+			for (let index = 0; index < 1; index++) {
+				let card = this._game.sceneObjectMgr.createOfflineObject(SceneRoot.CARD_MARK, PlayingChip) as PlayingChip;
+				card.pos = new Vector2(MathU.randomRange(550, 700), MathU.randomRange(250, 450));
+				card.size = 0.5
+				card["_val"] = "1000000";
+				this._cards.push(card);
+			}
+		}
+
+		initChip() {
 			for (let index = 0; index < 1; index++) {
 				let card = this._game.sceneObjectMgr.createOfflineObject(SceneRoot.CARD_MARK, PlayingChip) as PlayingChip;
 				card.pos = new Vector2(MathU.randomRange(550, 700), MathU.randomRange(250, 450));

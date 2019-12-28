@@ -61,7 +61,7 @@ module gamecomponent.managers {
 
 		private _insertCount;
 		update(diff: number) {
-			this._game.uiRoot.top.graphics.clear();
+			this._game.uiRoot.general.graphics.clear();
 			for (let index = 0; index < this._goldArr.length; index++) {
 				let glodcell = this._goldArr[index];
 				if (glodcell.isDestroy) {
@@ -69,7 +69,7 @@ module gamecomponent.managers {
 					ObjectPools.free(glodcell);
 					index--;
 				} else {
-					glodcell.onDraw(diff, this._game.uiRoot.top.graphics);
+					glodcell.onDraw(diff, this._game.uiRoot.general.graphics);
 				}
 			}
 		}
@@ -89,7 +89,7 @@ module gamecomponent.managers {
 				this._refAsset.release(true);
 				this._refAsset = null;
 			}
-			this._game.uiRoot.top.graphics.clear();
+			this._game.uiRoot.general.graphics.clear();
 			if (this._goldArr.length > 0) {
 				for (let index = 0; index < this._goldArr.length; index++) {
 					let glodcell = this._goldArr[index];
@@ -175,7 +175,7 @@ module gamecomponent.managers {
 			this._curPos.x = this._posTemp[this._index++];
 			this._curPos.y = this._posTemp[this._index++]
 
-
+			
 			matrix.tx = -tw / 2;
 			matrix.ty = -th / 2;
 			matrix.scale(this._curScale, this._curScale);

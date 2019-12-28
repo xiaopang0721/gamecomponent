@@ -65,8 +65,11 @@ module gamecomponent.scene {
 				value_str = value_num / 1000 + "k";
 			}
 			let len = value_str.length;//取字符串长度
-			let c_inx = (len - 1) * 0.7;//获取相对位置
+			let c_inx = (len - 1) * 0.5;//获取相对位置
 			let scale = value_str.length == 1 ? 1.2 : (value_str.length == 2 ? 1.1 : 1.0)
+			if (value_str.indexOf("k") >= 2) {
+				scale = 0.9;
+			}
 			for (let index = 0; index < len; index++) {
 				let str = value_str.charAt(index);
 				let texture = this._textures["sz_" + str];
@@ -86,7 +89,6 @@ module gamecomponent.scene {
 				matrix.tx += this._drawX;
 				matrix.ty += this._drawY;
 				matrix.ty -= 3;
-				// console.log(str, ",", (index - c_inx) * drawW)
 				bg.drawTexture(texture, (index - c_inx) * drawW, 0, drawW, drawH, matrix, this._alpha);
 			}
 		}

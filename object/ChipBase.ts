@@ -26,11 +26,6 @@ module gamecomponent.object {
 			Laya.timer.once(300, this, () => {
 				Laya.Tween.to(this, { rotateAngle: rotateAngle }, 500, Laya.Ease.circInOut)
 			})
-			// Laya.Tween.clearAll(this.pos);
-			// Laya.Tween.to(this.pos, { x: this.targe_pos.x, y: this.targe_pos.y }, 500, Laya.Ease.circInOut, Handler.create(this, () => {
-			// 	this.isUIShow = false;
-			// 	this.isFinalPos = true;
-			// }));
 		}
 
 		/**

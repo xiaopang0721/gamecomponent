@@ -88,7 +88,7 @@ module gamecomponent.scene {
 				matrix.skew(this._skew_x, this._skew_y);
 				matrix.tx += this._drawX;
 				matrix.ty += this._drawY;
-				matrix.ty -= 3;
+				matrix.ty -= 2;
 				bg.drawTexture(texture, (index - c_inx) * drawW, 0, drawW, drawH, matrix, this._alpha);
 			}
 		}

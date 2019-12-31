@@ -132,7 +132,8 @@ module gamecomponent.object {
 				ness++;
 			}
 			if (isNew || mask.GetBit(PlayerData.PLAYERDATA_INT_TOTAL_RECHARGE)) {
-				this._playerInfo.total_recharge = this.GetTotalRecharge();
+				//GetTotalRecharge只能在这里用
+				this._playerInfo.total_recharge = this.GetTotalRecharge() / 100;
 				this._sceneObjectMgr.event(SceneObjectMgr.EVENT_VIP_INFO_UPDATE, 2);
 				ness++;
 			}

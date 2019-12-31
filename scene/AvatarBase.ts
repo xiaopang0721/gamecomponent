@@ -200,11 +200,11 @@ module gamecomponent.scene {
             matrix.tx = - halfw;
             matrix.ty = - halfh;
             matrix.scale(this._scaleX, this._scaleY);
-            // if (this instanceof AvatarChip) {
-            //     matrix.rotate(0);
-            // } else {
+            if (this instanceof AvatarChip) {
+                matrix.rotate(0);
+            } else {
                 matrix.rotate(this._rotateAngle);
-            // }
+            }
             matrix.skew(this._skew_x, this._skew_y);
             matrix.tx += this._drawX;
             matrix.ty += (this._drawY + (this._baseData.toggle ? this._baseData.toggleDistance : 0));

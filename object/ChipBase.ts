@@ -29,16 +29,35 @@ module gamecomponent.object {
 		}
 
 		/**
-		 * 筹码飞到指定位置
+		 * 筹码飞到指定位置(百人场)
 		 */
-		public flyChipBase(time: number, game?: Game) {
+		public baiRenFlyChipBase(time: number, game: Game, isclear: boolean = true) {
 			this.isUIShow = true;
 			Laya.Tween.clearAll(this);
 			Laya.Tween.clearAll(this.pos);
 			Laya.Tween.to(this, { scaleX: 1.15, scaleY: 1.15 }, 300, Laya.Ease.circInOut, Handler.create(this, () => {
 				Laya.Tween.to(this.pos, { x: this.targe_pos.x, y: this.targe_pos.y, scaleX: 1, scaleY: 1 }, time, Laya.Ease.backIn, Handler.create(this, () => {
 					this.isFinalPos = true;
-					game ? game.sceneObjectMgr.clearOfflineObject(this) : main.game && main.game.sceneObjectMgr.clearOfflineObject(this);
+					if (isclear) {
+						game ? game.sceneObjectMgr.clearOfflineObject(this) : main.game && main.game.sceneObjectMgr.clearOfflineObject(this);
+					}
+				}));
+			}))
+		}
+
+		/**
+		 * 筹码飞到指定位置(单人场)
+		 */
+		public danRenFlyChipBase(time: number, game: Game, isclear: boolean = true) {
+			this.isUIShow = true;
+			Laya.Tween.clearAll(this);
+			Laya.Tween.clearAll(this.pos);
+			Laya.Tween.to(this, { scaleX: 1.15, scaleY: 1.15 }, 300, Laya.Ease.circInOut, Handler.create(this, () => {
+				Laya.Tween.to(this.pos, { x: this.targe_pos.x, y: this.targe_pos.y, scaleX: 1, scaleY: 1 }, time, Laya.Ease.backIn, Handler.create(this, () => {
+					this.isFinalPos = true;
+					if (isclear) {
+						game ? game.sceneObjectMgr.clearOfflineObject(this) : main.game && main.game.sceneObjectMgr.clearOfflineObject(this);
+					}
 				}));
 			}))
 		}
